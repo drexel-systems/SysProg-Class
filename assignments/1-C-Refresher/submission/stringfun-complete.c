@@ -27,7 +27,7 @@ int setup_buff(char *buff, char *user_str, int len){
         }
     
         // Skip consecutive white spaces
-        if (user_str[i] == ' ' && buff[i - 1] == ' ' && i > 0) {
+        if (user_str[i] == ' ' && i > 0 && buff[i - 1] == ' ') {
             i++;
             continue;
         }
