@@ -78,8 +78,11 @@ int main(int argc, char *argv[]){
     //TODO:  #3 Allocate space for the buffer using malloc and
     //          handle error if malloc fails by exiting with a 
     //          return code of 99
-    // CODE GOES HERE FOR #3
-
+    void* ptr = malloc(BUFFER_SZ);
+    if (ptr == NULL && BUFFER_SZ > 0){
+        printf("Error allocating buffer\n");
+        exit(99);
+    }
 
     user_str_len = setup_buff(buff, input_string, BUFFER_SZ);     //see todos
     if (user_str_len < 0){
