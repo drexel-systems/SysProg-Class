@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 #define BUFFER_SZ 50
@@ -17,7 +18,27 @@ int  count_words(char *, int, int);
 
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
-    return 0; //for now just so the code compiles. 
+    int i = 0;
+    int str_len = 0;
+    while (i < len && user_str[i] != '\0') {
+        if (user_str[i] == ' ' && buffer[i - 1] == ' ') {
+            continue;
+        }
+        
+        if (user_str[i] == '\t') {
+            buff[i] = ' ';
+        } else {
+            buff[i] = user_str[i];
+        }
+        i++;
+    }
+    str_len = i; // save the length of the string
+
+    while (i < len) {
+        buff[i] = '.';
+        i++;
+    }
+    return i; // return the length of the string not including the null terminator
 }
 
 void print_buff(char *buff, int len){
@@ -78,8 +99,8 @@ int main(int argc, char *argv[]){
     //TODO:  #3 Allocate space for the buffer using malloc and
     //          handle error if malloc fails by exiting with a 
     //          return code of 99
-    void* ptr = malloc(BUFFER_SZ);
-    if (ptr == NULL && BUFFER_SZ > 0){
+    void* buff = malloc(BUFFER_SZ);
+    if (buff == NULL && BUFFER_SZ > 0){
         printf("Error allocating buffer\n");
         exit(99);
     }
