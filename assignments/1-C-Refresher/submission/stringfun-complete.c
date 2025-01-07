@@ -21,15 +21,19 @@ int setup_buff(char *buff, char *user_str, int len){
     int i = 0;
     int str_len = 0;
     while (i < len && user_str[i] != '\0') {
-        if (user_str[i] == ' ' && buffer[i - 1] == ' ') {
+        // Check if the string is larger than the buffer
+        if (i >= len) {
+            return -1;
+        }
+    
+        // Skip consecutive white spaces
+        if (i > 0 && user_str[i] == ' ' && buff[i - 1] == ' ') {
+            i++;
             continue;
         }
-        
-        if (user_str[i] == '\t') {
-            buff[i] = ' ';
-        } else {
-            buff[i] = user_str[i];
-        }
+
+        // Replace tabs with spaces, else copy the character
+        buff[i] = (user_str[i] == '\t') ? ' ' : user_str[i];
         i++;
     }
     str_len = i; // save the length of the string
