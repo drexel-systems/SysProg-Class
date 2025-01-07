@@ -103,7 +103,7 @@ int main(int argc, char *argv[]){
     //TODO:  #3 Allocate space for the buffer using malloc and
     //          handle error if malloc fails by exiting with a 
     //          return code of 99
-    char* buff = malloc(BUFFER_SZ);
+    buff = malloc(BUFFER_SZ);
     if (buff == NULL && BUFFER_SZ > 0){
         printf("Error allocating buffer\n");
         exit(99);
