@@ -49,7 +49,7 @@ int main(int argc, char *argv[]){
     int  user_str_len;      //length of user supplied string
 
     //TODO:  #1. WHY IS THIS SAFE, aka what if arv[1] does not exist?
-    //      PLACE A COMMENT BLOCK HERE EXPLAINING
+    //      This is safe because the program will exit gracefully if there are not enough arguments.
     if ((argc < 2) || (*argv[1] != '-')){
         usage(argv[0]);
         exit(1);
