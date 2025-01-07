@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Target executable name
-TARGET = stringfun
+TARGET = stringfun-complete
 
 # Default target
 all: $(TARGET)
