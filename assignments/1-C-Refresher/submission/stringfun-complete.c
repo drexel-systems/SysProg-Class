@@ -42,7 +42,7 @@ int setup_buff(char *buff, char *user_str, int len){
         buff[i] = '.';
         i++;
     }
-    return i; // return the length of the string not including the null terminator
+    return str_len; // return the length of the string not including the null terminator
 }
 
 void print_buff(char *buff, int len){
