@@ -9,7 +9,7 @@ TARGET = stringfun-complete
 all: $(TARGET)
 
 # Compile source to executable
-$(TARGET): stringfun.c
+$(TARGET): stringfun-complete.c
 	$(CC) $(CFLAGS) -o $(TARGET) $^
 
 # Clean up build files
