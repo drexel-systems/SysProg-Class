@@ -15,6 +15,7 @@ int  setup_buff(char *, char *, int);
 int  count_words(char *, int, int);
 //add additional prototypes here
 void reverse_string(char *, int);
+void word_print(char *, int);
 
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
@@ -79,7 +80,7 @@ void reverse_string(char *buff, int user_str_len) {
 
 }
 
-void word_print(char *buff, int word_count, int str_len){
+void word_print(char *buff, int str_len){
     printf("Word Print\n----------\n1. ");
 
     int current_word_i = 0;
@@ -154,23 +155,22 @@ int main(int argc, char *argv[]){
     }
 
     switch (opt){
-        case ('c' || 'w'):
+        case 'c':
             rc = count_words(buff, BUFFER_SZ, user_str_len);  //you need to implement
             if (rc < 0){
                 printf("Error counting words, rc = %d", rc);
                 exit(2);
             }
-            if (opt == 'c'){
-                printf("Word Count: %d\n", rc);
-            } else {
-                word_print(buff, rc, user_str_len);
-            }
+            printf("Word Count: %d\n", rc);
             break;
 
         //TODO:  #5 Implement the other cases for 'r' and 'w' by extending
         //       the case statement options
         case 'r':
             reverse_string(buff, user_str_len);
+            break;
+        case 'w':
+            word_print(buff, user_str_len);
             break;
 
         default:
