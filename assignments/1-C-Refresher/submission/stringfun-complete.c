@@ -41,7 +41,7 @@ int setup_buff(char *buff, char *user_str, int len){
     }
     str_len = buff_i; // save the length of the string
 
-    while (user_str_i < len) {
+    while (buff_i < len) {
         buff[buff_i] = '.';
         buff_i++;
     }
