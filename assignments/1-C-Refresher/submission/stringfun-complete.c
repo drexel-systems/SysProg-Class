@@ -97,6 +97,7 @@ void word_print(char *buff, int word_count, int str_len){
             printf("%c", buff[i]);
         }
     }
+    printf("\n");
     
 }
 
