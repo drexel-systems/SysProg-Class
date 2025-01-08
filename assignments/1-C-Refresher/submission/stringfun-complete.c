@@ -49,7 +49,7 @@ int setup_buff(char *buff, char *user_str, int len){
 }
 
 void print_buff(char *buff, int len){
-    printf("---\nBuffer:  ");
+    printf("----------\nBuffer:  ");
     for (int i=0; i<len; i++){
         putchar(*(buff+i));
     }
@@ -83,13 +83,14 @@ void reverse_string(char *buff, int user_str_len) {
 void word_print(char *buff, int str_len){
     printf("Word Print\n----------\n1. ");
 
-    int current_word_i = 0;
-    int current_word_len = 2;
+    int current_word_i = 2;
+    int current_word_len = 0;
 
     for (int i = 0; i <= str_len; i++) {
         if (buff[i] == ' ' || buff[i] == '.') { // count spaces as word separators and catch the end of the string with .
             printf(" (%d) ", current_word_len);            
             current_word_len = 0;
+
             printf("\n%d. ", current_word_i);
             current_word_i++;
             continue;
