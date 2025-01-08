@@ -18,29 +18,31 @@ int  count_words(char *, int, int);
 
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
-    int i = 0;
+    int user_str_i = 0;
+    int buff_i = 0;
     int str_len = 0;
-    while (i < len && user_str[i] != '\0') {
+    while (i < len && user_str[user_str_i] != '\0') {
         // Check if the string is larger than the buffer
-        if (i >= len) {
+        if (user_str_i >= len) {
             return -1;
         }
     
         // Skip consecutive white spaces
-        printf("user_str[i]: '%c', buff[i-1]: '%c'\n", user_str[i], buff[i-1]);
-        if (user_str[i] == ' ' && i > 0 && buff[i - 1] == ' ') {
+        printf("user_str[i]: '%c', buff[i-1]: '%c'\n", user_str[user_str_i], buff[buff_i-1]);
+        if (user_str[user_str_i] == ' ' && user_str_i > 0 && buff[buff_i - 1] == ' ') {
+            user_str++;
             continue;
         }
 
         // Replace tabs with spaces, else copy the character
-        buff[i] = (user_str[i] == '\t') ? ' ' : user_str[i];
-        i++;
+        buff[buff_i] = (user_str[user_str_i] == '\t') ? ' ' : user_str[user_str_i];
+        buff_i++;
     }
-    str_len = i; // save the length of the string
+    str_len = buff_i; // save the length of the string
 
-    while (i < len) {
-        buff[i] = '.';
-        i++;
+    while (user_str_i < len) {
+        buff[buff_i] = '.';
+        buff_i++;
     }
     return str_len; // return the length of the string not including the null terminator
 }
