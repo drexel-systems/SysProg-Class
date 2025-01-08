@@ -35,11 +35,14 @@ Please provide answers to these questions using markdown notation and place them
 
 
 3. Please provide a link to the repository you are using for this class.
+
 https://github.com/danroch/SysProg-Class
 
 4. Briefly describe what you want to get out of this class.
+
 I hope to get a better understanding of lower level programming. Specifically I am interested in memory management
 and how an executable is laid out in memory. I also hope there is some network programming involved.
 
 5. Briefly describe any concerns you might be having with being successful in this class (if any).
+
 N/A
