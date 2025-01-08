@@ -91,6 +91,10 @@ void word_print(char *buff, int str_len){
             printf(" (%d)\n", current_word_len);            
             current_word_len = 0;
 
+            if (buff[i] == '.') {
+                break;
+            }
+
             printf("%d. ", current_word_i);
             current_word_i++;
             continue;
