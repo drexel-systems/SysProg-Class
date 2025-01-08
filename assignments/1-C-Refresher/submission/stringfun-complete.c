@@ -84,18 +84,18 @@ void word_print(char *buff, int str_len){
     printf("Word Print\n----------\n1. ");
 
     int current_word_i = 0;
-    int current_word_len = 0;
+    int current_word_len = 2;
 
     for (int i = 0; i <= str_len; i++) {
-        if (buff[i] == ' ') {
-            printf(" (%d) ", current_word_len);
-
-            current_word_i++;
+        if (buff[i] == ' ' || buff[i] == '.')  // count spaces as word separators and catch the end of the string with .
+            printf(" (%d) ", current_word_len);            
             current_word_len = 0;
             printf("\n%d. ", current_word_i);
+            current_word_i++;
             continue;
         } else {
             printf("%c", buff[i]);
+            current_word_len++;
         }
     }
     printf("\n");
