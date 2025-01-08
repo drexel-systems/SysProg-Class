@@ -59,8 +59,14 @@ void usage(char *exename){
 }
 
 int count_words(char *buff, int len, int str_len){
-    //YOU MUST IMPLEMENT
-    return 0;
+    int word_count = 0;
+    for (int i = 0; i < str_len; i++) {
+        if (buff[i] == ' ') { // count spaces as word separators
+            word_count++;
+        }
+    }
+
+    return word_count + 1; // add 1 to account for the last word
 }
 
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
