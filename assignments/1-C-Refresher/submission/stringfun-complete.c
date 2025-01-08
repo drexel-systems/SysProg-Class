@@ -70,11 +70,11 @@ int count_words(char *buff, int len, int str_len){
 }
 
 void reverse_string(char *buff, int len, int user_str_len) {
-    for (int i = user_str_len - 1; i >= 0 ) {
+    for (int i = user_str_len - 1; i >= 0; i--) {
         printf("%c", buff[i]);
     }
     printf("\n");
-    
+
 }
 
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
@@ -142,7 +142,7 @@ int main(int argc, char *argv[]){
         //TODO:  #5 Implement the other cases for 'r' and 'w' by extending
         //       the case statement options
         case 'r':
-            rv = reverse_string(buff, BUFFER_SZ, user_str_len);
+            reverse_string(buff, BUFFER_SZ, user_str_len);
             break;
 
         case 'w':
