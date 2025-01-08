@@ -14,7 +14,7 @@ int  setup_buff(char *, char *, int);
 //prototypes for functions to handle required functionality
 int  count_words(char *, int, int);
 //add additional prototypes here
-void reverse_string(char *, int, int);
+void reverse_string(char *, int);
 
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
@@ -80,7 +80,7 @@ void reverse_string(char *buff, int user_str_len) {
 }
 
 void word_print(char *buff, int word_count, int str_len){
-    printf("Word Print\n----------\n1. ")
+    printf("Word Print\n----------\n1. ");
 
     int current_word_i = 0;
     int current_word_len = 0;
