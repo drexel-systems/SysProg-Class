@@ -127,6 +127,12 @@ int main(int argc, char *argv[]){
 
         //TODO:  #5 Implement the other cases for 'r' and 'w' by extending
         //       the case statement options
+        case 'r':
+            break;
+
+        case 'w':
+            break;
+
         default:
             usage(argv[0]);
             exit(1);
