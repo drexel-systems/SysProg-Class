@@ -14,7 +14,7 @@ int  setup_buff(char *, char *, int);
 //prototypes for functions to handle required functionality
 int  count_words(char *, int, int);
 //add additional prototypes here
-
+void reverse_string(char *, int, int);
 
 int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
