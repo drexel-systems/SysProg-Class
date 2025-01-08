@@ -36,12 +36,14 @@ int setup_buff(char *buff, char *user_str, int len){
 
         // Replace tabs with spaces, else copy the character
         buff[buff_i] = (user_str[user_str_i] == '\t') ? ' ' : user_str[user_str_i];
+        user_str_i++;
         buff_i++;
     }
     str_len = buff_i; // save the length of the string
 
     while (user_str_i < len) {
         buff[buff_i] = '.';
+        user_str_i++;
         buff_i++;
     }
     return str_len; // return the length of the string not including the null terminator
