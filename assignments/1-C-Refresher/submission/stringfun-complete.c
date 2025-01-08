@@ -80,17 +80,20 @@ void reverse_string(char *buff, int user_str_len) {
 }
 
 void word_print(char *buff, int word_count, int str_len){
-    printf("Word Print\n----------\n")
+    printf("Word Print\n----------\n1. ")
 
     int current_word_i = 0;
     int current_word_len = 0;
 
     for (int i = 0; i <= str_len; i++) {
         if (buff[i] == ' ') {
+            printf(" (%d) ", current_word_len);
+
             current_word_i++;
             current_word_len = 0;
+            printf("\n%d. ", current_word_i);
             continue;
-        } else if (current_word_i < word_count) {
+        } else {
             printf("%c", buff[i]);
         }
     }
