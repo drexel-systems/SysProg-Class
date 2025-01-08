@@ -71,12 +71,16 @@ int count_words(char *buff, int len, int str_len){
     return word_count + 1; // add 1 to account for the last word
 }
 
-void reverse_string(char *buff, int len, int user_str_len) {
+void reverse_string(char *buff, int user_str_len) {
     for (int i = user_str_len - 1; i >= 0; i--) {
         printf("%c", buff[i]);
     }
     printf("\n");
 
+}
+
+void word_print(char *buff, int word_count, int str_len){
+    
 }
 
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
@@ -132,22 +136,23 @@ int main(int argc, char *argv[]){
     }
 
     switch (opt){
-        case 'c':
+        case 'c' || 'w':
             rc = count_words(buff, BUFFER_SZ, user_str_len);  //you need to implement
             if (rc < 0){
                 printf("Error counting words, rc = %d", rc);
                 exit(2);
             }
-            printf("Word Count: %d\n", rc);
+            if (opt == 'c'){
+                printf("Word Count: %d\n", rc);
+            } else {
+                word_print(buff, rc, user_str_len);
+            }
             break;
 
         //TODO:  #5 Implement the other cases for 'r' and 'w' by extending
         //       the case statement options
         case 'r':
-            reverse_string(buff, BUFFER_SZ, user_str_len);
-            break;
-
-        case 'w':
+            reverse_string(buff, user_str_len);
             break;
 
         default:
