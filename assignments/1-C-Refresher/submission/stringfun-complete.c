@@ -21,7 +21,7 @@ int setup_buff(char *buff, char *user_str, int len){
     int user_str_i = 0;
     int buff_i = 0;
     int str_len = 0;
-    while (i < len && user_str[user_str_i] != '\0') {
+    while (user_str_i < len && user_str[user_str_i] != '\0') {
         // Check if the string is larger than the buffer
         if (user_str_i >= len) {
             return -1;
