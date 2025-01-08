@@ -43,7 +43,6 @@ int setup_buff(char *buff, char *user_str, int len){
 
     while (user_str_i < len) {
         buff[buff_i] = '.';
-        user_str_i++;
         buff_i++;
     }
     return str_len; // return the length of the string not including the null terminator
