@@ -20,10 +20,10 @@ int setup_buff(char *buff, char *user_str, int len){
     //TODO: #4:  Implement the setup buff as per the directions
     int user_str_i = 0;
     int buff_i = 0;
-    int str_len = 0;
-    while (user_str_i < len && user_str[user_str_i] != '\0') {
+
+    while (user_str[user_str_i] != '\0') {
         // Check if the string is larger than the buffer
-        if (user_str_i >= len) {
+        if (buff_i >= len) {
             return -1;
         }
     
@@ -39,7 +39,7 @@ int setup_buff(char *buff, char *user_str, int len){
         user_str_i++;
         buff_i++;
     }
-    str_len = buff_i; // save the length of the string
+    int str_len = buff_i; // save the length of the string
 
     while (buff_i < len) {
         buff[buff_i] = '.';
