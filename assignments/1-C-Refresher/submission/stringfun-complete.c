@@ -154,7 +154,7 @@ int main(int argc, char *argv[]){
     }
 
     switch (opt){
-        case 'c' || 'w':
+        case ('c' || 'w'):
             rc = count_words(buff, BUFFER_SZ, user_str_len);  //you need to implement
             if (rc < 0){
                 printf("Error counting words, rc = %d", rc);
