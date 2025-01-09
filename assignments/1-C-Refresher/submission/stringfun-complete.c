@@ -103,6 +103,14 @@ void word_print(char *buff, int str_len){
         current_word_len++;
     }
 }
+
+void word_replace(char *buff, int str_len, char *replace_word, char *replace_with) {
+    char *word_start = NULL;
+    int word_len = 0;
+    int replace_len = strlen(replace_word);
+    int replace_with_len = strlen(replace_with);
+
+}
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
 
 int main(int argc, char *argv[]){
