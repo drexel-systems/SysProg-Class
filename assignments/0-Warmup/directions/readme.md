@@ -1,5 +1,5 @@
 ## Warmup Assignment
-
+# Test Commit
 As mentioned in the course syllabus and in the first lecture this course will require you to use a linux environment for all of your assignments, and to maintain and submit your work in individual folders in a **single** git repository that you will be using throughout this term. 
 
 You are highly encouraged to use GitHub for managing your assignments, but you may also use Drexel's GitLab service if you want to keep things private from the public internet.  The advantage of using GitHub is that you can start building a portfolio of your software development work that can become helpful with future employers.  
