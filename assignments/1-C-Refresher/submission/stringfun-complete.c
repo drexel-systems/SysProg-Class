@@ -102,9 +102,6 @@ void word_print(char *buff, int str_len){
         putchar(c);
         current_word_len++;
     }
-    printf("\n");
-
-
 }
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
 
