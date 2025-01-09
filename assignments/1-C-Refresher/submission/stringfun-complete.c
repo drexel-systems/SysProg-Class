@@ -148,6 +148,9 @@ int main(int argc, char *argv[]){
 
     input_string = argv[2]; //capture the user input string
 
+    replace_word = (arg[3] == NULL) ? NULL : argv[3];
+    replace_with = (arg[4] == NULL) ? NULL : argv[4];
+
     //TODO:  #3 Allocate space for the buffer using malloc and
     //          handle error if malloc fails by exiting with a 
     //          return code of 99
