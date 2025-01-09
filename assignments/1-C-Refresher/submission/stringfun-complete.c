@@ -173,6 +173,9 @@ int main(int argc, char *argv[]){
         case 'w':
             word_print(buff, user_str_len);
             break;
+        case 'x':
+            word_replace(buff, user_str_len, replace_word, replace_with);
+            break;
 
         default:
             usage(argv[0]);
