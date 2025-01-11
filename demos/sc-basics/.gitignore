@@ -1,0 +1,5 @@
+# Ignore the executable
+sc-basics
+
+# But not the source file
+!sc-basics.c
