@@ -149,8 +149,8 @@ int main(int argc, char *argv[]){
     input_string = argv[2]; //capture the user input string
 
     // -x option requires two additional arguments
-    char replace_word* = (arg[3] == NULL) ? NULL : argv[3];
-    char replace_with* = (arg[4] == NULL) ? NULL : argv[4];
+    char replace_word* = (argv[3] == NULL) ? NULL : argv[3];
+    char replace_with* = (argv[4] == NULL) ? NULL : argv[4];
 
     //TODO:  #3 Allocate space for the buffer using malloc and
     //          handle error if malloc fails by exiting with a 
