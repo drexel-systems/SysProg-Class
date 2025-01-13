@@ -115,7 +115,8 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
 
 int main(int argc, char *argv[]){
 
-    char *replace_word, *replace_with;
+    char *replace_word
+    char *replace_with;
 
     char *buff;             //placehoder for the internal buffer
     char *input_string;     //holds the string provided by the user on cmd line
