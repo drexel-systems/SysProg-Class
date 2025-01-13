@@ -206,7 +206,7 @@ int main(int argc, char *argv[]){
             word_print(buff, user_str_len);
             break;
         case 'x':
-            word_replace(buff, user_str_len, replace_word, replace_with);
+            word_replace(buff, user_str_len, replace_word, replace_with, BUFFER_SZ);
             break;
 
         default:
