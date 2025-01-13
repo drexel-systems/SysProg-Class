@@ -80,31 +80,24 @@ void reverse_string(char *buff, int user_str_len) {
 
 }
 
-void word_print(char *buff, int str_len){
+void word_print(char *buff, int str_len) {
     printf("Word Print\n----------\n1. ");
-
-    int current_word_i = 2;
-    int current_word_len = 0;
-
+    
+    int word_i = 2;
+    int word_len = 0;
+    
     for (int i = 0; i <= str_len; i++) {
-        char c = buff[i];
-        if ((c == ' ' || c == '.') && current_word_len > 0) {{
-            printf(" (%d)\n", current_word_len);            
-            current_word_len = 0;
-
-            if (c == '.') {
-                break;
+        if (buff[i] == ' ' || buff[i] == '.') {
+            if (word_len > 0) {
+                printf(" (%d)\n", word_len);
+                if (buff[i] == '.') break;
+                printf("%d. ", word_i++);
+                word_len = 0;
             }
-
-            printf("%d. ", current_word_i++);
             continue;
         }
-        if ((c == ' ' || c == '.') {
-            continue;
-        }
-        putchar(c);
-        current_word_len++;
-        }
+        putchar(buff[i]);
+        word_len++;
     }
 }
 
