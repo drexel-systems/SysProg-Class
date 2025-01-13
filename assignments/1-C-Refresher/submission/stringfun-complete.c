@@ -88,7 +88,7 @@ void word_print(char *buff, int str_len){
 
     for (int i = 0; i <= str_len; i++) {
         char c = buff[i];
-        if (c == ' ' || c == '.') {
+        if ((c == ' ' || c == '.') && current_word_len > 0) {{
             printf(" (%d)\n", current_word_len);            
             current_word_len = 0;
 
@@ -148,6 +148,7 @@ int main(int argc, char *argv[]){
 
     input_string = argv[2]; //capture the user input string
 
+    // -x option requires two additional arguments
     replace_word = (arg[3] == NULL) ? NULL : argv[3];
     replace_with = (arg[4] == NULL) ? NULL : argv[4];
 
