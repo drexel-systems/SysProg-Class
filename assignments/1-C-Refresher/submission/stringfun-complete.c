@@ -63,7 +63,7 @@ void usage(char *exename){
 int count_words(char *buff, int len, int str_len){
     int word_count = 0;
     for (int i = 0; i < str_len; i++) {
-        if (buff[i] == ' ') { // count spaces as word separators
+        if (buff[i] == ' ' && i > 0 && buff[i + 1] != '.') { // count spaces as word separators
             word_count++;
         }
     }
@@ -103,7 +103,7 @@ void word_print(char *buff, int str_len) {
 void word_replace(char *buff, int str_len, char *replace_word, char *replace_with) {
     char *word_start = NULL;
     int word_len = 0;
-    int replace_len = strlen(replace_word);
+    int replace_len = strlen(replace_word); // REMOVE: strlen();
     int replace_with_len = strlen(replace_with);
 
 }
