@@ -115,10 +115,8 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
             break;
             }
         }
-       } 
-    }
-
-}
+    } 
+ }
 
 int word_len (char *word) {
     int len = 0;
