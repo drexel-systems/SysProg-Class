@@ -115,6 +115,8 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
 
 int main(int argc, char *argv[]){
 
+    char *replace_word, *replace_with;
+
     char *buff;             //placehoder for the internal buffer
     char *input_string;     //holds the string provided by the user on cmd line
     char opt;               //used to capture user option from cmd line
@@ -149,8 +151,8 @@ int main(int argc, char *argv[]){
     input_string = argv[2]; //capture the user input string
 
     // -x option requires two additional arguments
-    char replace_word* = (argv[3] == NULL) ? NULL : argv[3];
-    char replace_with* = (argv[4] == NULL) ? NULL : argv[4];
+    replace_word = (argv[3] == NULL) ? NULL : argv[3];
+    replace_with = (argv[4] == NULL) ? NULL : argv[4];
 
     //TODO:  #3 Allocate space for the buffer using malloc and
     //          handle error if malloc fails by exiting with a 
