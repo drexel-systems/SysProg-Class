@@ -101,7 +101,7 @@ void word_print(char *buff, int str_len) {
 }
 
 void word_replace(char *buff, int str_len, char *replace_word, char *replace_with, int buffer_sz) {
-    int replace_word len = word_len(replace_word);
+    int replace_word_len = word_len(replace_word);
     int replace_with_len = word_len(replace_with);
     
     if (str_len - replace_word_len + replace_with_len > buffer_sz) {
