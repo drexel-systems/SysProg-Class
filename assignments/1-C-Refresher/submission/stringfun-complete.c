@@ -99,8 +99,12 @@ void word_print(char *buff, int str_len){
             printf("%d. ", current_word_i++);
             continue;
         }
+        if ((c == ' ' || c == '.') {
+            continue;
+        }
         putchar(c);
         current_word_len++;
+        }
     }
 }
 
