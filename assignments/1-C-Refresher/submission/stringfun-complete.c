@@ -16,14 +16,14 @@ int  count_words(char *, int, int);
 void reverse_string(char *, int);
 void word_print(char *, int);
 
-int setup_buff(char *buff, char *user_str, int len){
+int setup_buff(char *buff, char *user_str, int buffer_sz){
     //TODO: #4:  Implement the setup buff as per the directions
     int user_str_i = 0;
     int buff_i = 0;
 
     while (user_str[user_str_i] != '\0') {
         // Check if the string is larger than the buffer
-        if (buff_i >= len) {
+        if (buff_i >= buffer_sz) {
             return -1;
         }
     
@@ -40,7 +40,7 @@ int setup_buff(char *buff, char *user_str, int len){
     }
     int str_len = buff_i; // save the length of the string
 
-    while (buff_i < len) {
+    while (buff_i < buffer_sz) {
         buff[buff_i] = '.';
         buff_i++;
     }
@@ -49,7 +49,7 @@ int setup_buff(char *buff, char *user_str, int len){
 
 void print_buff(char *buff, int len){
     printf("----------\nBuffer:  ");
-    for (int i=0; i<len; i++){
+    for (int i=0; i < len; i++){
         putchar(*(buff+i));
     }
     putchar('\n');
@@ -85,7 +85,7 @@ void word_print(char *buff, int str_len) {
     int word_i = 2;
     int word_len = 0;
     
-    for (int i = 0; i <= str_len; i++) {
+    for (int i = 0; i < str_len; i++) {
         if (buff[i] == ' ' || buff[i] == '.') {
             if (word_len > 0) {
                 printf(" (%d)\n", word_len);
@@ -100,12 +100,32 @@ void word_print(char *buff, int str_len) {
     }
 }
 
-void word_replace(char *buff, int str_len, char *replace_word, char *replace_with) {
-    char *word_start = NULL;
-    int word_len = 0;
-    int replace_len = strlen(replace_word); // REMOVE: strlen();
-    int replace_with_len = strlen(replace_with);
+void word_replace(char *buff, int str_len, char *replace_word, char *replace_with, int buffer_sz) {
+    int replace_word len = word_len(replace_word);
+    int replace_with_len = word_len(replace_with);
+    
+    if (str_len - replace_word_len + replace_with_len > buffer_sz) {
+        printf("Error: Replacement word is too long for buffer of size %d\n", buffer_sz);
+        return -1;
+    }
 
+    for (int i = 0; i < str_len; i++) {
+       if (buff[i] == replace_word[0]) {
+        for (int j = 0; j < replace_word_len; j++) {
+            break;
+            }
+        }
+       } 
+    }
+
+}
+
+int word_len (char *word) {
+    int len = 0;
+    while (word[len] != '\0') {
+        len++;
+    }
+    return len;
 }
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
 
