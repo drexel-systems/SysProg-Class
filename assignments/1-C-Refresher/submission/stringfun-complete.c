@@ -100,6 +100,14 @@ void word_print(char *buff, int str_len) {
     }
 }
 
+int word_len (char *word) {
+    int len = 0;
+    while (word[len] != '\0') {
+        len++;
+    }
+    return len;
+}
+
 void word_replace(char *buff, int str_len, char *replace_word, char *replace_with, int buffer_sz) {
     int replace_word_len = word_len(replace_word);
     int replace_with_len = word_len(replace_with);
@@ -110,21 +118,15 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
     }
 
     for (int i = 0; i < str_len; i++) {
-       if (buff[i] == replace_word[0]) {
-        for (int j = 0; j < replace_word_len; j++) {
-            break;
+        if (buff[i] == replace_word[0]) {
+            char rest_user_str = while (i + replace_word_len < buffer_sz);
+
+            for (int j = 0; j < replace_word_len; j++) {
+                ;
             }
         }
     } 
  }
-
-int word_len (char *word) {
-    int len = 0;
-    while (word[len] != '\0') {
-        len++;
-    }
-    return len;
-}
 //ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
 
 int main(int argc, char *argv[]){
