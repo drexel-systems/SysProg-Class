@@ -10,6 +10,8 @@
 
 // TODO: #1 What is the purpose of providing prototypes for
 //          the functions in this code module
+//          to inform the compiler about the functions and also to allow 
+//          function calls before a definition is provided
 void  usage(char *);
 int   count_words(char *);
 void  reverse_string(char *);
@@ -39,14 +41,31 @@ void usage(char *exename){
 //                     there is nothing more to do
 //  3.  The current word count for the input string is in the wc variable
 //      so just 'return wc;' 
-int count_words(char *str){
-    // Suggested local variables
-    int len;
-    int wc;
-    bool word_start;
+int count_words(char *str) {
+    int len = strlen(str);
+    int wc = 0;
+    bool word_start = false;
+	 for (int i=0; i<len; i++) {
+		 if (!word_start) {
+			 if (str[i] == ' ') {
+				 continue;
+			 }
+			 else {
+				 wc += 1;
+				 word_start = true;
+			 }
+		 }
+		 else {
+			 if (str[i] == ' ') {
+				 word_start = false;
+			 }
+			 else {
+				 continue;
+			 }
+		 }
+	 }
 
-    // Please implement
-    return 0;
+    return wc;
 }
 
 //reverse_string() algorithm
@@ -66,11 +85,17 @@ int count_words(char *str){
 //  3. When the loop above terminates, the string should be reversed in place
 void  reverse_string(char *str){
     // Suggested local variables
-    int end_idx;        //should be length of string - 1
-    int start_idx;
+    int end_idx = strlen(str) - 1;
+    int start_idx = 0;
     char tmp_char;
-
-    // Please implement
+	
+	 while (end_idx > start_idx) {
+		 tmp_char = str[end_idx];
+		 str[end_idx] = str[start_idx];
+		 str[start_idx] = tmp_char;
+		 end_idx -= 1;
+		 start_idx += 1;
+	 }
 
     return;
 }
@@ -111,14 +136,37 @@ void  reverse_string(char *str){
 // 3. is (2)
 // 4. fun (3)
 void  word_print(char *str){
-    //suggested local variables
-    int len;            //length of string - aka strlen(str);
-    int last_char_idx;  //index of last char - strlen(str)-1;
+    int len = strlen(str);       //length of string - aka strlen(str);
+    int last_char_idx = len-1;  //index of last char - strlen(str)-1;
     int wc = 0;         //counts words
     int wlen = 0;       //length of current word
     bool word_start = false;    //am I at the start of a new word
+	 for (int i=0; i<len; i++) {
+		 if (!word_start) {
+			 if (str[i] != ' ') {
+				 wc += 1;
+				 word_start = true;
+				 printf("%d. ", wc);
+				 wlen = 0;
+			 }
+		 }
 
-    // Please implement
+		 if (word_start) {
+			 if (str[i] == ' ') {
+				 printf(" (%d)\n", wlen);
+				 word_start = false;
+			 }
+			 else {
+				 printf("%c", str[i]);
+				 wlen++;
+			 }
+		 }
+
+		 if (i == last_char_idx && word_start) {
+			 printf(" (%d)\n", wlen);
+			 word_start = false;
+		 }
+	 }
 }
 
 
@@ -162,14 +210,13 @@ int main(int argc, char *argv[]){
     switch (opt){
         case 'c':
             int wc = 0;         //variable for the word count
-
-            //TODO: #2. Call count_words, return of the result
-            //          should go into the wc variable
+				wc = count_words(input_string);
             printf("Word Count: %d\n", wc);
             break;
         case 'r':
             //TODO: #3. Call reverse string using input_string
             //          input string should be reversed
+				reverse_string(input_string);
             printf("Reversed string: %s\n", input_string);
 
             //TODO:  #4.  The algorithm provided in the directions 
@@ -178,16 +225,22 @@ int main(int argc, char *argv[]){
             //            in place.  Briefly explain why the string 
             //            is reversed in place - place in a comment
             break;
+				// the string is reversed in place because we are modifying
+				// the values in memory which the input_string character
+				// pointers point to. Therefore the evaluated value of 
+				// input string in the print statement will be the 
+				// modified reversed value.
         case 'w':
             printf("Word Print\n----------\n");
-
             //TODO: #5. Call word_print, output should be
             //          printed by that function
+				word_print(input_string);
             break;
 
         //TODO: #6. What is the purpose of the default option here?
-        //          Please describe replacing this TODO comment with
-        //          your thoughts.
+		  //	the purpose of this is just error handling which is good
+		  //	practice since without the default option, the behavior
+		  //	would be less appealling.
         default:
             usage(argv[0]);
             printf("Invalid option %c provided, exiting!\n", opt);
@@ -196,4 +249,9 @@ int main(int argc, char *argv[]){
     //TODO: #7. Why did we place a break statement on each case
     //          option, and did not place one on default.  What
     //          would happen if we forgot the break statement?
+	 //         
+	 // without break, the program would fall through to the next case,
+	 // executing all subsequent cases until a break is encountered or until
+	 // the end of the switch is reached. since default is the last option,
+	 // the break was not needed as it is at the end of the switch statements
 }
