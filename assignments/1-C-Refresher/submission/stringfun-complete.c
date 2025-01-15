@@ -85,12 +85,10 @@ void usage(char *exename)
 
 int handle_empty_input(int str_len)
 {
-	if (str_len == 0)
-	{
-		printf("No words!\n");
-		return 1;
-	}
-	return 0;
+	if (str_len != 0) return 0;
+
+	printf("No words!\n");
+	return 1;
 }
 
 int count_words(char *buff, int str_len)
