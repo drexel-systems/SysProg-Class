@@ -15,6 +15,8 @@ int  count_words(char *, int, int);
 //add additional prototypes here
 void reverse_string(char *, int);
 void word_print(char *, int);
+void word_replace(char *, int, char *, char *, int);
+int word_len (char *);
 
 int setup_buff(char *buff, char *user_str, int buffer_sz){
     //TODO: #4:  Implement the setup buff as per the directions
@@ -213,7 +215,7 @@ int main(int argc, char *argv[]){
 
     switch (opt){
         case 'c':
-            rc = count_words(buff, BUFFER_SZ, user_str_len);  //you need to implement
+            rc = count_words(buff, user_str_len);  //you need to implement
             if (rc < 0){
                 printf("Error counting words, rc = %d", rc);
                 exit(2);
