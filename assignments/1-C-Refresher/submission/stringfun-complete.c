@@ -84,6 +84,11 @@ void reverse_string(char *buff, int user_str_len) {
 }
 
 void word_print(char *buff, int str_len) {
+    if (str_len == 0 || buff[0] == ' ') {
+        printf("No words!\n");
+        return;
+    }
+
     printf("Word Print\n----------\n1. ");
     
     int word_i = 2;
