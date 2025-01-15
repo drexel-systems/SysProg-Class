@@ -316,6 +316,12 @@ int main(int argc, char *argv[])
 			word_print(buff, user_str_len);
 			break;
 		case 'x':
+            if (replace_word == NULL || replace_with == NULL)
+            {
+                printf("Error: -x option requires two additional arguments\n");
+                exit(1);
+            }
+
 			word_replace(buff, user_str_len, replace_word, replace_with, BUFFER_SZ);
 			break;
 
