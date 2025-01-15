@@ -119,10 +119,33 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
 
     for (int i = 0; i < str_len; i++) {
         if (buff[i] == replace_word[0]) {
-            char rest_user_str = while (i + replace_word_len < buffer_sz);
 
+            int temp_i = i
             for (int j = 0; j < replace_word_len; j++) {
-                ;
+                if (buff[temp_i] != replace_word[j]) {
+                    int match = 0;
+                    break;
+                }
+                temp_i++;
+            }
+
+            if (match == 1) {
+                int temp_i = i;
+                int remainder_counter = 0;
+                char *rest_user_str;
+                while (temp_i + replace_word_len < buffer_sz) {
+                    rest_user_str = buff[temp_i + replace_word_len];
+                    temp_i++;
+                    remainder_counter++;
+                }
+                for (int x = 0; x < replace_with_len; x++) {
+                    buff[i] = replace_with[x];
+                    i++;
+                }
+                while (int z = 0; z < remainder_counter; z++) {
+                    buff[i] = rest_user_str[z];
+                    i++;
+                }
             }
         }
     } 
