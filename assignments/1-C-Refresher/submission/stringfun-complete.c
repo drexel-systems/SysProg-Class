@@ -11,7 +11,7 @@ void print_buff(char *, int);
 int  setup_buff(char *, char *, int);
 
 //prototypes for functions to handle required functionality
-int  count_words(char *, int, int);
+int  count_words(char *, int);
 //add additional prototypes here
 void reverse_string(char *, int);
 void word_print(char *, int);
