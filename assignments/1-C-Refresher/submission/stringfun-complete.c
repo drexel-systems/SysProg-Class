@@ -99,7 +99,7 @@ void word_print(char *buff, int str_len) {
     int word_len = 0;
     
     for (int i = 0; i < str_len; i++) {
-        if (buff[i] == ' ' || buff[i] == '.') {
+        if (buff[i] == ' ' || buff[i + 1] == '.') {
             if (word_len > 0) {
                 printf(" (%d)\n", word_len);
                 if (buff[i] == '.' || (buff[i] == ' ' && buff[i + 1] == '.')) break;
