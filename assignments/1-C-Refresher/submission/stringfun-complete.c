@@ -63,6 +63,8 @@ void usage(char *exename){
 }
 
 int count_words(char *buff, int str_len){
+    if (str_len == 0) return 0;
+    
     int word_count = 0;
     for (int i = 0; i < str_len; i++) {
         if (buff[i] == ' ' && i > 0 && buff[i + 1] != '.') { // count spaces as word separators
