@@ -98,11 +98,11 @@ void word_print(char *buff, int str_len) {
     int word_i = 2;
     int word_len = 0;
     
-    for (int i = 0; i < str_len; i++) {
-        if (buff[i] == ' ' || buff[i + 1] == '.') {
+    for (int i = 0; i < str_len + 1; i++) {
+        if (buff[i] == ' ' || buff[i] == '.') {
             if (word_len > 0) {
                 printf(" (%d)\n", word_len);
-                if (buff[i + 1] == '.') break;
+                if (buff[i] == '.') break;
                 printf("%d. ", word_i++);
                 word_len = 0;
             }
