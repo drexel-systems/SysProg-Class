@@ -150,7 +150,8 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
             return 0;  // Exit after first replacement
         }
     }
-}//ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
+}
+//ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
 
 int main(int argc, char *argv[]){
 
