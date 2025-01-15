@@ -23,6 +23,11 @@ int setup_buff(char *buff, char *user_str, int buffer_sz){
     int user_str_i = 0;
     int buff_i = 0;
 
+    // Skip leading spaces
+    while (user_str[user_str_i] == ' ' || user_str[user_str_i] == '\t') {
+        user_str_i++;
+    }
+
     while (user_str[user_str_i] != '\0') {
         // Check if the string is larger than the buffer
         if (buff_i >= buffer_sz) {
@@ -40,6 +45,12 @@ int setup_buff(char *buff, char *user_str, int buffer_sz){
         user_str_i++;
         buff_i++;
     }
+
+    // Remove trailing spaces
+    while (buff_i > 0 && buff[buff_i - 1] == ' ') {
+        buff_i--;
+    }
+
     int str_len = buff_i; // save the length of the string
 
     while (buff_i < buffer_sz) {
@@ -63,8 +74,6 @@ void usage(char *exename){
 }
 
 int count_words(char *buff, int str_len){
-    if (str_len == 0 || (buff[0] == ' ' && !buff[1]) ) return 0;
-    
     int word_count = 0;
     for (int i = 0; i < str_len; i++) {
         if (buff[i] == ' ' && i > 0 && buff[i + 1] != '.') { // count spaces as word separators
@@ -76,7 +85,6 @@ int count_words(char *buff, int str_len){
 }
 
 void reverse_string(char *buff, int user_str_len) {
-
     for (int i = user_str_len - 1; i >= 0; i--) {
         printf("%c", buff[i]);
     }
@@ -85,11 +93,6 @@ void reverse_string(char *buff, int user_str_len) {
 }
 
 void word_print(char *buff, int str_len) {
-    if (str_len == 0 || buff[0] == ' ') {
-        printf("No words!\n");
-        return;
-    }
-
     printf("Word Print\n----------\n1. ");
     
     int word_i = 2;
