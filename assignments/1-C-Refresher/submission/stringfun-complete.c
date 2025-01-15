@@ -76,6 +76,11 @@ int count_words(char *buff, int str_len){
 }
 
 void reverse_string(char *buff, int user_str_len) {
+    if (user_str_len == 0 || buff[0] == ' ') {
+        printf("No words to reverse!\n");
+        return;
+    }
+
     for (int i = user_str_len - 1; i >= 0; i--) {
         printf("%c", buff[i]);
     }
