@@ -63,7 +63,7 @@ void usage(char *exename){
 }
 
 int count_words(char *buff, int str_len){
-    if (str_len == 0) return 0;
+    if (str_len == 0 || buff[0] == ' ') return 0;
     
     int word_count = 0;
     for (int i = 0; i < str_len; i++) {
