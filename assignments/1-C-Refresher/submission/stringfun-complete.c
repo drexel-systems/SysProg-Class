@@ -142,7 +142,7 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
                     buff[i] = replace_with[x];
                     i++;
                 }
-                while (int z = 0; z < remainder_counter; z++) {
+                for (int z = 0; z < remainder_counter; z++) {
                     buff[i] = rest_user_str[z];
                     i++;
                 }
