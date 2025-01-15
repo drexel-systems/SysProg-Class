@@ -73,8 +73,15 @@ void usage(char *exename){
 
 }
 
-int count_words(char *buff, int str_len){
+int handle_empty_input(int str_len){
     if (str_len == 0) {
+        printf("No words!\n");
+        return 1;
+    }
+}
+
+int count_words(char *buff, int str_len){
+    if (handle_empty_input(str_len) == 1) {
         return 0;
     }
 
@@ -89,6 +96,10 @@ int count_words(char *buff, int str_len){
 }
 
 void reverse_string(char *buff, int user_str_len) {
+    if (handle_empty_input(user_str_len) == 1) {
+        return;
+    }
+    
     for (int i = user_str_len - 1; i >= 0; i--) {
         printf("%c", buff[i]);
     }
@@ -97,6 +108,10 @@ void reverse_string(char *buff, int user_str_len) {
 }
 
 void word_print(char *buff, int str_len) {
+    if (handle_empty_input(str_len) == 1) {
+        return;
+    }
+
     printf("Word Print\n----------\n1. ");
     
     int word_i = 2;
@@ -126,6 +141,10 @@ int word_len (char *word) {
 }
 
 void word_replace(char *buff, int str_len, char *replace_word, char *replace_with, int buffer_sz) {
+    if (handle_empty_input(str_len) == 1) {
+        return;
+    }
+
     int replace_word_len = word_len(replace_word);
     int replace_with_len = word_len(replace_with);
     
