@@ -60,7 +60,7 @@ void usage(char *exename){
 
 }
 
-int count_words(char *buff, int len, int str_len){
+int count_words(char *buff, int str_len){
     int word_count = 0;
     for (int i = 0; i < str_len; i++) {
         if (buff[i] == ' ' && i > 0 && buff[i + 1] != '.') { // count spaces as word separators
@@ -114,7 +114,7 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
     
     if (str_len - replace_word_len + replace_with_len > buffer_sz) {
         printf("Error: Replacement word is too long for buffer of size %d\n", buffer_sz);
-        return -1;
+        return;
     }
 
     for (int i = 0; i <= str_len - replace_word_len; i++) {
@@ -147,7 +147,7 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
                 buff[i + replace_with_len + j] = temp[j];
             }
             
-            return 0;  // Exit after first replacement
+            return;  // Exit after first replacement
         }
     }
 }
