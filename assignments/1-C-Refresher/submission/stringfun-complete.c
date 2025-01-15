@@ -90,6 +90,7 @@ int handle_empty_input(int str_len)
 		printf("No words!\n");
 		return 1;
 	}
+	return 0;
 }
 
 int count_words(char *buff, int str_len)
