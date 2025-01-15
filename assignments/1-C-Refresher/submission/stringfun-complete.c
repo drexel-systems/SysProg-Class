@@ -117,40 +117,40 @@ void word_replace(char *buff, int str_len, char *replace_word, char *replace_wit
         return -1;
     }
 
-    for (int i = 0; i < str_len; i++) {
-        if (buff[i] == replace_word[0]) {
-
-            int temp_i = i
-            for (int j = 0; j < replace_word_len; j++) {
-                if (buff[temp_i] != replace_word[j]) {
-                    int match = 0;
-                    break;
-                }
-                temp_i++;
-            }
-
-            if (match == 1) {
-                int temp_i = i;
-                int remainder_counter = 0;
-                char *rest_user_str;
-                while (temp_i + replace_word_len < buffer_sz) {
-                    rest_user_str = buff[temp_i + replace_word_len];
-                    temp_i++;
-                    remainder_counter++;
-                }
-                for (int x = 0; x < replace_with_len; x++) {
-                    buff[i] = replace_with[x];
-                    i++;
-                }
-                for (int z = 0; z < remainder_counter; z++) {
-                    buff[i] = rest_user_str[z];
-                    i++;
-                }
+    for (int i = 0; i <= str_len - replace_word_len; i++) {
+        int match = 1;
+        
+        // Check if we found a match for replace_word
+        for (int j = 0; j < replace_word_len; j++) {
+            if (buff[i + j] != replace_word[j]) {
+                match = 0;
+                break;
             }
         }
-    } 
- }
-//ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
+
+        if (match == 1) {
+            // Save the rest of the string after replace_word
+            char temp[buffer_sz];
+            int rest_start = i + replace_word_len;
+            int rest_len = str_len - rest_start;
+            for (int j = 0; j < rest_len; j++) {
+                temp[j] = buff[rest_start + j];
+            }
+            
+            // Insert replace_with
+            for (int j = 0; j < replace_with_len; j++) {
+                buff[i + j] = replace_with[j];
+            }
+            
+            // Copy back the rest of the string
+            for (int j = 0; j < rest_len; j++) {
+                buff[i + replace_with_len + j] = temp[j];
+            }
+            
+            return 0;  // Exit after first replacement
+        }
+    }
+}//ADD OTHER HELPER FUNCTIONS HERE FOR OTHER REQUIRED PROGRAM OPTIONS
 
 int main(int argc, char *argv[]){
 
