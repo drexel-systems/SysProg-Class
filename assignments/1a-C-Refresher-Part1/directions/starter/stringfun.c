@@ -10,6 +10,9 @@
 
 // TODO: #1 What is the purpose of providing prototypes for
 //          the functions in this code module
+// Prototyping tells the compiler the function name, return type, numbers and data types. 
+//By prototyping, we can also call functions that are built after main is called. 
+//This is because by doing so we allow the compiler to validate function calls even if the function created appears later in the code.
 void  usage(char *);
 int   count_words(char *);
 void  reverse_string(char *);
@@ -41,13 +44,28 @@ void usage(char *exename){
 //      so just 'return wc;' 
 int count_words(char *str){
     // Suggested local variables
-    int len;
-    int wc;
-    bool word_start;
+    int len = strlen(str);
+    int wc = 0;
+    bool word_start = false;
 
-    // Please implement
-    return 0;
+    for (int i = 0; i < len; i++){
+        if (word_start == false){
+            if (str[i] == ' '){
+                continue;
+            }
+            else {
+                wc++;
+                word_start = true;
+            }
+        } else {
+            if (str[i] == ' ') {
+                word_start = false;
+            }
+        }
+    }
+    return wc;
 }
+
 
 //reverse_string() algorithm
 //  1.  Initialize the start and end index variables
@@ -66,12 +84,17 @@ int count_words(char *str){
 //  3. When the loop above terminates, the string should be reversed in place
 void  reverse_string(char *str){
     // Suggested local variables
-    int end_idx;        //should be length of string - 1
-    int start_idx;
+    int end_idx = strlen(str) - 1;        //should be length of string - 1
+    int start_idx = 0;
     char tmp_char;
 
-    // Please implement
-
+    while (end_idx > start_idx){
+        tmp_char = str[start_idx];
+        str[start_idx] = str[end_idx];
+        str[end_idx] = tmp_char;
+        start_idx++;
+        end_idx--;
+    }
     return;
 }
 
@@ -112,13 +135,38 @@ void  reverse_string(char *str){
 // 4. fun (3)
 void  word_print(char *str){
     //suggested local variables
-    int len;            //length of string - aka strlen(str);
-    int last_char_idx;  //index of last char - strlen(str)-1;
+    int len = strlen(str);            //length of string - aka strlen(str);
+    int last_char_idx = strlen(str) - 1;  //index of last char - strlen(str)-1;
     int wc = 0;         //counts words
     int wlen = 0;       //length of current word
     bool word_start = false;    //am I at the start of a new word
 
-    // Please implement
+
+    for (int i = 0; i < len; i++){
+        if (word_start == false){
+            if (str[i] == ' '){
+                continue;
+            }
+            else {
+                wc++;
+                word_start = true;
+                printf("%d. ", wc);
+                wlen = 0;
+            }
+        }
+        if (word_start == true) {
+            if (str[i] != ' '){
+                printf("%c", str[i]);
+                wlen++;
+            }
+        }
+
+        if ((word_start == true && str[i] == ' ') || i == last_char_idx){ 
+            printf(" (%d)\n", wlen);
+            word_start = false;
+            wlen = 0;
+        }
+    }
 }
 
 
@@ -165,11 +213,13 @@ int main(int argc, char *argv[]){
 
             //TODO: #2. Call count_words, return of the result
             //          should go into the wc variable
+            wc = count_words(input_string);
             printf("Word Count: %d\n", wc);
             break;
         case 'r':
             //TODO: #3. Call reverse string using input_string
             //          input string should be reversed
+            reverse_string(input_string);
             printf("Reversed string: %s\n", input_string);
 
             //TODO:  #4.  The algorithm provided in the directions 
@@ -177,17 +227,28 @@ int main(int argc, char *argv[]){
             //            characters because the string is reversed 
             //            in place.  Briefly explain why the string 
             //            is reversed in place - place in a comment
+
+            // The string is reversed in place because we use start_idx and end_idx to
+            // swap the characters of the in the original string. By doing so, we can modify
+            // the string without needing to create a new string. The start index moves towards
+            // the center and the end index moves backwards, eventuall causing the characters to
+            // be swapped, resulting in the entire string being reversed in place.
+
             break;
         case 'w':
             printf("Word Print\n----------\n");
 
             //TODO: #5. Call word_print, output should be
             //          printed by that function
+            word_print(input_string);
             break;
 
         //TODO: #6. What is the purpose of the default option here?
-        //          Please describe replacing this TODO comment with
-        //          your thoughts.
+        //          The purpose of this default option is to serve as 
+        //          an else statement. In other words, if none of the above
+        //          letters above are given as an input and some other unknown 
+        //          input is given instead, default would provide a response,
+        //          to handle bad inputs.
         default:
             usage(argv[0]);
             printf("Invalid option %c provided, exiting!\n", opt);
@@ -196,4 +257,13 @@ int main(int argc, char *argv[]){
     //TODO: #7. Why did we place a break statement on each case
     //          option, and did not place one on default.  What
     //          would happen if we forgot the break statement?
+           
+    //          We had to place break statements on each case
+    //          because if we didn't, the code would check through 
+    //          every single case regardless if the correct case was
+    //          found in the switch block. We did not need to place
+    //          on default because default is the last case and it will 
+    //          automatically exit the switch block. If we forgot break 
+    //          statements, the cases will continue to be checked 
+    //          until default is hit.
 }
