@@ -1,5 +1,5 @@
 #!/usr/bin/env bats
-
+//
 @test "no args shows usage" {
     run ./stringfun
     [ "$status" -eq 1 ]
