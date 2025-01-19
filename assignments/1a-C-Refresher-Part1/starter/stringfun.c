@@ -14,6 +14,10 @@ void  usage(char *);
 int   count_words(char *);
 void  reverse_string(char *);
 void  word_print(char *);
+// the purpose of creating function prototypes is to 
+//      1- allow for function declaration before they are used in the main function. Giving the compiler the function signatures or its (return type, name, parameters) 
+// so that it can be used in the file before it is fully defined.
+//      2- To enforce function signatures: essentially giving the compiler the conditions on which to raise an error for a mismatch between a function's signature and its actual definition
 
 
 void usage(char *exename){
@@ -42,11 +46,20 @@ void usage(char *exename){
 int count_words(char *str){
     // Suggested local variables
     int len;
-    int wc;
-    bool word_start;
-
+    int wc = 0;
+    bool word_start = false;
+    
+    for (int i = 0; str[i] !='\0'; i++){
+        if (str[i] != ' ' && !word_start) {
+            wc++;
+            word_start = true;
+            } else if (str[i] == ' '){
+            word_start = false;
+        }
+    }
+    //printf("No. of words %d\n", wc);
     // Please implement
-    return 0;
+    return wc;
 }
 
 //reverse_string() algorithm
@@ -67,10 +80,19 @@ int count_words(char *str){
 void  reverse_string(char *str){
     // Suggested local variables
     int end_idx;        //should be length of string - 1
-    int start_idx;
+    int start_idx = 0;
     char tmp_char;
 
-    // Please implement
+    size_t strlength = strlen(str);
+    end_idx = strlength -1;
+
+    while (end_idx > start_idx){
+        tmp_char = str[start_idx];
+        str[start_idx] = str[end_idx];
+        str[end_idx] = tmp_char;
+        start_idx++;
+        end_idx--;
+    }
 
     return;
 }
@@ -117,7 +139,28 @@ void  word_print(char *str){
     int wc = 0;         //counts words
     int wlen = 0;       //length of current word
     bool word_start = false;    //am I at the start of a new word
+    size_t length = strlen(str);
+    last_char_idx = length -1;
 
+    for (int i = 0; str[i] !='\0'; i++){
+        if (str[i] != ' ' && !word_start) {
+            wc++;
+            wlen++;
+            printf("%d. %c",wc,str[i]);
+            word_start = true;
+            } else if (str[i] != ' ' && word_start){
+                wlen++;
+                printf("%c", str[i]);
+        } else if(str[i] == ' '){
+            printf(" \(%d\)\n",wlen);
+            wlen = 0;
+            word_start = false;
+        }
+        if (i == last_char_idx){
+        printf(" \(%d\)\n",wlen);
+        }
+    
+    }
     // Please implement
 }
 
@@ -160,16 +203,19 @@ int main(int argc, char *argv[]){
     //is the third arg or in arv[2]
     
     switch (opt){
-        case 'c':
-            int wc = 0;         //variable for the word count
-
-            //TODO: #2. Call count_words, return of the result
-            //          should go into the wc variable
+        case 'c':{
+            int wc = 0;//variable for the word count
+            wc = count_words(input_string);
+            // //TODO: #2. Call count_words, return of the result
+            // //          should go into the wc variable
             printf("Word Count: %d\n", wc);
             break;
+        }
+
         case 'r':
             //TODO: #3. Call reverse string using input_string
             //          input string should be reversed
+            reverse_string(input_string);
             printf("Reversed string: %s\n", input_string);
 
             //TODO:  #4.  The algorithm provided in the directions 
@@ -177,12 +223,16 @@ int main(int argc, char *argv[]){
             //            characters because the string is reversed 
             //            in place.  Briefly explain why the string 
             //            is reversed in place - place in a comment
+
+            // The string is reversed in its place as we are altering the string globally we are taking in this string and directly reassigning values to places in memory. taking one char and inputing into
+            // different memory slot.
             break;
         case 'w':
             printf("Word Print\n----------\n");
 
             //TODO: #5. Call word_print, output should be
             //          printed by that function
+            word_print(input_string);
             break;
 
         //TODO: #6. What is the purpose of the default option here?
