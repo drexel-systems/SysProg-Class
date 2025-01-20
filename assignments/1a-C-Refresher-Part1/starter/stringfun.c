@@ -49,16 +49,14 @@ int count_words(char *str){
     int wc = 0;
     bool word_start = false;
     
-    for (int i = 0; str[i] !='\0'; i++){
+    for (int i = 0; str[i] !='\0'; i++){// start for loop that will iterate through the string until str[i] == end character of the string
         if (str[i] != ' ' && !word_start) {
-            wc++;
-            word_start = true;
+            wc++; //increment word count
+            word_start = true; //word is found
             } else if (str[i] == ' '){
-            word_start = false;
+            word_start = false;// word is over
         }
     }
-    //printf("No. of words %d\n", wc);
-    // Please implement
     return wc;
 }
 
@@ -81,20 +79,19 @@ void  reverse_string(char *str){
     // Suggested local variables
     int end_idx;        //should be length of string - 1
     int start_idx = 0;
-    char tmp_char;
+    char tmp_char; // initiate temporary character
 
-    size_t strlength = strlen(str);
-    end_idx = strlength -1;
+    size_t strlength = strlen(str); // get length of string
+    end_idx = strlength -1; // get index of the last REAL character of the string
 
-    while (end_idx > start_idx){
-        tmp_char = str[start_idx];
+    while (end_idx > start_idx){ //create while loop that goes until all string character indexes have been covered and swapped
+        tmp_char = str[start_idx]; // save the character at start index
         str[start_idx] = str[end_idx];
-        str[end_idx] = tmp_char;
-        start_idx++;
+        str[end_idx] = tmp_char; // define char at end index to as the character from start index
+        start_idx++; // move from outside in, swapping characters through these two itteration commands.
         end_idx--;
     }
-
-    return;
+    return; // string is altered inplace 
 }
 
 //word_print() - algorithm
@@ -139,25 +136,25 @@ void  word_print(char *str){
     int wc = 0;         //counts words
     int wlen = 0;       //length of current word
     bool word_start = false;    //am I at the start of a new word
-    size_t length = strlen(str);
-    last_char_idx = length -1;
+    size_t length = strlen(str); // get length of string 
+    last_char_idx = length -1; // get index of last real character
 
-    for (int i = 0; str[i] !='\0'; i++){
-        if (str[i] != ' ' && !word_start) {
-            wc++;
+    for (int i = 0; str[i] !='\0'; i++){ // iterate through all real characters of string
+        if (str[i] != ' ' && !word_start) { // check if current character is not a space and if we are not currently in a word
+            wc++;                           // if so then increment word count & length of current word
             wlen++;
-            printf("%d. %c",wc,str[i]);
-            word_start = true;
-            } else if (str[i] != ' ' && word_start){
-                wlen++;
-                printf("%c", str[i]);
-        } else if(str[i] == ' '){
-            printf(" \(%d\)\n",wlen);
-            wlen = 0;
+            printf("%d. %c",wc,str[i]); //start printing the number of word and the first character
+            word_start = true; // recognize we are in a word
+            } else if (str[i] != ' ' && word_start){// condition for if we are in a word on a non-space character
+                wlen++; 
+                printf("%c", str[i]); 
+        } else if(str[i] == ' '){// check for if we are out of that last word
+            printf(" \(%d\)\n",wlen); // print length of that word
+            wlen = 0; //reset word length since we are done with that word
             word_start = false;
         }
-        if (i == last_char_idx){
-        printf(" \(%d\)\n",wlen);
+        if (i == last_char_idx){// create this block when we are on the last real character so we can print out the length of the last word
+        printf(" \(%d\)\n",wlen);// neccessary because the other code block is not reached as their is not a space at the end of the string
         }
     
     }
@@ -225,7 +222,7 @@ int main(int argc, char *argv[]){
             //            is reversed in place - place in a comment
 
             // The string is reversed in its place as we are altering the string globally we are taking in this string and directly reassigning values to places in memory. taking one char and inputing into
-            // different memory slot.
+            // different memory slot. But overall keeping the same char array memory.
             break;
         case 'w':
             printf("Word Print\n----------\n");
@@ -238,6 +235,9 @@ int main(int argc, char *argv[]){
         //TODO: #6. What is the purpose of the default option here?
         //          Please describe replacing this TODO comment with
         //          your thoughts.
+
+        // purpose of default option is if the user doesn't input a valid string utility option it reroutes the program to here where
+        // we explain to the user how to call a valid string utility function via usage function.
         default:
             usage(argv[0]);
             printf("Invalid option %c provided, exiting!\n", opt);
@@ -246,4 +246,7 @@ int main(int argc, char *argv[]){
     //TODO: #7. Why did we place a break statement on each case
     //          option, and did not place one on default.  What
     //          would happen if we forgot the break statement?
+    // If we didnt place a break statement on each case option it would also execute the following operation sections. For instance if
+    // you remove the break statment at the end of the -r section then, the word print function will run aswell. We don't need one for 
+    // default block as it exits the program with "exit(1)"
 }
