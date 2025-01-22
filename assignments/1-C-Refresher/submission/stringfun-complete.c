@@ -341,4 +341,10 @@ int main(int argc, char *argv[])
 //          is a good practice, after all we know from main() that 
 //          the buff variable will have exactly 50 bytes?
 //  
-//          PLACE YOUR ANSWER HERE
+// Providing both the buffer pointer and length as parameters is good practice for several reasons:
+// 1. It prevents buffer overflows by explicitly knowing the bounds of the buffer
+// 2. The actual buffer size may change in the future, so hardcoding 50 would be dangerous
+// 3. It makes the functions more reusable since they can work with buffers of any size
+// 4. It follows the principle of defensive programming by not making assumptions about buffer size
+// 5. The actual string length may be shorter than the buffer size, so passing length 
+//    allows more efficient processing by only operating on the valid data
