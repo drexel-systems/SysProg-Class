@@ -60,8 +60,13 @@ int open_db(char *dbFile, bool should_truncate){
  */
 int get_student(int fd, int id, student_t *s){
     lseek(fd, id, SEEK_SET)
+    if (read(fd, s, sizeof(student_t)) == -1) {
+        return ERR_DB_FILE;
+    } else if (s->id == 0) {
+        return SRCH_NOT_FOUND;
+    }
 
-    return NOT_IMPLEMENTED_YET;
+    return NO_ERROR;
 }
 
 /*
