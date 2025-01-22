@@ -1,0 +1,12 @@
+
+0-implicit:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+00000000000002b4 <_start>:
+ 2b4:	d2800ba8 	mov	x8, #0x5d                  	// #93
+ 2b8:	d2800cc0 	mov	x0, #0x66                  	// #102
+ 2bc:	d4000001 	svc	#0x0
+ 2c0:	d503201f 	nop
+ 2c4:	d65f03c0 	ret
