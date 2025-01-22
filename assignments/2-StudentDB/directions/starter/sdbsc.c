@@ -95,8 +95,17 @@ int get_student(int fd, int id, student_t *s){
  *            
  */
 int add_student(int fd, int id, char *fname, char *lname, int gpa){
-    printf(M_NOT_IMPL);
-    return NOT_IMPLEMENTED_YET;
+    lseek(fd, id, SEEK_SET)
+
+    if (write(fd, &id, sizeof(int)) == -1) {
+        return ERR_DB_FILE;
+    } else if (write(fd, fname, sizeof(char) * 32) == -1) {
+        return ERR_DB_FILE;
+    } else if (write(fd, lname, sizeof(char) * 32) == -1) {
+        return ERR_DB_FILE;
+    } else if (write(fd, &gpa, sizeof(int)) == -1) {
+        return ERR_DB_FILE;
+    }
 }
 
 /*
