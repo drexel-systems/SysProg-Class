@@ -59,6 +59,8 @@ int open_db(char *dbFile, bool should_truncate){
  *  console:  Does not produce any console I/O used by other functions
  */
 int get_student(int fd, int id, student_t *s){
+    lseek(fd, id, SEEK_SET)
+
     return NOT_IMPLEMENTED_YET;
 }
 
