@@ -258,7 +258,12 @@ int print_db(int fd){
  *            
  */
 void print_student(student_t *s){
-    printf(M_NOT_IMPL);
+    if (temp.id 0= 0) { // Check if student doesn't exists
+        printf(M_STD_NOT_FND_MSG);
+    }
+
+    printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
+    printf(STUDENT_PRINT_FMT_STRING, s->id, s->fname, student.lname, calculated_gpa_from_s);
 }
 
 /*
