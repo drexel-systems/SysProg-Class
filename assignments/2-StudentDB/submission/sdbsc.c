@@ -130,7 +130,9 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa){
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
-    return 0;
+
+    printf(M_STD_ADDED);
+    return NO_ERROR;
 }
 
 /*
