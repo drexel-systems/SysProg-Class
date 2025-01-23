@@ -150,31 +150,26 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
  *            M_ERR_DB_WRITE     error writing to db file (adding student)
  *            
  */
-int del_student(int fd, int id){
-    student_t temp = {0}; // Setup a temporary student
-    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) {
+int del_student(int fd, int id) {
+    student_t temp = {0}; // Create a temporary student
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move to ID location
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
 
     if (read(fd, &temp, sizeof(student_t)) == -1) { // Read student data
-        printf(M_ERR_DB_READ); 
+        printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
 
-    if (temp.id == 0) { // Check if student doesn't exists
+    if (temp.id == 0) { // Check if student exists
         printf(M_STD_NOT_FND_MSG);
         return ERR_DB_OP;
     }
 
-    memset(&temp, 0, sizeof(student_t)); // Zero out the entire student_t size
+    memset(&temp, 0, sizeof(student_t)); // Zero out student data
 
-    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Find student in database
-        printf(M_ERR_DB_WRITE);
-        return ERR_DB_FILE;
-    }
-
-    if (write(fd, &temp, sizeof(student_t)) == -1) { /// Write student data
+    if (write(fd, &temp, sizeof(student_t)) == -1) { // Write student data
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
