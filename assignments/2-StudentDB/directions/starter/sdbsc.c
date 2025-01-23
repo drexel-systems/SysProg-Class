@@ -99,7 +99,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa){
 
     if (write(fd, &id, sizeof(int)) == -1) {
         return ERR_DB_FILE;
-    } else if (write(fd, fname, sizeof(char) * 32) == -1) {
+    } else if (write(fd, fname, sizeof(char) * 24) == -1) {
         return ERR_DB_FILE;
     } else if (write(fd, lname, sizeof(char) * 32) == -1) {
         return ERR_DB_FILE;
