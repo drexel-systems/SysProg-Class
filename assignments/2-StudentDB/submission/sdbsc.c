@@ -59,7 +59,17 @@ int open_db(char *dbFile, bool should_truncate){
  *  console:  Does not produce any console I/O used by other functions
  */
 int get_student(int fd, int id, student_t *s){
-    return NOT_IMPLEMENTED_YET;
+    if (lseek(fd, id, SEEK_SET) == -1) {
+        return ERR_DB_FILE;
+    }
+
+    if (read(fd, s, sizeof(student_t)) == -1) {
+        return ERR_DB_FILE;
+    } else if (s->id == 0) {
+        return SRCH_NOT_FOUND;
+    }
+
+    return NO_ERROR;
 }
 
 /*
@@ -88,8 +98,41 @@ int get_student(int fd, int id, student_t *s){
  *            
  */
 int add_student(int fd, int id, char *fname, char *lname, int gpa){
-    printf(M_NOT_IMPL);
-    return NOT_IMPLEMENTED_YET;
+    student_t temp = {0};
+    if (lseek(fd, id, SEEK_SET) == -1) {
+        printf(M_ERR_DB_READ);
+        return ERR_DB_FILE;
+    }
+
+    if (read(fd, &temp, sizeof(student_t)) == -1) {
+        printf(M_ERR_DB_READ); 
+        return ERR_DB_FILE;
+    }
+
+    if (temp.id != 0) {
+        printf(M_ERR_DB_ADD_DUP);
+        return ERR_DB_OP;
+    }
+
+    student_t new_student = {
+        .id = id,
+        .gpa = gpa
+    };
+    strncpy(new_student.fname, fname, 24);
+    strncpy(new_student.lname, lname, 32);
+
+    if (lseek(fd, id, SEEK_SET) == -1) {
+        printf(M_ERR_DB_WRITE);
+        return ERR_DB_FILE;
+    }
+
+    if (write(fd, &new_student, sizeof(student_t)) == -1) {
+        printf(M_ERR_DB_WRITE);
+        return ERR_DB_FILE;
+    }
+
+    printf(M_STD_ADDED);
+    return NO_ERROR;
 }
 
 /*
