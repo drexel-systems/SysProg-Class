@@ -59,7 +59,7 @@ int open_db(char *dbFile, bool should_truncate){
  *  console:  Does not produce any console I/O used by other functions
  */
 int get_student(int fd, int id, student_t *s){
-    if (lseek(fd, id, SEEK_SET) == -1) { // Find student in database
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Find student in database
         return ERR_DB_FILE;
     }
 
@@ -99,7 +99,7 @@ int get_student(int fd, int id, student_t *s){
  */
 int add_student(int fd, int id, char *fname, char *lname, int gpa){
     student_t temp = {0}; // Setup a temporary student
-    if (lseek(fd, id, SEEK_SET) == -1) {
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) {
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
@@ -121,7 +121,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa){
     strncpy(new_student.fname, fname, 24);
     strncpy(new_student.lname, lname, 32);
 
-    if (lseek(fd, id, SEEK_SET) == -1) { // Find student in database
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Find student in database
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
@@ -130,9 +130,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa){
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
-
-    printf(M_STD_ADDED);
-    return NO_ERROR;
+    return 0;
 }
 
 /*
