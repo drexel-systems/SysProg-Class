@@ -59,11 +59,11 @@ int open_db(char *dbFile, bool should_truncate){
  *  console:  Does not produce any console I/O used by other functions
  */
 int get_student(int fd, int id, student_t *s){
-    if (lseek(fd, id, SEEK_SET) == -1) {
+    if (lseek(fd, id, SEEK_SET) == -1) { // Find student in database
         return ERR_DB_FILE;
     }
 
-    if (read(fd, s, sizeof(student_t)) == -1) {
+    if (read(fd, s, sizeof(student_t)) == -1) { // Read student data
         return ERR_DB_FILE;
     } else if (s->id == 0) {
         return SRCH_NOT_FOUND;
@@ -98,35 +98,35 @@ int get_student(int fd, int id, student_t *s){
  *            
  */
 int add_student(int fd, int id, char *fname, char *lname, int gpa){
-    student_t temp = {0};
+    student_t temp = {0}; // Setup a temporary student
     if (lseek(fd, id, SEEK_SET) == -1) {
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
 
-    if (read(fd, &temp, sizeof(student_t)) == -1) {
+    if (read(fd, &temp, sizeof(student_t)) == -1) { // Read student data
         printf(M_ERR_DB_READ); 
         return ERR_DB_FILE;
     }
 
-    if (temp.id != 0) {
+    if (temp.id != 0) { // Check if student already exists
         printf(M_ERR_DB_ADD_DUP);
         return ERR_DB_OP;
     }
 
-    student_t new_student = {
+    student_t new_student = { // Create new student
         .id = id,
         .gpa = gpa
     };
     strncpy(new_student.fname, fname, 24);
     strncpy(new_student.lname, lname, 32);
 
-    if (lseek(fd, id, SEEK_SET) == -1) {
+    if (lseek(fd, id, SEEK_SET) == -1) { // Find student in database
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
 
-    if (write(fd, &new_student, sizeof(student_t)) == -1) {
+    if (write(fd, &new_student, sizeof(student_t)) == -1) { // Write student data
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
