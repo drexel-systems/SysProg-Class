@@ -59,7 +59,10 @@ int open_db(char *dbFile, bool should_truncate){
  *  console:  Does not produce any console I/O used by other functions
  */
 int get_student(int fd, int id, student_t *s){
-    lseek(fd, id, SEEK_SET)
+    if (lseek(fd, id, SEEK_SET) == -1) {
+        return ERR_DB_FILE;
+    }
+
     if (read(fd, s, sizeof(student_t)) == -1) {
         return ERR_DB_FILE;
     } else if (s->id == 0) {
@@ -95,17 +98,32 @@ int get_student(int fd, int id, student_t *s){
  *            
  */
 int add_student(int fd, int id, char *fname, char *lname, int gpa){
-    lseek(fd, id, SEEK_SET)
-
-    if (write(fd, &id, sizeof(int)) == -1) {
-        return ERR_DB_FILE;
-    } else if (write(fd, fname, sizeof(char) * 24) == -1) {
-        return ERR_DB_FILE;
-    } else if (write(fd, lname, sizeof(char) * 32) == -1) {
-        return ERR_DB_FILE;
-    } else if (write(fd, &gpa, sizeof(int)) == -1) {
+    if (lseek(fd, id, SEEK_SET) == -1) {
+        printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
+
+    if (memcmp(EMPTY_STUDENT_RECORD, s, sizeof(student_t)) == 0) {
+        printf(M_ERR_DB_ADD_DUP);
+        return ERR_DB_OP;
+    }
+
+    if (write(fd, &id, sizeof(int)) == -1) {
+        printf(M_ERR_DB_WRITE);
+        return ERR_DB_FILE;
+    } else if (write(fd, fname, sizeof(char) * 24) == -1) {
+        printf(M_ERR_DB_WRITE);
+        return ERR_DB_FILE;
+    } else if (write(fd, lname, sizeof(char) * 32) == -1) {
+        printf(M_ERR_DB_WRITE);
+        return ERR_DB_FILE;
+    } else if (write(fd, &gpa, sizeof(int)) == -1) {
+        printf(M_ERR_DB_WRITE);
+        return ERR_DB_FILE;
+    }
+
+    printf(M_STD_ADDED);
+    return NO_ERROR
 }
 
 /*
