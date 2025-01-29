@@ -347,7 +347,7 @@ int print_db(int fd){
  */
 void print_student(student_t *s, bool batch_print){
     if (s->id == 0) { // Check if student doesn't exist
-        printf(M_STD_NOT_FND_MSG);
+        printf(M_STD_NOT_FND_MSG, s->id);
         return;
     }
 
