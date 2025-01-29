@@ -331,13 +331,12 @@ int print_db(int fd){
  *
  */
 void print_student(student_t *s, int batch_print){
-    if (s->id == 0) { // Check if student doesn't exists
+    if (memcmp(&s, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student doesn't exist
         printf(M_STD_NOT_FND_MSG);
         return;
     }
 
     float gpa = s->gpa / 100.0; // Calculate GPA from student
-
     
     if (batch_print == 0) { // Begin Student Print
         printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
