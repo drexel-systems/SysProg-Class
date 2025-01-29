@@ -272,11 +272,32 @@ int count_db_records(int fd){
  *            M_ERR_DB_READ    error reading or seeking the database file
  *
  */
-int print_db(int fd)
-{
-    // TODO
-    printf(M_NOT_IMPL);
-    return NOT_IMPLEMENTED_YET;
+int print_db(int fd){
+    int id = 0;
+
+    student_t temp = {0}; // Create a temporary student
+    while (true) {
+        if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move to ID location
+            printf(M_ERR_DB_READ);
+            return ERR_DB_FILE;
+        }
+
+        if (read(fd, &temp, sizeof(student_t)) == -1) { // Read student data
+            printf(M_ERR_DB_READ);
+            return ERR_DB_FILE;
+        }
+
+        if (read(fd, &temp, sizeof(student_t)) == 0) { // Check if EOF
+            break;
+        }
+
+        if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+            continue;
+        }
+
+        print_student(&temp); // Handle student print cases
+        id++;
+    }
 }
 
 /*
