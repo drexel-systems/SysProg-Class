@@ -169,6 +169,11 @@ int del_student(int fd, int id) {
         return ERR_DB_OP;
     }
 
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move back to write position
+        printf(M_ERR_DB_READ);
+        return ERR_DB_FILE;
+    }
+
     if (write(fd, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == -1) { // Zero out student data
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
