@@ -11,3 +11,4 @@ Professor Ben Lilley created an excellent tutorial on [How to Git](https://www.y
 To ensure that we all get off to a good start, for this warm up assignment you will be creating your initial repository and providing a link to a writeup answering a few questions.  In the spirit of Git, the first assignment will be submitted in Git, with a link to your submission provided in blackboard.
 
 The directions are [HERE](./0-Assignment.md)
+

@@ -71,3 +71,6 @@ Your grade will be assigned based on the following:
 - 0-5 pts: Code quality.  This includes that your code is also appropriately documented. This means just enough documentation to describe what you are doing that is not obvious from following the code itself. 
 
 - 0-5 pts: Answer quality for the non-coding questions asked in the `TODO:` blocks in the starter code. 
+
+
+

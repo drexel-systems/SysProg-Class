@@ -1,0 +1,6 @@
+#ignore executabel file
+file-cp-sc
+file-cp-libc
+file-cp-memmap
+
+war-and-peace-copy.txt

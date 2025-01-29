@@ -1,0 +1,6 @@
+#ignore executable files
+pipe-reader
+pipe-writer
+
+#ignore pipe file
+fifo_file

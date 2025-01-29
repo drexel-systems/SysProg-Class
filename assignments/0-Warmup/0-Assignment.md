@@ -39,3 +39,5 @@ Please provide answers to these questions using markdown notation and place them
 4. Briefly describe what you want to get out of this class.
 
 5. Briefly describe any concerns you might be having with being successful in this class (if any).
+
+
