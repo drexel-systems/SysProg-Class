@@ -3,7 +3,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Target executable name
-TARGET = sdbsc
+TARGET = sdbsc-submission
 
 # Find all source and header files
 SRCS = $(wildcard *.c)
