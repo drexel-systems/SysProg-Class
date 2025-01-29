@@ -296,9 +296,9 @@ int print_db(int fd){
             continue;
         }
 
-        float gpa = &temp->gpa / 100.0; // Calculate GPA from student
-        
-        printf(STUDENT_PRINT_FMT_STRING, &temp->id, &temp->fname, &temp->lname, gpa); // Handle student print cases
+        float gpa = temp->gpa / 100.0; // Calculate GPA from student
+
+        printf(STUDENT_PRINT_FMT_STRING, temp->id, temp->fname, temp->lname, gpa); // Handle student print cases
         id++;
     }
 }
