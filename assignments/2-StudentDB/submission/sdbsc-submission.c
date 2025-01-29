@@ -274,6 +274,7 @@ int count_db_records(int fd){
  */
 int print_db(int fd){
     printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
+
     int id = 0;
 
     student_t temp = {0}; // Create a temporary student
@@ -296,9 +297,7 @@ int print_db(int fd){
             continue;
         }
 
-        float gpa = temp->gpa / 100.0; // Calculate GPA from student
-
-        printf(STUDENT_PRINT_FMT_STRING, temp->id, temp->fname, temp->lname, gpa); // Handle student print cases
+        print_student(&temp, 1); // Handle student print cases
         id++;
     }
 }
@@ -331,7 +330,7 @@ int print_db(int fd){
  *                             s->id is zero
  *
  */
-void print_student(student_t *s){
+void print_student(student_t *s, int batch_print){
     if (s->id == 0) { // Check if student doesn't exists
         printf(M_STD_NOT_FND_MSG);
         return;
@@ -339,8 +338,10 @@ void print_student(student_t *s){
 
     float gpa = s->gpa / 100.0; // Calculate GPA from student
 
-    // Begin Student Print
-    printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
+    
+    if (batch_print == 0) { // Begin Student Print
+        printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
+    }
     printf(STUDENT_PRINT_FMT_STRING, s->id, s->fname, s->lname, gpa);
 }
 
@@ -575,7 +576,7 @@ int main(int argc, char *argv[])
         switch (rc)
         {
         case NO_ERROR:
-            print_student(&student);
+            print_student(&student, 0);
             break;
         case SRCH_NOT_FOUND:
             printf(M_STD_NOT_FND_MSG, id);
