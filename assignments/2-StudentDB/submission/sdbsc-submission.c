@@ -164,7 +164,7 @@ int del_student(int fd, int id) {
         return ERR_DB_FILE;
     }
 
-    if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+    if (temp.id == 0) { // Check if student doesn't exist
         printf(M_STD_NOT_FND_MSG);
         return ERR_DB_OP;
     }
@@ -222,7 +222,7 @@ int count_db_records(int fd){
             break;
         }
 
-        if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+        if (temp.id == 0) { // Check if student exists
             id++;
             continue;
         }
@@ -291,7 +291,7 @@ int print_db(int fd){
             break;
         }
 
-        if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+        if (temp.id == 0) { // Check if student exists
             id++;
             continue;
         }
@@ -341,7 +341,7 @@ int print_db(int fd){
  *
  */
 void print_student(student_t *s, bool batch_print){
-    if (memcmp(&s, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student doesn't exist
+    if (temp.id == 0) { // Check if student doesn't exist
         printf(M_STD_NOT_FND_MSG);
         return;
     }
