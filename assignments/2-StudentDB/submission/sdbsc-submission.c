@@ -273,9 +273,8 @@ int count_db_records(int fd){
  *
  */
 int print_db(int fd){
-    printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
-
     int id = 0;
+    bool header_printed = false;
 
     student_t temp = {0}; // Create a temporary student
     while (true) {
@@ -294,12 +293,24 @@ int print_db(int fd){
         }
 
         if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+            id++;
             continue;
         }
 
-        print_student(&temp, true); // Handle student print cases
+        if (!header_printed) { // Print header if not printed
+            printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
+            header_printed = true;
+        }
+        
+        print_student(&temp, true);
         id++;
     }
+
+    if (!header_printed) {
+        printf(M_DB_EMPTY);
+    }
+    
+    return NO_ERROR;
 }
 
 /*
