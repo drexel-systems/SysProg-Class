@@ -232,8 +232,12 @@ int count_db_records(int fd){
         count++;
         id++;
     }
-
-    printf(M_DB_RECORD_CNT, count);
+    
+    if (count == 0) {
+        printf(M_DB_EMPTY);
+    } else {
+        printf(M_DB_RECORD_CNT, count);
+    }
 
 } // IMPLEMENT ME
 
