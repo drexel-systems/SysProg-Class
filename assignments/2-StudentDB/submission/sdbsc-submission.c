@@ -225,6 +225,7 @@ int count_db_records(int fd){
         }
 
         if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+            id++;
             continue;
         }
 
