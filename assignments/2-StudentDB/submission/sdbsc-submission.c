@@ -116,7 +116,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
         return ERR_DB_OP;
     }
 
-    temp.id = id; // SSet student details
+    temp.id = id; // Set student details
     temp.gpa = gpa;
     strncpy(temp.fname, fname, 24);
     strncpy(temp.lname, lname, 32);
@@ -164,7 +164,7 @@ int del_student(int fd, int id) {
         return ERR_DB_FILE;
     }
 
-    if (temp.id == 0) { // Check if student exists
+    if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
         printf(M_STD_NOT_FND_MSG);
         return ERR_DB_OP;
     }
