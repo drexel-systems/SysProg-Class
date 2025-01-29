@@ -108,9 +108,18 @@ int get_student(int fd, int id, student_t *s)
  *            M_ERR_DB_WRITE    error writing to db file (adding student)
  *
  */
-int add_student(int fd, int id, char *fname, char *lname, int gpa)
+int add_student(int fd, int id, char *fname, char *lname, int gpa, bool compressed, int counter)
 {
-    int offset = id * sizeof(student_t);
+    int offset;
+    if (compressed)
+    {
+        offset = counter * sizeof(student_t);
+    }
+    else
+    {
+        offset = id * sizeof(student_t);
+    }
+
     if (lseek(fd, offset, SEEK_SET) == -1)
     {
         printf("%s", M_ERR_DB_READ);
@@ -140,7 +149,12 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa)
         }
 
         // success !
-        printf(M_STD_ADDED, id);
+        // only output if NOT doing compressed file
+        if (!compressed)
+        {
+            printf(M_STD_ADDED, id);
+            return NO_ERROR;
+        }
         return NO_ERROR;
     }
     else
@@ -452,8 +466,64 @@ void print_student(student_t *s)
  */
 int compress_db(int fd)
 {
-    printf(M_NOT_IMPL);
-    return fd;
+    int tmp_fd = open_db(TMP_DB_FILE, false);
+    int bytes_read;
+    student_t student;
+    int id;
+    char *fname;
+    char *lname;
+    int gpa;
+    int counter = 0;
+
+    if (lseek(fd, 0, SEEK_SET) == -1)
+    {
+        printf("%s", M_ERR_DB_READ);
+        return ERR_DB_FILE;
+    }
+
+    // iterate through the original db for non-empty, valid student records
+    while ((bytes_read = read(fd, &student, sizeof(student_t)) > 0))
+    {
+        // if record's empty
+        if (memcmp(&student, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0)
+        {
+            counter++;
+            continue;
+        }
+
+        // otherwise extract info
+        id = student.id;
+        fname = student.fname;
+        lname = student.lname;
+        gpa = student.gpa;
+
+        // and write to tmp db
+        // call add_student with compressed and counter to indicate
+        // id is not how offset should be calculated
+        add_student(tmp_fd, id, fname, lname, gpa, true, counter);
+        counter++;
+    }
+    // close original file
+    close(fd);
+    close(tmp_fd);
+
+    // rename old database
+    if (rename(TMP_DB_FILE, DB_FILE) != 0)
+    {
+        printf("%s", M_ERR_DB_CREATE);
+        return ERR_DB_FILE;
+    }
+
+    // reopen compressed db to return new fd
+    int new_fd = open_db(DB_FILE, false);
+    if (new_fd == ERR_DB_FILE)
+    {
+        printf("%s", M_ERR_DB_OPEN);
+        return ERR_DB_FILE;
+    }
+
+    printf("%s", M_DB_COMPRESSED_OK);
+    return new_fd;
 }
 
 /*
@@ -581,7 +651,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        rc = add_student(fd, id, argv[3], argv[4], gpa);
+        rc = add_student(fd, id, argv[3], argv[4], gpa, false, 0);
         if (rc < 0)
             exit_code = EXIT_FAIL_DB;
 
