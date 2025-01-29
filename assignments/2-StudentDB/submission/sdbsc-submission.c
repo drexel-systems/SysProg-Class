@@ -232,9 +232,9 @@ int count_db_records(int fd){
         id++;
     }
     
-    if (count == 0) {
+    if (count == 0) { // Handle database print cases
         printf(M_DB_EMPTY);
-    } else {
+    } else { 
         printf(M_DB_RECORD_CNT, count);
     }
 }
