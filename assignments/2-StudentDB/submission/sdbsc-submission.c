@@ -126,7 +126,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
         return ERR_DB_FILE;
     }
 
-    printf(M_STD_ADDED);
+    printf(M_STD_ADDED, temp.id);
     return NO_ERROR;
 }
 
