@@ -233,6 +233,8 @@ int count_db_records(int fd){
         id++;
     }
 
+    printf(M_DB_RECORD_CNT, count);
+
 } // IMPLEMENT ME
 
 /*
