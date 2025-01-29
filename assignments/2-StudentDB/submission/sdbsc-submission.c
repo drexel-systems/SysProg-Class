@@ -211,8 +211,8 @@ int count_db_records(int fd){
     student_t temp = {0}; // Create a temporary student
     while (true) {
         if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move to ID location
-        printf(M_ERR_DB_READ);
-        return ERR_DB_FILE;
+            printf(M_ERR_DB_READ);
+            return ERR_DB_FILE;
         }
 
         if (read(fd, &temp, sizeof(student_t)) == -1) { // Read student data
@@ -220,13 +220,12 @@ int count_db_records(int fd){
             return ERR_DB_FILE;
         }
 
-         if (read(fd, &temp, sizeof(student_t)) == 0) { // Check if EOF
+        if (read(fd, &temp, sizeof(student_t)) == 0) { // Check if EOF
             break;
         }
 
-        if (temp.id == 0) { // Check if student exists
-            printf(M_STD_NOT_FND_MSG);
-            return ERR_DB_OP;
+        if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student exists
+            continue;
         }
 
         count++;
