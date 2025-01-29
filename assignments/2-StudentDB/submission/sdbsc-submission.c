@@ -169,7 +169,7 @@ int del_student(int fd, int id) {
         return ERR_DB_OP;
     }
 
-    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move back to ID location
+    if (lseek(fd, -sizeof(student_t), SEEK_CUR) == -1) { // Move back to ID location
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
