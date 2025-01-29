@@ -206,6 +206,7 @@ int del_student(int fd, int id) {
  */
 int count_db_records(int fd){
     int count = 0;
+    int id = 0;
 
     student_t temp = {0}; // Create a temporary student
     while (true) {
@@ -229,6 +230,7 @@ int count_db_records(int fd){
         }
 
         count++;
+        id++;
     }
 
 } // IMPLEMENT ME
