@@ -207,6 +207,7 @@ int del_student(int fd, int id) {
 int count_db_records(int fd){
     int count = 0;
 
+    student_t temp = {0}; // Create a temporary student
     while (true) {
         if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move to ID location
         printf(M_ERR_DB_READ);
