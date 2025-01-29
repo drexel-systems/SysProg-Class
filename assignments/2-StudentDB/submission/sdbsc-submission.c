@@ -111,7 +111,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
         return ERR_DB_FILE;
     }
 
-    if (memcmp(&temp, &EMPTY_STUDENT_RECORD, sizeof(student_t)) != 0) { // Check if student already exists
+    if (temp.id != 0) { // Check if student already exists
         printf(M_ERR_DB_ADD_DUP);
         return ERR_DB_OP;
     }
