@@ -237,8 +237,7 @@ int count_db_records(int fd){
     } else {
         printf(M_DB_RECORD_CNT, count);
     }
-
-} // IMPLEMENT ME
+}
 
 /*
  *  print_db
