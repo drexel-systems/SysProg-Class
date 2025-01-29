@@ -297,7 +297,7 @@ int print_db(int fd){
             continue;
         }
 
-        print_student(&temp, 1); // Handle student print cases
+        print_student(&temp, true); // Handle student print cases
         id++;
     }
 }
@@ -330,7 +330,7 @@ int print_db(int fd){
  *                             s->id is zero
  *
  */
-void print_student(student_t *s, int batch_print){
+void print_student(student_t *s, bool batch_print){
     if (memcmp(&s, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == 0) { // Check if student doesn't exist
         printf(M_STD_NOT_FND_MSG);
         return;
@@ -575,7 +575,7 @@ int main(int argc, char *argv[])
         switch (rc)
         {
         case NO_ERROR:
-            print_student(&student, 0);
+            print_student(&student, false);
             break;
         case SRCH_NOT_FOUND:
             printf(M_STD_NOT_FND_MSG, id);

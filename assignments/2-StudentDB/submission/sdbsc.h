@@ -8,7 +8,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa);
 int get_student(int fd, int id, student_t *s);
 int del_student(int fd, int id);
 int compress_db(int fd);
-void print_student(student_t *s);
+void print_student(student_t *s, bool batch_print);
 int validate_range(int id, int gpa);
 int count_db_records(int fd);
 int print_db(int fd);
