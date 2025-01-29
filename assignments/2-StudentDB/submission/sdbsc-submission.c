@@ -273,6 +273,7 @@ int count_db_records(int fd){
  *
  */
 int print_db(int fd){
+    printf(STUDENT_PRINT_HDR_STRING, "ID", "FIRST NAME", "LAST_NAME", "GPA");
     int id = 0;
 
     student_t temp = {0}; // Create a temporary student
@@ -295,7 +296,9 @@ int print_db(int fd){
             continue;
         }
 
-        print_student(&temp); // Handle student print cases
+        float gpa = &temp->gpa / 100.0; // Calculate GPA from student
+        
+        printf(STUDENT_PRINT_FMT_STRING, &temp->id, &temp->fname, &temp->lname, gpa); // Handle student print cases
         id++;
     }
 }
