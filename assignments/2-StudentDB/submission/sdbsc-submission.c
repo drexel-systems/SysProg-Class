@@ -126,7 +126,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
         return ERR_DB_FILE;
     }
 
-    if (ftruncate(fd, (offset + sizeof(student_t))) == -1) { // Set the file size correctly
+    if (ftruncate(fd, ((id + 1) * sizeof(student_t))) == -1) { // Set the file size correctly
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
@@ -423,6 +423,7 @@ int compress_db(int fd) {
 
     student_t temp = {0};
     ssize_t bytes_read; // Track bytes read from file
+    long current_pos = 0; // Track current position in file
       
     if (lseek(fd, 0, SEEK_SET) == -1) { // Start at beginning of file
         printf(M_ERR_DB_READ);
@@ -431,7 +432,7 @@ int compress_db(int fd) {
     }
 
     while (true) {
-        ssize_t bytes_read = read(fd, &temp, sizeof(student_t));
+        bytes_read = read(fd, &temp, sizeof(student_t));
         if (bytes_read == 0) break; // EOF
         if (bytes_read == -1) {
             printf(M_ERR_DB_READ);
@@ -445,11 +446,11 @@ int compress_db(int fd) {
                 close(tmp_fd);
                 return ERR_DB_FILE;
             }
-            write_offset += sizeof(student_t);
+            current_pos += sizeof(student_t);
         }
     }
 
-    if (ftruncate(tmp_fd, write_offset) == -1) { // Set correct file size for temp file
+    if (ftruncate(tmp_fd, current_pos) == -1) { // Set correct file size for temp file
         printf(M_ERR_DB_WRITE);
         close(tmp_fd);
         return ERR_DB_FILE;
