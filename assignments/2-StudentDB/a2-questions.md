@@ -6,7 +6,7 @@ Please answer the following questions and submit in your repo for the second ass
 
 1. In this assignment I asked you provide an implementation for the `get_student(...)` function because I think it improves the overall design of the database application. After you implemented your solution do you agree that externalizing `get_student(...)` into it's own function is a good design strategy? Briefly describe why or why not.
 
-   > **Answer**: I think yes, because "externalizing" get_student() into its own function is a good design strategy since it reminds me how RISC-V's load-store architecture provides a standardized way to access memory. get_student() will establish consistent interface for retrieving student records, reducing code duplication and centralizing error handling. HOWEVER, its effectiveness depends on the database's underlying implementation since if the database were structured differently than anticipated, the function may not work as expected, so it's better if we have control over its implementation.
+   > **Answer**: I think yes, because "externalizing" get_student() into its own function is a good design strategy since it reminds me how RISC-V's load-store architecture provides a standardized way to access memory. get_student() will establish consistent interface for retrieving student records, reducing code duplication and centralizing error handling. HOWEVER, its effectiveness depends on the database's underlying implementation since if the database were structured differently than anticipated, the function may not work as expected, so it's better if we have control over its implementation. (P.S. In retrospect, provided the first param is storage and last param is the pointer to the storage, the fun will most probably work regardless of the underlying implementation of the database.)
 
 2. Another interesting aspect of the `get_student(...)` function is how its function prototype requires the caller to provide the storage for the `student_t` structure:
 
@@ -41,7 +41,11 @@ Please answer the following questions and submit in your repo for the second ass
 
    Can you think of any reason why the above implementation would be a **very bad idea** using the C programming language? Specifically, address why the above code introduces a subtle bug that could be hard to identify at runtime?
 
-   > **ANSWER:** _start here_
+   > **ANSWER:** Oh geez where do I even start here. The first thing that comes to my mind is that it will remove the dynamic nature of student_t. So if we want to add a new field to student_t, we'll have to modify the function itself and recompile the code. This makes it bad design with no scalability in mind. Secondly the returned pointer would be dangling and invalid since it points to the local variable student (on stack btw) which is may be deallocated when the function returns, making any attempt to use that pointer afterwards result in undefined behavior and any undefined behavior is "hard to identify at runtime."
+
+   return the address of a local variable student that exists on the stack.
+
+   The code above introduces a dangerous bug because Once the function returns, that stack frame is deallocated, making the returned pointer invalid - it now points to memory that could be overwritten by other function calls. This is a classic example of returning a dangling pointer in C, which can lead to undefined behavior when dereferenced.
 
 3. Another way the `get_student(...)` function could be implemented is as follows:
 
