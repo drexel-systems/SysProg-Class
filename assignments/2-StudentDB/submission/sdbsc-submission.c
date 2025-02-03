@@ -409,9 +409,55 @@ void print_student(student_t *s, bool batch_print){
  */
 int compress_db(int fd)
 {
-    // TODO
-    printf(M_NOT_IMPL);
-    return fd;
+    int tmp_fd = open_db(TMP_DB_FILE, true); // Open temporary file
+    if (tmp_fd < 0) {
+        printf(M_ERR_DB_OPEN);
+        return ERR_DB_FILE;
+    }
+
+    int id = 0;
+    student_t temp = {0};
+    
+    while (true) { // Copy valid records to temp file
+        if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) {
+            printf(M_ERR_DB_READ);
+            return ERR_DB_FILE;
+        }
+
+        if (read(fd, &temp, sizeof(student_t)) == -1) {
+            printf(M_ERR_DB_READ);
+            return ERR_DB_FILE;
+        }
+
+        if (read(fd, &temp, sizeof(student_t)) == 0) {
+            break;  // EOF reached
+        }
+
+        if (temp.id != 0) { // If student exists, write to temp file
+            if (write(tmp_fd, &temp, sizeof(student_t)) == -1) {
+                printf(M_ERR_DB_WRITE);
+                return ERR_DB_FILE;
+            }
+        }
+        id++;
+    }
+
+    close(fd);
+    close(tmp_fd);
+
+    if (rename(TMP_DB_FILE, DB_FILE) == -1) { // Replace original file with compressed temp file
+        printf(M_ERR_DB_CREATE);
+        return ERR_DB_FILE;
+    }
+
+    int new_fd = open_db(DB_FILE, false); // Reopen the compressed file
+    if (new_fd < 0) {
+        printf(M_ERR_DB_OPEN);
+        return ERR_DB_FILE;
+    }
+
+    printf(M_DB_COMPRESSED_OK);
+    return new_fd;
 }
 
 /*
