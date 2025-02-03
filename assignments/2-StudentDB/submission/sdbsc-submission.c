@@ -153,33 +153,52 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
  *
  */
 int del_student(int fd, int id) {
+    printf("DEBUG: Starting deletion for student ID %d\n", id);
+    
     student_t temp = {0}; // Create a temporary student
-    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move to ID location
+    
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) {
+        printf("DEBUG: lseek failed for initial position\n");
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
+    printf("DEBUG: Successfully sought to position %ld\n", id * sizeof(student_t));
 
-    if (read(fd, &temp, sizeof(student_t)) == -1) { // Read student data
+    if (read(fd, &temp, sizeof(student_t)) == -1) {
+        printf("DEBUG: read failed\n");
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
+    printf("DEBUG: Read student record. ID in record: %d\n", temp.id);
 
-    if (temp.id == 0) { // Check if student doesn't exist
+    if (temp.id == 0) {
+        printf("DEBUG: Student record is empty\n");
         printf(M_STD_NOT_FND_MSG, id);
         return ERR_DB_OP;
     }
+    printf("DEBUG: Found valid student record\n");
 
-    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) { // Move back to write position
+    if (lseek(fd, id * sizeof(student_t), SEEK_SET) == -1) {
+        printf("DEBUG: lseek failed for write position\n");
         printf(M_ERR_DB_READ);
         return ERR_DB_FILE;
     }
+    printf("DEBUG: Successfully sought back to write position\n");
 
-    if (write(fd, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == -1) { // Zero out student data
+    // Print the EMPTY_STUDENT_RECORD content
+    student_t* empty = &EMPTY_STUDENT_RECORD;
+    printf("DEBUG: Empty record contents - ID: %d, fname: %s, lname: %s, gpa: %d\n", 
+           empty->id, empty->fname, empty->lname, empty->gpa);
+
+    if (write(fd, &EMPTY_STUDENT_RECORD, sizeof(student_t)) == -1) {
+        printf("DEBUG: write failed\n");
         printf(M_ERR_DB_WRITE);
         return ERR_DB_FILE;
     }
+    printf("DEBUG: Successfully wrote empty record\n");
 
     printf(M_STD_DEL_MSG, id);
+    printf("DEBUG: Delete operation completed\n");
     return NO_ERROR;
 }
 
