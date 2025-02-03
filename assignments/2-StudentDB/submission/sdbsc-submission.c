@@ -112,7 +112,7 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
     }
 
     if (temp.id != 0) { // Check if student already exists
-        printf(M_ERR_DB_ADD_DUP);
+        printf(M_ERR_DB_ADD_DUP, temp.id);
         return ERR_DB_OP;
     }
 
@@ -165,7 +165,7 @@ int del_student(int fd, int id) {
     }
 
     if (temp.id == 0) { // Check if student doesn't exist
-        printf(M_STD_NOT_FND_MSG);
+        printf(M_STD_NOT_FND_MSG, temp.id);
         return ERR_DB_OP;
     }
 
@@ -179,7 +179,7 @@ int del_student(int fd, int id) {
         return ERR_DB_FILE;
     }
 
-    printf(M_STD_DEL_MSG);
+    printf(M_STD_DEL_MSG, temp.id);
     return NO_ERROR;
 }
 
@@ -238,8 +238,10 @@ int count_db_records(int fd){
     
     if (count == 0) { // Handle database print cases
         printf(M_DB_EMPTY);
+        return 0;
     } else { 
         printf(M_DB_RECORD_CNT, count);
+        return count;
     }
 }
 
