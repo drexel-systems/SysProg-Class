@@ -104,11 +104,11 @@ Please answer the following questions and submit in your repo for the second ass
 
    - Please explain why the file size reported by the `ls` command was 128 bytes after adding student with ID=1, 256 after adding student with ID=3, and 4160 after adding the student with ID=64?
 
-     > **ANSWER:** _start here_
+     > **ANSWER:** Each time a new student is added, the file size increases by the size of the student record (64 bytes). Formula: `file size = (student id + 1) * (student record size)`.
 
    - Why did the total storage used on the disk remain unchanged when we added the student with ID=1, ID=3, and ID=63, but increased from 4K to 8K when we added the student with ID=64?
 
-     > **ANSWER:** _start here_
+     > **ANSWER:** Linux allocates a new block of 4K for the new student record, and then adds the new student record to the end of the file. The take away is the disk storage is allocated in blocks.
 
    - Now lets add one more student with a large student ID number and see what happens:
 
@@ -122,4 +122,4 @@ Please answer the following questions and submit in your repo for the second ass
 
      We see from above adding a student with a very large student ID (ID=99999) increased the file size to 6400000 as shown by `ls` but the raw storage only increased to 12K as reported by `du`. Can provide some insight into why this happened?
 
-     > **ANSWER:** _start here_
+     > **ANSWER:** The large file size reported by ls (6400000 bytes) represents the logical size needed to store a student at offset 99999 * 64, but thanks to Linux's sparse file feature  :3, the actual physical storage (12K) only allocates blocks where real data exists, treating the empty spaces between records as "holes" that don't consume disk space. (P.S. This was my favorite thing covered in the lecture since before learning about it, I had no idea how to compress the database without it being lossy due to the records in mem were tied to their address.)
