@@ -9,40 +9,40 @@ setup_file() {
 }
 
 @test "Check if database is empty to start" {
-    run ./sdbsc -p
+    run ./sdbsc-submission -p
     [ "$status" -eq 0 ]
     [ "$output" = "Database contains no student records." ]
 }
 
 @test "Add a student 1 to db" {
-    run ./sdbsc -a 1      john doe 3.45
+    run ./sdbsc-submission -a 1      john doe 3.45
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 1 added to database." ]
 }
 
 @test "Add more students to db" {
-    run ./sdbsc -a 3      jane  doe  3.90
+    run ./sdbsc-submission -a 3      jane  doe  3.90
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 3 added to database." ] || {
         echo "Failed Output:  $output"
         return 1
     }
 
-    run ./sdbsc -a 63     jim   doe  2.85
+    run ./sdbsc-submission -a 63     jim   doe  2.85
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 63 added to database." ] || {
         echo "Failed Output:  $output"
         return 1
     }
 
-    run ./sdbsc -a 64     janet doe  3.10
+    run ./sdbsc-submission -a 64     janet doe  3.10
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 64 added to database." ] || {
         echo "Failed Output:  $output"
         return 1
     }
 
-    run ./sdbsc -a 99999  big   dude 2.05
+    run ./sdbsc-submission -a 99999  big   dude 2.05
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 99999 added to database." ] || {
         echo "Failed Output:  $output"
@@ -51,7 +51,7 @@ setup_file() {
 }
 
 @test "Check student count" {
-    run ./sdbsc -c
+    run ./sdbsc-submission -c
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Database contains 5 student record(s)." ] || {
         echo "Failed Output:  $output"
@@ -60,7 +60,7 @@ setup_file() {
 }
 
 @test "Make sure adding duplicate student fails" {
-    run ./sdbsc -a 63 dup student 300
+    run ./sdbsc-submission -a 63 dup student 300
     [ "$status" -eq 1 ]  || {
         echo "Expecting status of 1, got:  $status"
         return 1
@@ -93,7 +93,7 @@ setup_file() {
 #}
 
 @test "Find student 3 in db" {
-    run ./sdbsc -f 3
+    run ./sdbsc-submission -f 3
     
     # Ensure the command ran successfully
     [ "$status" -eq 0 ]
@@ -113,7 +113,7 @@ setup_file() {
 }
 
 @test "Try looking up non-existent student" {
-    run ./sdbsc -f 4
+    run ./sdbsc-submission -f 4
     [ "$status" -eq 1 ]  || {
         echo "Expecting status of 1, got:  $status"
         return 1
@@ -125,7 +125,7 @@ setup_file() {
 }
 
 @test "Delete student 64 in db" {
-    run ./sdbsc -d 64
+    run ./sdbsc-submission -d 64
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 64 was deleted from database." ] || {
         echo "Failed Output:  $output"
@@ -134,7 +134,7 @@ setup_file() {
 }
 
 @test "Try deleting non-existent student" {
-    run ./sdbsc -d 65
+    run ./sdbsc-submission -d 65
     [ "$status" -eq 1 ]  || {
         echo "Expecting status of 1, got:  $status"
         return 1
@@ -146,7 +146,7 @@ setup_file() {
 }
 
 @test "Check student count again, should be 4 now" {
-    run ./sdbsc -c
+    run ./sdbsc-submission -c
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Database contains 4 student record(s)." ] || {
         echo "Failed Output:  $output"
@@ -156,7 +156,7 @@ setup_file() {
 
 @test "Print student records" {
     # Run the command
-    run ./sdbsc -p
+    run ./sdbsc-submission -p
 
     # Ensure the command ran successfully
     [ "$status" -eq 0 ]
@@ -191,7 +191,7 @@ setup_file() {
 
 @test "Compress db - try 1" {
     skip
-    run ./sdbsc -x
+    run ./sdbsc-submission -x
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Database successfully compressed!" ] || {
         echo "Failed Output:  $output"
@@ -212,7 +212,7 @@ setup_file() {
 
 @test "Delete student 99999 in db" {
     skip
-    run ./sdbsc -d 99999
+    run ./sdbsc-submission -d 99999
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 99999 was deleted from database." ] || {
         echo "Failed Output:  $output"
@@ -222,7 +222,7 @@ setup_file() {
 
 @test "Compress db again - try 2" {
     skip
-    run ./sdbsc -x
+    run ./sdbsc-submission -x
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Database successfully compressed!" ] || {
         echo "Failed Output:  $output"
