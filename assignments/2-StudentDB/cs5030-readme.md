@@ -51,7 +51,6 @@ This is important - the `fd` file descriptor is passed to all the functions you 
 
 The following functions in the starter code **must be implemented by you**. Each function is "wired up" already for you from `main()`, all the args from argv and the file descriptor `fd` for student.db are already being passed into the functions that require implementation.
 
-- open_db
 - get_student
 - add_student
 - del_student

@@ -258,7 +258,7 @@ int count_db_records(int fd){
  *  on the first real row encountered print the header for the required output:
  *
  *     printf(STUDENT_PRINT_HDR_STRING, "ID",
- *                  "FIRST NAME", "LAST_NAME", "GPA");
+ *                  "FIRST_NAME", "LAST_NAME", "GPA");
  *
  *  then for each valid record encountered print the required output:
  *
