@@ -126,11 +126,6 @@ int add_student(int fd, int id, char *fname, char *lname, int gpa) {
         return ERR_DB_FILE;
     }
 
-    if (ftruncate(fd, ((id + 1) * sizeof(student_t))) == -1) { // Set the file size correctly
-        printf(M_ERR_DB_WRITE);
-        return ERR_DB_FILE;
-    }
-
     printf(M_STD_ADDED, temp.id);
     return NO_ERROR;
 }
@@ -415,62 +410,54 @@ void print_student(student_t *s, bool batch_print){
  *
  */
 int compress_db(int fd) {
-    int tmp_fd = open_db(TMP_DB_FILE, true); // Open temporary file
+    int tmp_fd = open_db(TMP_DB_FILE, true); // Open temp file
     if (tmp_fd < 0) {
         printf(M_ERR_DB_OPEN);
         return ERR_DB_FILE;
     }
 
-    student_t temp = {0};
-    ssize_t bytes_read; // Track bytes read from file
-    long current_pos = 0; // Track current position in file
-      
-    if (lseek(fd, 0, SEEK_SET) == -1) { // Start at beginning of file
+    student_t temp = {0}; // Create temp student
+    
+    if (lseek(fd, 0, SEEK_SET) == -1) { // Go to start of file
         printf(M_ERR_DB_READ);
         close(tmp_fd);
         return ERR_DB_FILE;
     }
 
-    while (true) {
-        bytes_read = read(fd, &temp, sizeof(student_t));
-        if (bytes_read == 0) break; // EOF
-        if (bytes_read == -1) {
+    while (true) { // Read entire file
+        ssize_t bytes_read = read(fd, &temp, sizeof(student_t));
+        if (bytes_read == 0) break; // End of file
+        if (bytes_read == -1) { // Read error
             printf(M_ERR_DB_READ);
             close(tmp_fd);
             return ERR_DB_FILE;
         }
 
-        if (temp.id != 0) {
-            if (write(tmp_fd, &temp, sizeof(student_t)) == -1) {
+        if (temp.id != 0) { // If valid student record
+            off_t curr_pos = lseek(fd, 0, SEEK_CUR) - sizeof(student_t); // Get current position
+            if (lseek(tmp_fd, curr_pos, SEEK_SET) == -1) { // Seek to same position in temp
                 printf(M_ERR_DB_WRITE);
                 close(tmp_fd);
                 return ERR_DB_FILE;
             }
-            current_pos += sizeof(student_t);
+            
+            if (write(tmp_fd, &temp, sizeof(student_t)) == -1) { // Write record at same offset
+                printf(M_ERR_DB_WRITE);
+                close(tmp_fd);
+                return ERR_DB_FILE;
+            }
         }
-    }
-
-    if (ftruncate(tmp_fd, current_pos) == -1) { // Set correct file size for temp file
-        printf(M_ERR_DB_WRITE);
-        close(tmp_fd);
-        return ERR_DB_FILE;
-    }
-
-    if (bytes_read == -1) { // Check for read errors
-        printf(M_ERR_DB_READ);
-        close(tmp_fd);
-        return ERR_DB_FILE;
     }
 
     close(fd); // Close both files before rename
     close(tmp_fd);
 
-    if (rename(TMP_DB_FILE, DB_FILE) == -1) { // Replace original with compressed
+    if (rename(TMP_DB_FILE, DB_FILE) == -1) { // Replace old with new
         printf(M_ERR_DB_CREATE);
         return ERR_DB_FILE;
     }
 
-    int new_fd = open(DB_FILE, O_RDWR); // Reopen compressed file
+    int new_fd = open(DB_FILE, O_RDWR); // Open new compressed file
     if (new_fd < 0) {
         printf(M_ERR_DB_OPEN);
         return ERR_DB_FILE;
