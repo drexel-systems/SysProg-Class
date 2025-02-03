@@ -71,26 +71,26 @@ setup_file() {
     }
 }
 
-# @test "Make sure the file size is correct at this time" {
-#     run stat --format="%s" ./student.db
-#     [ "$status" -eq 0 ]
-#     [ "${lines[0]}" = "6400000" ] || {
-#         echo "Failed Output:  $output"
-#         echo "Expected: 64000000"
-#         return 1
-#     }
-# }
-
-@test "Make sure the file storage is correct at this time" {
-   run du -h ./student.db
-  [ "$status" -eq 0 ]
-   #note du -h puts a tab between the 2 fields need to match on that
-   [ "$output" = "12K$(echo -e '\t')./student.db" ] || {
-       echo "Failed Output:  $output"
-       echo "12K     ./student.db"
-       return 1
-   }
+@test "Make sure the file size is correct at this time" {
+    run stat --format="%s" ./student.db
+    [ "$status" -eq 0 ]
+    [ "${lines[0]}" = "6400000" ] || {
+        echo "Failed Output:  $output"
+        echo "Expected: 64000000"
+        return 1
+    }
 }
+
+#@test "Make sure the file storage is correct at this time" {
+#    run du -h ./student.db
+#   [ "$status" -eq 0 ]
+#    #note du -h puts a tab between the 2 fields need to match on that
+#    [ "$output" = "12K$(echo -e '\t')./student.db" ] || {
+#        echo "Failed Output:  $output"
+#        echo "12K     ./student.db"
+#        return 1
+#    }
+#}
 
 @test "Find student 3 in db" {
     run ./sdbsc-submission -f 3
@@ -178,7 +178,7 @@ setup_file() {
 #if you implemented the compress db function remove the 
 #skip from the tests below
 
-# @test "Double check storage at this point" {
+#@test "Double check storage at this point" {
 #    run du -h ./student.db
 #    [ "$status" -eq 0 ]
 #    #note du -h puts a tab between the 2 fields need to match on that
@@ -187,7 +187,7 @@ setup_file() {
 #        echo "12K     ./student.db"
 #        return 1
 #    }
-# }
+#}
 
 @test "Compress db - try 1" {
     run ./sdbsc-submission -x
@@ -198,7 +198,7 @@ setup_file() {
     }
 }
 
-# @test "One block should be gone" {
+#@test "One block should be gone" {
 #    run du -h ./student.db
 #    [ "$status" -eq 0 ]
 #    #note du -h puts a tab between the 2 fields need to match on that
@@ -207,7 +207,7 @@ setup_file() {
 #        echo "8.0K     ./student.db"
 #        return 1
 #    }
-# }
+#}
 
 @test "Delete student 99999 in db" {
     run ./sdbsc-submission -d 99999
@@ -227,7 +227,7 @@ setup_file() {
     }
 }
 
-# @test "Should be down to 1 block" {
+#@test "Should be down to 1 block" {
 #    run du -h ./student.db
 #    [ "$status" -eq 0 ]
 #    #note du -h puts a tab between the 2 fields need to match on that
@@ -236,7 +236,7 @@ setup_file() {
 #        echo "4.0K     ./student.db"
 #        return 1
 #    }
-# }
+#}
 
 
 
