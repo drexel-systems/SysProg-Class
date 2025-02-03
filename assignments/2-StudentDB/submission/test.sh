@@ -190,7 +190,6 @@ setup_file() {
 #}
 
 @test "Compress db - try 1" {
-    skip
     run ./sdbsc-submission -x
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Database successfully compressed!" ] || {
@@ -211,7 +210,6 @@ setup_file() {
 #}
 
 @test "Delete student 99999 in db" {
-    skip
     run ./sdbsc-submission -d 99999
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Student 99999 was deleted from database." ] || {
@@ -221,7 +219,6 @@ setup_file() {
 }
 
 @test "Compress db again - try 2" {
-    skip
     run ./sdbsc-submission -x
     [ "$status" -eq 0 ]
     [ "${lines[0]}" = "Database successfully compressed!" ] || {
