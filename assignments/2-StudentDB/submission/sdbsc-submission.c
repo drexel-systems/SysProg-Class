@@ -165,7 +165,7 @@ int del_student(int fd, int id) {
     }
 
     if (temp.id == 0) { // Check if student doesn't exist
-        printf(M_STD_NOT_FND_MSG, temp.id);
+        printf(M_STD_NOT_FND_MSG, id);
         return ERR_DB_OP;
     }
 
@@ -179,7 +179,7 @@ int del_student(int fd, int id) {
         return ERR_DB_FILE;
     }
 
-    printf(M_STD_DEL_MSG, temp.id);
+    printf(M_STD_DEL_MSG, id);
     return NO_ERROR;
 }
 
