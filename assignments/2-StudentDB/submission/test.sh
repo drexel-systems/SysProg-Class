@@ -81,16 +81,16 @@ setup_file() {
     }
 }
 
-#@test "Make sure the file storage is correct at this time" {
-#    run du -h ./student.db
-#   [ "$status" -eq 0 ]
-#    #note du -h puts a tab between the 2 fields need to match on that
-#    [ "$output" = "12K$(echo -e '\t')./student.db" ] || {
-#        echo "Failed Output:  $output"
-#        echo "12K     ./student.db"
-#        return 1
-#    }
-#}
+@test "Make sure the file storage is correct at this time" {
+   run du -h ./student.db
+  [ "$status" -eq 0 ]
+   #note du -h puts a tab between the 2 fields need to match on that
+   [ "$output" = "12K$(echo -e '\t')./student.db" ] || {
+       echo "Failed Output:  $output"
+       echo "12K     ./student.db"
+       return 1
+   }
+}
 
 @test "Find student 3 in db" {
     run ./sdbsc-submission -f 3
