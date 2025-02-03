@@ -449,6 +449,12 @@ int compress_db(int fd) {
         }
     }
 
+    if (ftruncate(tmp_fd, write_offset) == -1) { // Set correct file size for temp file
+        printf(M_ERR_DB_WRITE);
+        close(tmp_fd);
+        return ERR_DB_FILE;
+    }
+
     if (bytes_read == -1) { // Check for read errors
         printf(M_ERR_DB_READ);
         close(tmp_fd);
