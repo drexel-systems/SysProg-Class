@@ -43,10 +43,6 @@ Please answer the following questions and submit in your repo for the second ass
 
    > **ANSWER:** Oh geez where do I even start here. The first thing that comes to my mind is that it will remove the dynamic nature of student_t. So if we want to add a new field to student_t, we'll have to modify the function itself and recompile the code. This makes it bad design with no scalability in mind. Secondly the returned pointer would be dangling and invalid since it points to the local variable student (on stack btw) which is may be deallocated when the function returns, making any attempt to use that pointer afterwards result in undefined behavior and any undefined behavior is "hard to identify at runtime."
 
-   return the address of a local variable student that exists on the stack.
-
-   The code above introduces a dangerous bug because Once the function returns, that stack frame is deallocated, making the returned pointer invalid - it now points to memory that could be overwritten by other function calls. This is a classic example of returning a dangling pointer in C, which can lead to undefined behavior when dereferenced.
-
 3. Another way the `get_student(...)` function could be implemented is as follows:
 
    ```c
