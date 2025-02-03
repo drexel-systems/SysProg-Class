@@ -75,7 +75,7 @@ Please answer the following questions and submit in your repo for the second ass
 
    In this implementation the storage for the student record is allocated on the heap using `malloc()` and passed back to the caller when the function returns. What do you think about this alternative implementation of `get_student(...)`? Address in your answer why it work work, but also think about any potential problems it could cause.
 
-   > **ANSWER:** _start here_
+   > **ANSWER:** The biggest issue I have with this way of implementation is the unnecessary memory management burden, not only does it force the caller to handle malloc and free, but it risks memory leaks if they forget to free the allocated memory after each get_student() call. Additionally, using heap allocation for every lookup is significantly less efficient than the current approach due to the additional overhead. Finally, not to mention having NULL represent both "student not found" and "memory allocation failed" creates ambiguous error handling making it just harder to maintain or debug.
 
 4. Lets take a look at how storage is managed for our simple database. Recall that all student records are stored on disk using the layout of the `student_t` structure (which has a size of 64 bytes). Lets start with a fresh database by deleting the `student.db` file using the command `rm ./student.db`. Now that we have an empty database lets add a few students and see what is happening under the covers. Consider the following sequence of commands:
 
