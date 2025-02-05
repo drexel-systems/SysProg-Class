@@ -17,7 +17,7 @@ int main(){
 
     c_result = -1;
 
-    f_result = fork();
+    f_result = fork(); // Creates a duplicate child process (New PID) 
     if (f_result < 0){
         perror("fork error");
         exit(1);
@@ -35,7 +35,7 @@ int main(){
         printf("[p] My parent process id is %d\n", getpid());
 
         printf("[p] Waiting for child to finish...\n\n");
-        wait(&c_result);
+        wait(&c_result); // Waits for the child to finish, returns back here (& pointer)
 
         //we can use a macro in the runtime library to extract
         //the status code from what wait_returns
@@ -45,7 +45,8 @@ int main(){
         //is a 32 bit number encoded with several peices of information.
         //The status code is in the second byte.  We can extract it with
         //some bit manipulation and shifting....
-        c_result = (c_result >> 8) & 0xFF;
+        c_result = (c_result >> 8) & 0xFF; // Shifts the bits to the right by 8 (shift in 0's), to get the second byte in 64 bit value 
+        // &ing with 1 is a copy operation
         printf("[p] The child exited with code (manually extracted) %d\n", c_result);
         
         exit(22);
