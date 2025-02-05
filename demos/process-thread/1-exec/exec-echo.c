@@ -8,10 +8,10 @@
 //Lets explore, see below for what is going on....
 
 int main(){
-    char *args[] = {"/bin/echo", "Hi", "Class", 0};
-    int rc;
+    char *args[] = {"/bin/echo", "Hi", "Class", 0}; // Args Stored in stack
+    int rc; // Rc stored in stack
 
-    rc = execv(args[0], args);
+    rc = execv(args[0], args); // Wrapper for a sys call, if successful it will wipe the mem footprint of the rest of the program
     printf("Well did we get here?\n");
     printf("execv returned %d\n",rc);
 }
