@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Source files
-SOURCES = fork-basic fork-exec fork-exec-pc my-pid sleeper
+SOURCES = client-echo server-echo server-proto server-proto-thread client-proto proto_test
 
 # Executable names
 EXECUTABLES = $(SOURCES:.c=)
@@ -15,13 +15,13 @@ EXECUTABLES = $(SOURCES:.c=)
 # Default target: build all executables
 all: $(EXECUTABLES)
 
-# Rule for standard compilation
-$(EXECUTABLES): %: %.c
-	$(CC) $(CFLAGS) -o $@ $<
+# Rule for compilation with protocol.c
+$(EXECUTABLES): %: %.c protocol.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 # Clean up compiled files
 clean:
-	rm -f $(EXECUTABLES) 
+	rm -f $(EXECUTABLES)
 
 # Phony targets
 .PHONY: all clean

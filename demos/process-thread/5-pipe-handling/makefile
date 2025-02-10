@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Source files
-SOURCES = fork-basic fork-exec fork-exec-pc my-pid sleeper
+SOURCES = fork-pipe fork-pipeline
 
 # Executable names
 EXECUTABLES = $(SOURCES:.c=)
