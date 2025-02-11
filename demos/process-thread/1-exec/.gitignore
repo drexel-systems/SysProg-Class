@@ -1,0 +1,4 @@
+exec-echo
+my-pid
+exec-pid
+exec-bad-command
