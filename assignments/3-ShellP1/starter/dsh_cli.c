@@ -77,6 +77,8 @@ int main()
                 }
                 printf("\n");
             }
+        } else if (rc == ERR_TOO_MANY_COMMANDS) {
+            printf(CMD_ERR_PIPE_LIMIT, CMD_MAX);
         }
     }
 

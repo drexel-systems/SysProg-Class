@@ -44,6 +44,9 @@ int build_cmd_list(char *cmd_line, command_list_t *clist)
 
     raw_cmds[clist->num] = strtok(cmd_line, PIPE_STRING);
     while (raw_cmds[clist->num] != NULL) {
+        if (clist->num == CMD_MAX) {
+            return ERR_TOO_MANY_COMMANDS;
+        }
         clist->num++;
         raw_cmds[clist->num] = strtok(NULL, PIPE_STRING);
     }
