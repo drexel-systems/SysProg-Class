@@ -63,19 +63,20 @@ int main()
         //IMPLEMENT THE REST OF THE REQUIREMENTS
         if (strcmp(cmd_buff, EXIT_CMD) == 0) {
             exit(EXIT_SUCCESS);
+        } else if (strlen(cmd_buff) == 0) {
+            printf(CMD_WARN_NO_CMD);
+            continue;
         }
-
         rc = build_cmd_list(cmd_buff, &clist);
         if (rc == OK) {
+            printf(CMD_OK_HEADER, clist.num);
             for (int i = 0; i < clist.num; i++) {
-                printf("<%d> %s", i+1, clist.commands[i].exe);
+                printf("<%d> %s ", i+1, clist.commands[i].exe);
                 if (clist.commands[i].args[0] != '\0') {
                     printf("[%s]", clist.commands[i].args);
                 }
                 printf("\n");
             }
-
-            printf(CMD_OK_HEADER, clist.num);
         }
     }
 

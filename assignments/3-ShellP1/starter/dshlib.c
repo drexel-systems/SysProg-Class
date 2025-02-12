@@ -35,11 +35,10 @@
 int build_cmd_list(char *cmd_line, command_list_t *clist)
 {
     char* raw_cmds[CMD_MAX] = {0};
-    char* p;
     char* exe;
-    char* args[ARG_MAX/2];
-    int i, j;
-    command_t* cur_cmd;
+    char* arg;
+    int i, j, k;
+    int argsize;
 
     memset(clist, 0, sizeof(command_list_t));
 
@@ -52,13 +51,20 @@ int build_cmd_list(char *cmd_line, command_list_t *clist)
     for (i = 0; i < clist->num; i++) {
         exe = strtok(raw_cmds[i], " ");
         strcpy(clist->commands[i].exe, exe);
-        j = 0;
-        args[j] = strtok(NULL, " ");
-        while (args[j] != NULL) {
-            args[j] = strtok(NULL, " ");
+        arg = strtok(NULL, " ");
+        k = 0;
+        while (arg != NULL) {
+            if (k != 0) {
+                clist->commands[i].args[k] = ' ';
+                k++;
+            }
+            argsize = strlen(arg);
+            for (j = 0; j < argsize; j++) {
+                clist->commands[i].args[k] = arg[j];
+                k++;
+            }
+            arg = strtok(NULL, " ");
         }
     }
-
-
     return OK;
 }
