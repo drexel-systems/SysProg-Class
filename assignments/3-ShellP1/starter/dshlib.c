@@ -53,6 +53,10 @@ int build_cmd_list(char *cmd_line, command_list_t *clist)
 
     for (i = 0; i < clist->num; i++) {
         exe = strtok(raw_cmds[i], " ");
+        
+        if (strlen(exe) >= EXE_MAX || strlen(raw_cmds[i]) - strlen(exe) >= SH_CMD_MAX) {
+            return ERR_CMD_OR_ARGS_TOO_BIG;
+        }
         strcpy(clist->commands[i].exe, exe);
         arg = strtok(NULL, " ");
         k = 0;

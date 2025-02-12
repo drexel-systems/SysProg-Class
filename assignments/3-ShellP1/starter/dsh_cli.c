@@ -79,9 +79,9 @@ int main()
             }
         } else if (rc == ERR_TOO_MANY_COMMANDS) {
             printf(CMD_ERR_PIPE_LIMIT, CMD_MAX);
+        } else if (rc == ERR_CMD_OR_ARGS_TOO_BIG) {
+            printf("Command or arguments are too big\n");
         }
     }
-
-    printf(M_NOT_IMPL);
-    exit(EXIT_NOT_IMPL);
+    exit(EXIT_SUCCESS);
 }
