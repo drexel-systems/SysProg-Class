@@ -28,7 +28,8 @@ int main()
     {
         // Set up child to receive SIGTERM when parent exits
         // see what happens if you forget to do this
-        // prctl(PR_SET_PDEATHSIG, SIGTERM);
+        
+        prctl(PR_SET_PDEATHSIG, SIGTERM);
 
         // The child will now exec, basically shape shifting itself
         char *args[] = {"./sleeper", "20", 0};

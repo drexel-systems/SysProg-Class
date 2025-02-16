@@ -61,6 +61,11 @@ int main() {
     
     printf("Main: Created thread - my task_id = %8lx\n", get_task_id());
 
+    //for (int i = 0; i < 5; i++){
+    //    printf("Hi from parent\n");
+    //    sleep(1);
+    //}
+
     // Wait for thread to complete
     pthread_join(thread, NULL);
     printf("Main: Thread has completed\n");

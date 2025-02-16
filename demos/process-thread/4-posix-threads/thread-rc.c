@@ -36,6 +36,8 @@ void* thread_function(void* arg) {
         local_i = shared_counter;
         local_i++;
         shared_counter = local_i;
+        //shared_counter++;
+        //sleep_ms(1);
     }
     
     printf("Thread %d: Finished execution\n", data->thread_id);

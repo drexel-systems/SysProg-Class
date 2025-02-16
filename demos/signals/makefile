@@ -7,7 +7,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g
 
 # Source files
-SOURCES = thread-demo thread-rc thread-coordination thread-parent-child thread-supermarket
+SOURCES = signal-basic signal-custom signal-logic signal-do-not-disturb
 
 # Executable names
 EXECUTABLES = $(SOURCES:.c=)
