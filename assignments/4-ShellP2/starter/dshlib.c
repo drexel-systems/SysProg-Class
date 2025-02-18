@@ -54,55 +54,73 @@
 */
 int exec_local_cmd_loop()
 {
-    char *cmd_buff;
+    char *cmd_input;
     int rc = 0;
-    cmd_buff_t cmd;
+    cmd_buff_t cmd_buff;
     Built_In_Cmds bi_cmd;
     
-    // TODO IMPLEMENT MAIN LOOP
-    cmd_buff = malloc(SH_CMD_MAX);
-    memset(cmd_buff, 0, SH_CMD_MAX);
+    // IMPLEMENT MAIN LOOP
+    cmd_input = malloc(SH_CMD_MAX);
+    if (cmd_input == NULL) {
+        perror("malloc:");
+        return ERR_MEMORY;
+    }
+    memset(cmd_input, 0, SH_CMD_MAX);
     
     while(1){
-        clear_cmd_buff(&cmd);
+        clear_cmd_buff(&cmd_buff);
         printf("%s", SH_PROMPT);
-        if (fgets(cmd_buff, ARG_MAX, stdin) == NULL){
+        if (fgets(cmd_input, ARG_MAX, stdin) == NULL){
             printf("\n");
             break;
         }
         //remove the trailing \n from cmd_buff
-        cmd_buff[strcspn(cmd_buff,"\n")] = '\0';
+        cmd_input[strcspn(cmd_input,"\n")] = '\0';
         
         // IMPLEMENT parsing input to cmd_buff_t *cmd_buff
-        build_cmd_buff(cmd_buff, &cmd);
+        rc = build_cmd_buff(cmd_input, &cmd_buff);
+        if (rc == WARN_NO_CMDS) {
+            printf(CMD_WARN_NO_CMD);
+            continue;
+        } else if (rc == ERR_TOO_MANY_COMMANDS) {
+            printf(CMD_ERR_PIPE_LIMIT, CMD_MAX);
+            continue;
+        }
         
         // IMPLEMENT if built-in command, execute builtin logic for exit, cd (extra credit: dragon)
         // the cd command should chdir to the provided directory; if no directory is provided, do nothing
-        bi_cmd = exec_built_in_cmd(&cmd);
+        bi_cmd = exec_built_in_cmd(&cmd_buff);
         if (bi_cmd == BI_CMD_EXIT) {
             return OK;
         } else if (bi_cmd == BI_EXECUTED) {
-            continue;
+        } else if (bi_cmd == BI_RC) {
         } else if (bi_cmd == BI_NOT_BI) {
             // IMPLEMENT if not built-in command, fork/exec as an external command
-            rc = exec_cmd(&cmd);
+            rc = exec_cmd(&cmd_buff);
+            if (rc == ERR_EXEC_CMD) {
+                printf("Error executing command %s\n", cmd_buff.argv[0]);
+            }
         }
     }
     
     // for example, if the user input is "ls -l", you would fork/exec the command "ls" with the arg "-l"
     
-    free(cmd_buff);
+    free(cmd_input);
     return OK;
 }
 
-int build_cmd_buff(char *cmd_buff, cmd_buff_t *cmd)
+int build_cmd_buff(char *cmd_line, cmd_buff_t *cmd_buff)
 {
     char *p;
     int i;
     int start_token = 0;
     int start_quote = 0;
+
+    if (cmd_line[0] == '\0') {
+        return WARN_NO_CMDS;
+    }
     
-    for (i = 0, p = cmd_buff; *p != '\0'; p++) {
+    for (i = 0, p = cmd_line; *p != '\0'; p++) {
         if (*p == '"') {
             if (start_quote) {
                 start_quote = 0;
@@ -116,12 +134,12 @@ int build_cmd_buff(char *cmd_buff, cmd_buff_t *cmd)
             *p = '\0';
         } else if (!start_token) {
             start_token = 1;
-            cmd->argv[i] = p;
+            cmd_buff->argv[i] = p;
             i++;
         }
     }
-    cmd->argc = i;
-    cmd->_cmd_buffer = cmd_buff;
+    cmd_buff->argc = i;
+    cmd_buff->_cmd_buffer = cmd_line;
     
     return OK;
 }
@@ -163,7 +181,7 @@ Built_In_Cmds match_command(const char *input)
 int exec_cmd(cmd_buff_t *cmd)
 {
     pid_t f_result, c_result;
-    int rc;
+    int rc = 0;
 
     f_result = fork();
     if (f_result < 0) {
@@ -173,10 +191,14 @@ int exec_cmd(cmd_buff_t *cmd)
     if (f_result == 0) {
         rc = execvp(cmd->argv[0], cmd->argv);
         if (rc < 0) {
-            return ERR_EXEC_CMD;
+            exit(EXIT_FAILURE);
         }
     } else {
         wait(&c_result);
+        rc = WEXITSTATUS(c_result);
+        if (rc != OK) {
+            return ERR_EXEC_CMD;
+        }
     }
 
     return OK;
