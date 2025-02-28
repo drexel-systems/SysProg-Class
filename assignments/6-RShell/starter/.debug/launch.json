@@ -1,13 +1,13 @@
 {
     "configurations": [
         {
-            "name": "(gdb) 5-ShellP3",
+            "name": "(gdb) 6-RShell",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/5-ShellP3/starter/dsh",
+            "program": "${workspaceFolder}/6-RShell/starter/dsh",
             "args": [""],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/5-ShellP3/starter",
+            "cwd": "${workspaceFolder}/6-RShell/starter",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",
@@ -23,7 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build 5-ShellP3"
+            "preLaunchTask": "Build 6-RShell"
         }
     ]
 }
