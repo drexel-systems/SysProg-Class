@@ -93,7 +93,6 @@
          if (bi_cmd == BI_CMD_EXIT) {
              return OK;
          } else if (bi_cmd == BI_EXECUTED) {
-         } else if (bi_cmd == BI_RC) {
          } else if (bi_cmd == BI_NOT_BI) {
              // IMPLEMENT if not built-in command, fork/exec as an external command
              rc = exec_cmd(&cmd_buff);
@@ -156,13 +155,16 @@
      case BI_CMD_CD:
          rc = chdir(cmd->argv[1]);
          if (rc != 0) {
-             return BI_RC;
+             return BI_CMD_CD;
          }
          return BI_EXECUTED;
      case BI_NOT_BI:
          return BI_NOT_BI;
+     case BI_CMD_DRAGON:
+         return BI_CMD_DRAGON;
      default:
-         return BI_RC;
+         fprintf(stderr, "Fatal error");
+         exit(EXIT_FAILURE);
      }
  }
  
@@ -173,6 +175,8 @@
          return BI_CMD_EXIT;
      } else if (strcmp(input, "cd") == 0) {
          return BI_CMD_CD;
+     } else if (strcmp(input, "dragon") == 0) {
+        return BI_CMD_DRAGON;
      } else {
          return BI_NOT_BI;
      }
