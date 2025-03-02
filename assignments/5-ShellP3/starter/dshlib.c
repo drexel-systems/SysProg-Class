@@ -134,6 +134,9 @@ int build_cmd_buff(char *cmd_line, cmd_buff_t *cmd_buff)
         } else if (*p == SPACE_CHAR && !start_quote) {
             start_token = 0;
             *p = '\0';
+        } else if (*p == PIPE_CHAR && !start_quote) {
+            *p = '\0';
+            break;
         } else if (!start_token) {
             start_token = 1;
             cmd_buff->argv[i] = p;
@@ -216,47 +219,28 @@ int clear_cmd_buff(cmd_buff_t *cmd_buff)
     return OK;
 }
 
-// int build_cmd_list(char *cmd_line, command_list_t *clist)
-// {
-//     char* raw_cmds[CMD_MAX] = {0};
-//     char* exe;
-//     char* arg;
-//     int i, j, k;
-//     int argsize;
+int build_cmd_list(char *cmd_line, command_list_t *clist)
+{
+    cmd_buff_t *cmd_buf = clist->commands;
+    int rc = OK;
+    int num_cmds = 0;
 
-//     memset(clist, 0, sizeof(command_list_t));
+    while (*cmd_line != '\0' && rc == OK) {
+        if (num_cmds == CMD_MAX) {
+            rc = ERR_TOO_MANY_COMMANDS;
+            break;
+        }
 
-//     raw_cmds[clist->num] = strtok(cmd_line, PIPE_STRING);
-//     while (raw_cmds[clist->num] != NULL) {
-//         if (clist->num == CMD_MAX) {
-//             return ERR_TOO_MANY_COMMANDS;
-//         }
-//         clist->num++;
-//         raw_cmds[clist->num] = strtok(NULL, PIPE_STRING);
-//     }
+        rc = build_cmd_buff(cmd_line, cmd_buf);
+        cmd_buf++;
+        num_cmds++;
+    }
 
-//     for (i = 0; i < clist->num; i++) {
-//         exe = strtok(raw_cmds[i], " ");
+    if (num_cmds == 0) {
+        rc = WARN_NO_CMDS;
+    }
 
-//         if (strlen(exe) >= EXE_MAX || strlen(raw_cmds[i]) - strlen(exe) >=
-//         SH_CMD_MAX) {
-//             return ERR_CMD_OR_ARGS_TOO_BIG;
-//         }
-//         strcpy(clist->commands[i].exe, exe);
-//         arg = strtok(NULL, " ");
-//         k = 0;
-//         while (arg != NULL) {
-//             if (k != 0) {
-//                 clist->commands[i].args[k] = ' ';
-//                 k++;
-//             }
-//             argsize = strlen(arg);
-//             for (j = 0; j < argsize; j++) {
-//                 clist->commands[i].args[k] = arg[j];
-//                 k++;
-//             }
-//             arg = strtok(NULL, " ");
-//         }
-//     }
-//     return OK;
-// }
+    clist->num = num_cmds;
+
+    return rc;
+}
