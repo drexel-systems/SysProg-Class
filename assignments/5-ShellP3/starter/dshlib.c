@@ -117,6 +117,7 @@ int build_cmd_list(char *cmd_line, command_list_t *clist)
 {
     cmd_buff_t *cmd_buf = clist->commands;
     int rc = OK;
+    int i = 0;
     int num_cmds = 0;
 
     while (*cmd_line != '\0' && rc == OK) {
@@ -125,9 +126,10 @@ int build_cmd_list(char *cmd_line, command_list_t *clist)
             break;
         }
 
-        rc = build_cmd_buff(cmd_line, cmd_buf);
+        i = build_cmd_buff(cmd_line, cmd_buf);
         cmd_buf++;
         num_cmds++;
+        cmd_line += i;
     }
 
     if (num_cmds == 0) {
@@ -141,14 +143,10 @@ int build_cmd_list(char *cmd_line, command_list_t *clist)
 
 int build_cmd_buff(char *cmd_line, cmd_buff_t *cmd_buff)
 {
-    char *p;
+    char *p = NULL;
     int i;
     int start_token = 0;
     int start_quote = 0;
-
-    if (cmd_line[0] == '\0') {
-        return WARN_NO_CMDS;
-    }
 
     for (i = 0, p = cmd_line; *p != '\0'; p++) {
         if (*p == '"') {
@@ -164,6 +162,7 @@ int build_cmd_buff(char *cmd_line, cmd_buff_t *cmd_buff)
             *p = '\0';
         } else if (*p == PIPE_CHAR && !start_quote) {
             *p = '\0';
+            p++;
             break;
         } else if (!start_token) {
             start_token = 1;
@@ -174,7 +173,7 @@ int build_cmd_buff(char *cmd_line, cmd_buff_t *cmd_buff)
     cmd_buff->argc = i;
     cmd_buff->_cmd_buffer = cmd_line;
 
-    return OK;
+    return p - cmd_line;
 }
 
 Built_In_Cmds exec_built_in_cmd(cmd_buff_t *cmd)
