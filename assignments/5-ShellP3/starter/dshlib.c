@@ -90,11 +90,10 @@ int exec_local_cmd_loop()
         // IMPLEMENT if built-in command, execute builtin logic for exit, cd
         // (extra credit: dragon) the cd command should chdir to the provided
         // directory; if no directory is provided, do nothing
-        for (int i = 0; i < cmd_list.num; i++) {
+        if (cmd_list.num == 1) {
             bi_cmd = exec_built_in_cmd(cmd_buff);
             if (bi_cmd == BI_CMD_EXIT) {
                 return OK;
-            } else if (bi_cmd == BI_EXECUTED) {
             } else if (bi_cmd == BI_NOT_BI) {
                 // IMPLEMENT if not built-in command, fork/exec as an external
                 // command
@@ -102,6 +101,8 @@ int exec_local_cmd_loop()
                 if (rc == ERR_EXEC_CMD) {
                     printf("Error executing command %s\n", cmd_buff->argv[0]);
                 }
+            } else {
+                rc = execute_pipeline(&cmd_list);
             }
         }
     }
