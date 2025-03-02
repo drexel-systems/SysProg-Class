@@ -101,9 +101,9 @@ int exec_local_cmd_loop()
                 if (rc == ERR_EXEC_CMD) {
                     printf("Error executing command %s\n", cmd_buff->argv[0]);
                 }
-            } else {
-                rc = execute_pipeline(&cmd_list);
             }
+        } else {
+            rc = execute_pipeline(&cmd_list);
         }
     }
 
@@ -260,10 +260,10 @@ int execute_pipeline(command_list_t *clist)
             return ERR_EXEC_CMD;
         }
 
-        if (pids[i] == 0) {  // Child process
+        if (pids[i] == 0) { // Child process
             // Set up input pipe for all except first process
             if (i > 0) {
-                dup2(pipes[i-1][0], STDIN_FILENO);
+                dup2(pipes[i - 1][0], STDIN_FILENO);
             }
 
             // Set up output pipe for all except last process
