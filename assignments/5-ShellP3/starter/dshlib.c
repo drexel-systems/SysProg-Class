@@ -56,7 +56,8 @@ int exec_local_cmd_loop()
 {
     char *cmd_input;
     int rc = 0;
-    cmd_buff_t cmd_buff;
+    command_list_t cmd_list = {0};
+    cmd_buff_t *cmd_buff = cmd_list.commands;
     Built_In_Cmds bi_cmd;
 
     // IMPLEMENT MAIN LOOP
@@ -68,7 +69,6 @@ int exec_local_cmd_loop()
     memset(cmd_input, 0, SH_CMD_MAX);
 
     while (1) {
-        clear_cmd_buff(&cmd_buff);
         printf("%s", SH_PROMPT);
         if (fgets(cmd_input, ARG_MAX, stdin) == NULL) {
             printf("\n");
@@ -78,7 +78,7 @@ int exec_local_cmd_loop()
         cmd_input[strcspn(cmd_input, "\n")] = '\0';
 
         // IMPLEMENT parsing input to cmd_buff_t *cmd_buff
-        rc = build_cmd_buff(cmd_input, &cmd_buff);
+        rc = build_cmd_list(cmd_input, &cmd_list);
         if (rc == WARN_NO_CMDS) {
             printf(CMD_WARN_NO_CMD);
             continue;
@@ -90,16 +90,18 @@ int exec_local_cmd_loop()
         // IMPLEMENT if built-in command, execute builtin logic for exit, cd
         // (extra credit: dragon) the cd command should chdir to the provided
         // directory; if no directory is provided, do nothing
-        bi_cmd = exec_built_in_cmd(&cmd_buff);
-        if (bi_cmd == BI_CMD_EXIT) {
-            return OK;
-        } else if (bi_cmd == BI_EXECUTED) {
-        } else if (bi_cmd == BI_NOT_BI) {
-            // IMPLEMENT if not built-in command, fork/exec as an external
-            // command
-            rc = exec_cmd(&cmd_buff);
-            if (rc == ERR_EXEC_CMD) {
-                printf("Error executing command %s\n", cmd_buff.argv[0]);
+        for (int i = 0; i < cmd_list.num; i++) {
+            bi_cmd = exec_built_in_cmd(cmd_buff);
+            if (bi_cmd == BI_CMD_EXIT) {
+                return OK;
+            } else if (bi_cmd == BI_EXECUTED) {
+            } else if (bi_cmd == BI_NOT_BI) {
+                // IMPLEMENT if not built-in command, fork/exec as an external
+                // command
+                rc = exec_cmd(cmd_buff);
+                if (rc == ERR_EXEC_CMD) {
+                    printf("Error executing command %s\n", cmd_buff->argv[0]);
+                }
             }
         }
     }
