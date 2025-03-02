@@ -241,6 +241,63 @@ int exec_cmd(cmd_buff_t *cmd)
     return OK;
 }
 
+int execute_pipeline(command_list_t *clist)
+{
+    int pipes[clist->num - 1][2];
+    pid_t pids[clist->num];
+
+    for (int i = 0; i < clist->num - 1; i++) {
+        if (pipe(pipes[i]) == -1) {
+            perror("pipe");
+            return ERR_EXEC_CMD;
+        }
+    }
+
+    for (int i = 0; i < clist->num; i++) {
+        pids[i] = fork();
+        if (pids[i] == -1) {
+            perror("fork");
+            return ERR_EXEC_CMD;
+        }
+
+        if (pids[i] == 0) {  // Child process
+            // Set up input pipe for all except first process
+            if (i > 0) {
+                dup2(pipes[i-1][0], STDIN_FILENO);
+            }
+
+            // Set up output pipe for all except last process
+            if (i < clist->num - 1) {
+                dup2(pipes[i][1], STDOUT_FILENO);
+            }
+
+            // Close all pipe ends in child
+            for (int j = 0; j < clist->num - 1; j++) {
+                close(pipes[j][0]);
+                close(pipes[j][1]);
+            }
+
+            // Execute command
+            execvp(clist->commands[i].argv[0], clist->commands[i].argv);
+            perror("execvp");
+            return ERR_EXEC_CMD;
+        }
+    }
+
+    // Parent process: close all pipe ends
+    for (int i = 0; i < clist->num - 1; i++) {
+        close(pipes[i][0]);
+        close(pipes[i][1]);
+    }
+
+    // Wait for all children
+    for (int i = 0; i < clist->num; i++) {
+        waitpid(pids[i], NULL, 0);
+    }
+
+    return OK;
+}
+
 int clear_cmd_buff(cmd_buff_t *cmd_buff)
 {
     memset(cmd_buff, 0, sizeof(cmd_buff_t));
