@@ -213,3 +213,47 @@ int clear_cmd_buff(cmd_buff_t *cmd_buff)
     memset(cmd_buff, 0, sizeof(cmd_buff_t));
     return OK;
 }
+
+// int build_cmd_list(char *cmd_line, command_list_t *clist)
+// {
+//     char* raw_cmds[CMD_MAX] = {0};
+//     char* exe;
+//     char* arg;
+//     int i, j, k;
+//     int argsize;
+
+//     memset(clist, 0, sizeof(command_list_t));
+
+//     raw_cmds[clist->num] = strtok(cmd_line, PIPE_STRING);
+//     while (raw_cmds[clist->num] != NULL) {
+//         if (clist->num == CMD_MAX) {
+//             return ERR_TOO_MANY_COMMANDS;
+//         }
+//         clist->num++;
+//         raw_cmds[clist->num] = strtok(NULL, PIPE_STRING);
+//     }
+
+//     for (i = 0; i < clist->num; i++) {
+//         exe = strtok(raw_cmds[i], " ");
+
+//         if (strlen(exe) >= EXE_MAX || strlen(raw_cmds[i]) - strlen(exe) >= SH_CMD_MAX) {
+//             return ERR_CMD_OR_ARGS_TOO_BIG;
+//         }
+//         strcpy(clist->commands[i].exe, exe);
+//         arg = strtok(NULL, " ");
+//         k = 0;
+//         while (arg != NULL) {
+//             if (k != 0) {
+//                 clist->commands[i].args[k] = ' ';
+//                 k++;
+//             }
+//             argsize = strlen(arg);
+//             for (j = 0; j < argsize; j++) {
+//                 clist->commands[i].args[k] = arg[j];
+//                 k++;
+//             }
+//             arg = strtok(NULL, " ");
+//         }
+//     }
+//     return OK;
+// }
