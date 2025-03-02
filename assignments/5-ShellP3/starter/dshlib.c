@@ -113,6 +113,32 @@ int exec_local_cmd_loop()
     return OK;
 }
 
+int build_cmd_list(char *cmd_line, command_list_t *clist)
+{
+    cmd_buff_t *cmd_buf = clist->commands;
+    int rc = OK;
+    int num_cmds = 0;
+
+    while (*cmd_line != '\0' && rc == OK) {
+        if (num_cmds == CMD_MAX) {
+            rc = ERR_TOO_MANY_COMMANDS;
+            break;
+        }
+
+        rc = build_cmd_buff(cmd_line, cmd_buf);
+        cmd_buf++;
+        num_cmds++;
+    }
+
+    if (num_cmds == 0) {
+        rc = WARN_NO_CMDS;
+    }
+
+    clist->num = num_cmds;
+
+    return rc;
+}
+
 int build_cmd_buff(char *cmd_line, cmd_buff_t *cmd_buff)
 {
     char *p;
@@ -219,30 +245,4 @@ int clear_cmd_buff(cmd_buff_t *cmd_buff)
 {
     memset(cmd_buff, 0, sizeof(cmd_buff_t));
     return OK;
-}
-
-int build_cmd_list(char *cmd_line, command_list_t *clist)
-{
-    cmd_buff_t *cmd_buf = clist->commands;
-    int rc = OK;
-    int num_cmds = 0;
-
-    while (*cmd_line != '\0' && rc == OK) {
-        if (num_cmds == CMD_MAX) {
-            rc = ERR_TOO_MANY_COMMANDS;
-            break;
-        }
-
-        rc = build_cmd_buff(cmd_line, cmd_buf);
-        cmd_buf++;
-        num_cmds++;
-    }
-
-    if (num_cmds == 0) {
-        rc = WARN_NO_CMDS;
-    }
-
-    clist->num = num_cmds;
-
-    return rc;
 }
