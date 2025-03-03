@@ -115,6 +115,35 @@ int stop_server(int svr_socket){
  * 
  */
 int boot_server(char *ifaces, int port){
+    int listen_socket;
+    int rc;
+    struct sockaddr_in addr;
+
+    listen_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (listen_socket == -1) {
+        perror("socket");
+        return ERR_RDSH_SERVER;
+    }
+
+    int enable = 1;
+    setsockopt(listen_socket, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int));
+
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr(ifaces);
+    addr.sin_port = htons(port);
+
+    rc = bind(listen_socket, (const struct sockaddr *)&addr, sizeof(struct sockaddr_in));
+    if (rc == -1) {
+        perror("bind");
+        return ERR_RDSH_SERVER;
+    }
+
+    rc = listen(listen_socket, 20);
+    if (rc == -1) {
+        perror("listen");
+        return ERR_RDSH_SERVER;
+    }
+
     return WARN_RDSH_NOT_IMPL;
 }
 
@@ -160,7 +189,23 @@ int boot_server(char *ifaces, int port){
  * 
  */
 int process_cli_requests(int svr_socket){
-    return WARN_RDSH_NOT_IMPL;
+    int data_socket;
+    int rc;
+
+    while (1) {
+        data_socket = accept(svr_socket, NULL, NULL);
+        if (data_socket == -1) {
+            perror("accept");
+            return ERR_RDSH_COMMUNICATION;
+        }
+
+        rc = exec_client_requests(data_socket);
+        if (rc == OK_EXIT) {
+            break;
+        }
+    }
+
+    return OK_EXIT;
 }
 
 /*
