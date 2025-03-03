@@ -94,3 +94,20 @@ EOF
 
     [ "$stripped_output" = "$expected_output" ]
 }
+
+@test "Multiple pipes" {
+    run ./dsh <<EOF
+ls | grep dsh | grep lib
+EOF
+
+    stripped_output=$(echo "$output" | tr -d '[:space:]')
+
+    expected_output="dshlib.cdshlib.hdsh3>dsh3>cmdloopreturned0"
+
+    echo "Captured stdout:"
+    echo "Output: $output"
+    echo "Exit Status: $status"
+    echo "${stripped_output} -> ${expected_output}"
+
+    [ "$stripped_output" = "$expected_output" ]
+}
