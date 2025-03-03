@@ -77,3 +77,20 @@ EOF
     [ "$stripped_output" = "$expected_output" ]
 
 }
+
+@test "Pipe character in quote" {
+    run ./dsh <<EOF
+echo "this pipe | is in a quote"
+EOF
+
+    stripped_output=$(echo "$output" | tr -d '[:space:]')
+
+    expected_output="thispipe|isinaquotedsh3>dsh3>cmdloopreturned0"
+
+    echo "Captured stdout:"
+    echo "Output: $output"
+    echo "Exit Status: $status"
+    echo "${stripped_output} -> ${expected_output}"
+
+    [ "$stripped_output" = "$expected_output" ]
+}
