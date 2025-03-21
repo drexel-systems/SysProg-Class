@@ -4,6 +4,8 @@ rubric:
     points: 70
   - requirement: code quality (how easy is your solution to follow)
     points: 20
+  - requirement: quality of question answers in the questions.md file
+    points: 10
   possibleExtraCredotScore:
   - requirement: Make the server multi-threaded to handle concurrent client connections
     points: 10
@@ -20,7 +22,10 @@ rubric:
       5. Finally implement the fork/exec logic to implement remote commands.  This will largly be the same as in your previous assignment except you will be `dup2()` the `stdin` descriptor in the first process and the `stdout` and `stderr` in the last pipeline process using the socket representing the client connection.  
 
       6. Build your tests to not only show us that your code is working, but to help you debug your code as well.  In this final assignment testing will be 100% your responsibility to implement.
-
+  - description: answer the questions in questions.md
+    criteria:
+    - must place each quesiton answer after the question in questions.md
+    - must provide a complete, correct, and thorough answer
 
 
 

@@ -4,6 +4,8 @@ rubric:
     points: 50
   - requirement: code quality (how easy is your solution to follow)
     points: 10
+  - requirement: quality of question answers in the questions.md file
+    points: 10
   possibleExtraCredotScore:
   - requirement: implement < and > redirection
     points: 10
@@ -29,4 +31,8 @@ rubric:
   - description: optional extra credit to implement append >> redirection
     criteria:
     - must support append redirection with >>
-    
+  - description: answer the questions in questions.md
+    criteria:
+    - must place each quesiton answer after the question in questions.md
+    - must provide a complete, correct, and thorough answer
+
