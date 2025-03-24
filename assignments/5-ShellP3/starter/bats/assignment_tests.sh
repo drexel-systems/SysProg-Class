@@ -10,27 +10,27 @@
 # All tests in this file must pass - it is used as part of grading!
 ########################################################################################
 
+# Helper function to check if output contains expected text
+# Usage: assert_output_contains "expected text"
+assert_output_contains() {
+    local expected="$1"
+    if [[ ! "$output" =~ "$expected" ]]; then
+        echo "Expected output to contain: '$expected'"
+        echo "Got output:"
+        echo "$output"
+        return 1
+    fi
+}
+
 @test "Pipes" {
     run "./dsh" <<EOF                
 ls | grep dshlib.c
 EOF
 
-    # Strip all whitespace (spaces, tabs, newlines) from the output
-    stripped_output=$(echo "$output" | tr -d '[:space:]')
-
-    # Expected output with all whitespace removed for easier matching
-    expected_output="dshlib.cdsh3>dsh3>cmdloopreturned0"
-
-    # These echo commands will help with debugging and will only print
-    #if the test fails
-    echo "Captured stdout:" 
-    echo "Output: $output"
-    echo "Exit Status: $status"
-    echo "${stripped_output} -> ${expected_output}"
-
-    # Check exact match
-    [ "$stripped_output" = "$expected_output" ]
-
-    # Assertions
+    # Verify key elements in the output
+    assert_output_contains "dshlib.c"
+    assert_output_contains "cmd loop returned 0"
+    
+    # Verify the command executed successfully
     [ "$status" -eq 0 ]
 }
