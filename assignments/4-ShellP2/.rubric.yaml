@@ -4,6 +4,8 @@ rubric:
     points: 25
   - requirement: code quality (how easy is your solution to follow)
     points: 5
+  - requirement: quality of question answers in the questions.md file
+    points: 15
   possibleExtraCredotScore:
   - requirement: implement an rc builtin command that contains the last command's return code
     points: 10
@@ -20,4 +22,8 @@ rubric:
   - description: optional extra credit to implement rc command
     criteria:
     - rc command must return the exit code of the last command executed with fork/exec
-    
+  - description: answer the questions in questions.md
+    criteria:
+    - must place each quesiton answer after the question in questions.md
+    - must provide a complete, correct, and thorough answer
+
