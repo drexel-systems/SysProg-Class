@@ -57,12 +57,30 @@ The [Drexel CCI extension](https://marketplace.visualstudio.com/items?itemName=b
 
 #### About BATS
 
+As noted in the syllabus, all assignments in this course use the [BATS testing framework](https://github.com/bats-core/bats-core). 
+
+BATS is a bash-based unit testing framework. Unit tests are a type of automated verificaiton that developers use to ensure a piece of code behaves as desired. In this case validation is performed by examaning the output of commands.
+
+- You will not be required to author or modify BATS tests
+- Assignment solutions must pass BATS test with `make test`
+
+Because BATS tests verify output, you must take care to follow the assignment requirements and produce the correct output. All assignments clearly state exactly what the required output is, and some of them define strings in header files to be used for output messages.
+
 #### Submission Requirements
+
+As noted in the syllabus, all assignment submission MUST adhere to the following rules:
+
+- The assignment folder (`0-Warmup` in this case) must be placed in the root of your github repository; do not use a different folder name or location
+- The folder/file structure inside `0-Warmup` must be preserved exactly as it is in this repository; do not change any file locations or names. For example, in this assignment you should preserve hello.c as `0-Warmup/starter/hello.c`
+  - This week you do not need to edit the code; in future weeks you will be adding code to files in the starter folder; you can edit them in place, you do not need to rename or move them
+- You are welcome to add additional files to the starter folder. This is not required, but if it helps you to break complex assignments into multiple .c and .h files, you are free to do so.
+- Assignments must compile on linux with `make`. If your assignment does not compile, you will receive a 0 for the assignment and you will be asked to re-submit it. Submitting code that does not compile will not excuse you from any late penalties.
 
 #### Grading
 
-- 10 points: 0-Warmup code submitted 
-- 10 points: Questions answered
-- 10 points: EXTRA CREDIT demonstrate that you used gdb to debug hello.c by adding a screenshot of the active debug session to this folder
+- 5 points: 0-Warmup code submitted
+- 5 points: BATS tests pass
+- 5 points: Questions answered
+- 5 points: EXTRA CREDIT demonstrate that you used gdb to debug hello.c by adding a screenshot of the active debug session to this folder
 
-Total points achievable is 20/20.
+Total points achievable is 20/15.
