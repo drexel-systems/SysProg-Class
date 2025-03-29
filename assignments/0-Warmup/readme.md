@@ -19,7 +19,7 @@ This assignment does NOT require you to write any code. The code in the starter 
 
 1. Clone your personal github repo. You received 3 emails related to github: 2 from me with instructions, and 1 from github.com inviting you to our student org. Use these email instructions to set up access and clone the repo. Also **check out the video guide first if you need help**.
 2. Add the `0-Warmup` folder **to the root of your personal repo**. You must preserve all folder contents (starter, readme.md, questions.md, etc.). I strongly urge you to use VScode and [this Drexel extension](https://marketplace.visualstudio.com/items?itemName=bdlilley.drexel-cci) to manage your assignments. This makes it quick to set up an assignment, and ensures that you are maintaining the required folder structure. See "Drexel CCI Extension" below for more details.
-3. Validate code runs - `cd -Warmup/starter` and `make test`. If you are missing any tools, the Drexel extension should have warned you and provided commands to install them.
+3. Validate code runs - `cd 0-Warmup/starter` and `make test`. If you are missing any tools, the Drexel extension should have warned you and provided commands to install them.
 4. You are not writing or changing any code. The goal is to see it run and print "Hello, world".
 5. Answer the questions in questions.md.
 6. Commit all your changes and push to your repo.
