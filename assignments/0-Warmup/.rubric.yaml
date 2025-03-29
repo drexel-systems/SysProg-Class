@@ -1,18 +1,22 @@
 rubric:
   possibleScore:
   - requirement: repo contains starter/hello.c that prints "hello, world"
-    points: 10
+    points: 5
+  - requirement: BATS tests pass
+    points: 5
   - requirement: quality of question answers in the questions.md file
-    points: 10
+    points: 5
   possibleExtraCreditScore:
   - requirement: Demonstrate that you used gdb to debug
-    points: 10
+    points: 5
   requirements:
   - description: submit a working hello world program
     criteria:
     - must compile and run without errors
     - must print "hello, world" to stdout
-    - must pass make test
+  - description: BATS test must pass
+    criteria:
+    - make test must pass without errors
   - description: optional extra credit that gdb was used to debug
     criteria:
     - submit an image file with a breakpoint set on line 5 (printf("Hello, World!\n");
