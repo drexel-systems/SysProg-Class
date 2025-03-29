@@ -18,12 +18,24 @@ The goal of this assignment is for you to decide which linux solution you will u
 This assignment does NOT require you to write any code. The code in the starter folder is intended to help you validate your local environment, and demonstrate that you have correctly set up your github repository.
 
 1. Clone your personal github repo. You received 3 emails related to github: 2 from me with instructions, and 1 from github.com inviting you to our student org. Use these email instructions to set up access and clone the repo. Also **check out the video guide first if you need help**.
-2. Add the `0-Warmup` folder **to the root of your personal repo**. You must preserve all folder contents (starter, readme.md, questions.md, etc.). I strongly urge you to use VScode and [this Drexel extension](https://marketplace.visualstudio.com/items?itemName=bdlilley.drexel-cci) to manage your assignments. This makes it quick to set up an assignment, and ensures that you are maintaining the required folder structure.
+2. Add the `0-Warmup` folder **to the root of your personal repo**. You must preserve all folder contents (starter, readme.md, questions.md, etc.). I strongly urge you to use VScode and [this Drexel extension](https://marketplace.visualstudio.com/items?itemName=bdlilley.drexel-cci) to manage your assignments. This makes it quick to set up an assignment, and ensures that you are maintaining the required folder structure. See "Drexel CCI Extension" below for more details.
 3. Validate code runs - `cd -Warmup/starter` and `make test`. If you are missing any tools, the Drexel extension should have warned you and provided commands to install them.
 4. You are not writing or changing any code. The goal is to see it run and print "Hello, world".
 5. Answer the questions in questions.md.
 6. Commit all your changes and push to your repo.
 7. Submit the assignment in Blackboard under the "assignments" section. **The submission in Blackboard must be a link to your solution in your github.com repository; you must submit in Blackboard to signal that you are ready for an assignment to be graded**.
+
+#### Drexel CCI Extension
+
+The [Drexel CCI extension](https://marketplace.visualstudio.com/items?itemName=bdlilley.drexel-cci) was created to make assignment management easy. Here is how it works:
+
+- You install the extension in vscode, which creates a new extension tab (the Drexel dragon icon)
+- When you launch vscode or click on the extension, it does a system check to ensure you are running in a Linux environment and that you have the required tools installed.
+  - If you do not have the requiremed tools, a warning popup will provide you the installation commands
+- The extension lists all of the assignments available in our public assignment repo at https://github.com/drexel-systems/SysProg-Class/tree/main/assignments
+- Clicking "pull" for an assignment does a couple important things:
+  - Pulls the assignment code into your local vscode workspace (which should be your github.com private repo)
+  - Adds debug configurations to `.vscode` for the assignment (it merges with other configs to support multiple assignments) - these debug files allow you to set breakpoints and use vscode's integrated debugger
 
 #### Grading
 
