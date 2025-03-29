@@ -1,6 +1,0 @@
-fake_root
-userns_child
-.vscode
-.DS_Store
-.bin
-.out
