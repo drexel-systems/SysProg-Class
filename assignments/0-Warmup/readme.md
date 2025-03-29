@@ -25,6 +25,24 @@ This assignment does NOT require you to write any code. The code in the starter 
 6. Commit all your changes and push to your repo.
 7. Submit the assignment in Blackboard under the "assignments" section. **The submission in Blackboard must be a link to your solution in your github.com repository; you must submit in Blackboard to signal that you are ready for an assignment to be graded**.
 
+**Optional Extra Credit**
+
+While optional, I HIGHLY encourage you to do this step. Many students struggle with complex code without ever debugging - I would like you to be comfortable with the debugger from day 1 - it will make your life easier!
+
+If you use the [Drexel CCI extension](https://marketplace.visualstudio.com/items?itemName=bdlilley.drexel-cci), it automatically configures debugging for you for each assignment. You are of course free to configure debugging yourself if you are comfortable with how to do so.
+
+Whether you use the extension or not, follow these steps for extra credit:
+
+1. Set a break point on line 5 in `hello.c`, it should look something like this:
+
+    ![Debugging Screenshot](./img/img1.png)
+
+2. Run the debug profile for 0-Warmup so the breakpoint you set in the previous step will be hit.
+
+3. Take a screenshot of your entire vscode window. It should clearly show an active debug session with the debugger stopped on line 5. Here is what it looks like on my system:
+
+    ![Debugging Screenshot](./img/img2.png)
+
 #### Drexel CCI Extension
 
 The [Drexel CCI extension](https://marketplace.visualstudio.com/items?itemName=bdlilley.drexel-cci) was created to make assignment management easy. Here is how it works:
@@ -37,9 +55,14 @@ The [Drexel CCI extension](https://marketplace.visualstudio.com/items?itemName=b
   - Pulls the assignment code into your local vscode workspace (which should be your github.com private repo)
   - Adds debug configurations to `.vscode` for the assignment (it merges with other configs to support multiple assignments) - these debug files allow you to set breakpoints and use vscode's integrated debugger
 
+#### About BATS
+
+#### Submission Requirements
+
 #### Grading
 
 - 10 points: 0-Warmup code submitted 
 - 10 points: Questions answered
+- 10 points: EXTRA CREDIT demonstrate that you used gdb to debug hello.c by adding a screenshot of the active debug session to this folder
 
 Total points achievable is 20/20.

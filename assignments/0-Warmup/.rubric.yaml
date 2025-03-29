@@ -4,13 +4,19 @@ rubric:
     points: 10
   - requirement: quality of question answers in the questions.md file
     points: 10
-  possibleExtraCreditScore: []
+  possibleExtraCreditScore:
+  - requirement: Demonstrate that you used gdb to debug
+    points: 10
   requirements:
   - description: submit a working hello world program
     criteria:
     - must compile and run without errors
     - must print "hello, world" to stdout
     - must pass make test
+  - description: optional extra credit that gdb was used to debug
+    criteria:
+    - submit an image file with a breakpoint set on line 5 (printf("Hello, World!\n");
+    - the breakpoint must be the active line of code in a debug session
   - description: answer the questions in questions.md
     criteria:
     - must place each quesiton answer after the question in questions.md
