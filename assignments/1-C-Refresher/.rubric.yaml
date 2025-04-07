@@ -1,0 +1,31 @@
+rubric:
+  possibleScore:
+  - requirement: correct implementation of required functionality
+    points: 25
+  - requirement: code quality (how easy is your solution to follow)
+    points: 5
+  - requirement: quality of question answers in the questions.md file
+    points: 5
+  possibleExtraCredotScore:
+  - requirement: implement your own helper function to calculate string length
+    points: 5
+  - requirement: implement string replace with -x
+    points: 10
+  requirements:
+  - description: allocate the "buff" variable using malloc
+    criteria:
+    - must use malloc to allocate the buffer
+    - must check to make sure malloc succeeds
+    - must allocate the buffer to be 50 bytes using a macro
+  - description: implement and comment the setup_buff function
+    criteria:
+    - Copy over every non-white space character from the user supplied string
+    - Whitespace in the output may only be the space char `' '`
+    - After the user supplied buffer is copied over, the remainder of the internal buffer should be filled with `'.'` characters
+    - Use the ending marker '\0' when parsing user_str
+    - must return an integer: `-1 = The user supplied string is too large`.  In other words the user supplied string > `BUFFER_SZ`. `-2 = Any other error you want to report`.  For a `-2` error code, document in your code with a comment what the error condition is you are reporting.  If there are no errors, the `setup_buff()` function should return the length of the user supplied string.
+  - description: implement and comment the count_words function
+    criteria:
+    - must implement the count_words function
+    - implement the -r option to reverse the characters in each word
+    - implement the -w option to print the words in the buffer
