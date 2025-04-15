@@ -1,0 +1,65 @@
+rubric:
+  possibleScore:
+  - requirement: correct implementation of required functionality
+    points: 50
+  - requirement: code quality (how easy is your solution to follow)
+    points: 5
+  - requirement: quality of question answers in the questions.md file
+    points: 10
+  possibleExtraCredotScore:
+  - requirement: implement compress_db function
+    points: 10
+  requirements:
+  - description: implement get_student
+    criteria:
+    - get student must return the student specified by int id
+    - returns SRCH_NOT_FOUND if student not found
+    - returns NO_ERROR if the student was found
+    - returns ERR_DB_FILE if there is a db io error
+  - description: implement add_student
+    criteria:
+    - adds a new student to the database using (id*64)-64
+    - returns ERR_DB_OP if student already exists
+    - prints  M_ERR_DB_ADD_DUP if student already exists
+    - returns NO_ERROR if the student was added
+    - prints M_STD_ADDED if student was added
+  - description: implement delete_student
+    criteria:
+    - deletes the student specified by int id
+    - print M_STD_DEL_MSG on success
+    - prints M_STD_NOT_FND_MSG if student not found
+  - description: implement count_db_records
+    criteria:
+    - counts number of non-zero records in database
+    - returns ERR_DB_FILE if there is a db io error
+    - prints M_DB_RECORD_CNT with count on success
+    - prints M_DB_EMPTY if no records found
+  - description: implement print_db
+    criteria:
+    - prints all non-zero records in database
+    - prints header using STUDENT_PRINT_HDR_STRING
+    - prints each record using STUDENT_PRINT_FMT_STRING
+    - converts GPA from int to float by dividing by 100.0
+    - returns ERR_DB_FILE if there is a db io error
+  - description: implement print_student
+    criteria:
+    - validates student pointer is not NULL
+    - validates student id is not zero
+    - prints header using STUDENT_PRINT_HDR_STRING
+    - prints student using STUDENT_PRINT_FMT_STRING
+    - converts GPA from int to float by dividing by 100.0
+    - prints M_ERR_STD_PRINT if student is invalid
+  - description: implement compress_db (extra credit)
+    criteria:
+    - creates temporary database file
+    - copies only valid student records to temp file
+    - renames temp file to replace original database
+    - returns new file descriptor of compressed database
+    - prints M_DB_COMPRESSED_OK on success
+    - returns ERR_DB_FILE if any io error occurs
+
+
+
+
+
+
