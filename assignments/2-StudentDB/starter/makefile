@@ -12,7 +12,7 @@ HDRS = $(wildcard *.h)
 # Default target
 all: $(TARGET)
 
-test:
+test: $(TARGET)
 	bats $(wildcard ./bats/*.sh)
 
 # Compile source to executable
@@ -26,4 +26,4 @@ clean:
 
 
 # Phony targets
-.PHONY: all clean
+.PHONY: all clean test

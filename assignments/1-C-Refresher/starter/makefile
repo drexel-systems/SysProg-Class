@@ -8,6 +8,9 @@ TARGET = stringfun
 # Default target
 all: $(TARGET)
 
+test: $(TARGET)
+	bats $(wildcard ./bats/*.sh)
+	
 # Compile source to executable
 $(TARGET): stringfun.c
 	$(CC) $(CFLAGS) -o $(TARGET) $^
