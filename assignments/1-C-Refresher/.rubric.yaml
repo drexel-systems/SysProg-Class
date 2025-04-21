@@ -29,3 +29,10 @@ rubric:
     - must implement the count_words function
     - implement the -r option to reverse the characters in each word
     - implement the -w option to print the words in the buffer
+  - description: EXTRA CREDIT implement the -x option
+    criteria:
+    - implement the -x option: given `stringfun -x "Replacing words in strings is not fun!" not super`, it should output `Replacing words in strings is super fun!`
+  - description: EXTRA CREDIT implement your own custom string length function and use it in your code
+    criteria:
+    - the student should create a function that does the equivalent of the strlen function from the stdlib, and they must use it in their code
+    

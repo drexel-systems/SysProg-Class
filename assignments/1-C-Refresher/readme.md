@@ -95,7 +95,7 @@ Also watch out for the situation where your replacement can go beyond the length
 - 5 points:  Code quality (how easy is your solution to follow)
 - 5 points: Answering the written questions: [questions.md](./questions.md)
 - 5 points: [EXTRA CREDIT] Implement your own helper function to calculate string length
-- 15 points: [EXTRA CREDIT++] Implement string replace with -x
+- 10 points: [EXTRA CREDIT++] Implement string replace with -x
 
 Total points achievable is 55/35.
 
