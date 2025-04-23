@@ -1,0 +1,48 @@
+rubric:
+  possibleScore:
+  - requirement: correct implementation of required functionality
+    points: 25
+  - requirement: code quality (how easy is your solution to follow)
+    points: 5
+  - requirement: quality of answers in the questions.md file
+    points: 15
+  possibleExtraCreditScore:
+  - requirement: implementation of the 'dragon' command
+    points: 5
+  - requirement: implementation of the 'dragon' command using compressed/binary data
+    points: 5
+  requirements:
+  - description: implement the main shell loop in dsh_cli.c
+    criteria:
+    - must have a forever loop that only exits on 'exit' command
+    - must use fgets to read input line by line
+    - must handle EOF and newlines appropriately
+    - must remove trailing newline characters from input
+  - description: implement the built-in 'exit' command
+    criteria:
+    - must detect when user enters 'exit' command
+    - must exit the shell with status code 0
+  - description: implement the build_cmd_list function in dshlib.c
+    criteria:
+    - must correctly parse command line into commands
+    - must handle pipe character '|' to separate commands
+    - must handle command arguments correctly
+    - must handle multiple white spaces between commands and arguments
+    - must recognize up to 8 piped commands
+    - must return appropriate error for more than 8 commands
+    - must detect and handle empty command line properly
+  - description: implement command list printing in dsh_cli.c
+    criteria:
+    - must match the exact output format shown in the sample run
+    - must properly display command count
+    - must properly display each command with its number
+    - must properly display arguments for each command
+  - description: EXTRA CREDIT implement the 'dragon' command
+    criteria:
+    - must recognize when user enters 'dragon' command
+    - must print the Drexel dragon in ASCII art exactly as shown
+  - description: EXTRA CREDIT++ implement the 'dragon' command using compressed data
+    criteria:
+    - must implement the 'dragon' command
+    - must use a compressed or binary representation of the dragon in the code
+    - must not use plain strings or #defines for the dragon art
