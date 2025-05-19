@@ -1,0 +1,31 @@
+rubric:
+  possibleScore:
+  - requirement: correct implementation of required functionality
+    points: 70
+  - requirement: code quality (how easy is your solution to follow)
+    points: 20
+  - requirement: quality of question answers in the questions.md file
+    points: 10
+  possibleExtraCreditScore:
+  - requirement: Make the server multi-threaded to handle concurrent client connections
+    points: 10
+  requirements:
+  - description:
+      1.  Start by implementing the server.  Shell out a minimal implementation in `rsh_server.c` using the provided arguements from `dsh_cli.c`.  The goal at this point is to be able to start a socket server, accept client connections and properly send and receive messages.  Do not attempt to process any messages at this point.  Build the initial version to accept commands from the client (that are expected to be null `\0` terminated), and then simply reply by _echoing_ the this input back to the client in its expected format (messages from the server back to the client are streams of characters and terminated with the `EOF` character). Remember we provide `RDSH_EOF_CHAR` in `rshlib.h` as a `static constant char` which means you can treat it like a `#define` constant but can also use it as a variable.  In other words you can `send(socket, &RDSH_EOF_CHAR, 1, 0);
+
+      2. Next implement the basic client.  Build the logic to connect to the server with the provided arguments collected from `dsh_cli.c`. From there copy the basic command loop from your previous shell that accepts user input from the command line.  However, instead of calling any fork/exec logic, properly format the input collected from the user and send it to the server.  Remember you must send a null byte at the end as per the protocol.  Because C strings are null terminated you can easily do this by `send(socket, my_string, strlen(my_string)+1,0);`.  After sending, build a simple receive loop given that the data sent back from the server might not come all at one time.  Keep looping until the payload that you see ends with the `RDSH_EOF_CHAR` character.  We describe how to do this above.
+
+      3. Expand the rdsh_server implementation to start handling some key built-in commands.  These commands do not require any fork/exec logic.  I would recommend starting with implementing the `exit` command that simply closes the socket connection with the client and loops the server back to the next `accept()` socket API call. Correct operation would now enable a client to connect to the server, run `exit`, then allow another client to connect to the server. After that, implement the `stop-server` command that not only closes the client connection, but also gracefully shuts down the server.  This would involve freeing all allocated memory, and ultimately closing the main server socket. 
+
+      4. Implement the other required built in commands such as `cd`.  There are also other built-in commands that were extra credit earlier that you can integrate such as `dragon`.
+
+      5. Finally implement the fork/exec logic to implement remote commands.  This will largly be the same as in your previous assignment except you will be `dup2()` the `stdin` descriptor in the first process and the `stdout` and `stderr` in the last pipeline process using the socket representing the client connection.  
+
+      6. Build your tests to not only show us that your code is working, but to help you debug your code as well.  In this final assignment testing will be 100% your responsibility to implement.
+  - description: answer the questions in questions.md
+    criteria:
+    - must place each quesiton answer after the question in questions.md
+    - must provide a complete, correct, and thorough answer
+
+
+
