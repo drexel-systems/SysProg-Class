@@ -127,8 +127,6 @@ venv.bak/
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
-Makefile
-!*/Makefile
 install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
