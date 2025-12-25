@@ -1,0 +1,76 @@
+rubric:
+  possibleScore:
+  - requirement: correct implementation of required functionality
+    points: 25
+  - requirement: code quality (readability, comments, function design)
+    points: 5
+  - requirement: quality of question answers in questions.md file
+    points: 5
+  possibleExtraCreditScore:
+  - requirement: implement support for multiple files
+    points: 5
+  - requirement: implement invert match with -v flag
+    points: 10
+  requirements:
+  - description: allocate line buffer using malloc
+    criteria:
+    - must use malloc to allocate the buffer
+    - must check to make sure malloc succeeds
+    - must allocate the buffer to be 256 bytes using the LINE_BUFFER_SZ macro
+    - must free the buffer before program exits
+  - description: implement and comment the str_len function
+    criteria:
+    - must calculate string length without using strlen()
+    - must use pointer arithmetic only, no array notation
+    - must return correct length (not including null terminator)
+    - must be properly commented
+  - description: implement and comment the str_match function
+    criteria:
+    - must search for pattern anywhere in the line (not just at start)
+    - must support case-sensitive matching (case_insensitive = 0)
+    - must support case-insensitive matching (case_insensitive = 1)
+    - must use pointer arithmetic only, no array notation
+    - must return 1 if found, 0 if not found
+    - must be properly commented
+  - description: implement file reading and basic search
+    criteria:
+    - must open file using fopen() and check for errors
+    - must read file line by line using fgets()
+    - must search each line using str_match()
+    - must print matching lines
+    - must close file when done
+    - must handle file errors appropriately
+  - description: implement the -n option (line numbers)
+    criteria:
+    - must print line numbers before matching lines
+    - format should be "linenumber: content"
+    - line numbers should start at 1
+  - description: implement the -i option (case-insensitive)
+    criteria:
+    - must pass case_insensitive flag to str_match()
+    - must match patterns regardless of case
+  - description: implement the -c option (count)
+    criteria:
+    - must count matching lines
+    - must print "Matches found: X" where X is the count
+    - must print "No matches found" if count is 0
+    - must not print the actual matching lines (only the count)
+  - description: proper error handling and return codes
+    criteria:
+    - exit with 0 on success (pattern found)
+    - exit with 1 when pattern not found
+    - exit with 2 on command line errors
+    - exit with 3 on file errors
+    - exit with 4 on memory allocation failure
+  - description: EXTRA CREDIT implement support for multiple files
+    criteria:
+    - must accept multiple filenames on command line
+    - must search all files provided
+    - must print filename before each matching line
+    - format should be "filename:linenumber: content" (if -n is used)
+    - format should be "filename: content" (if -n is not used)
+  - description: EXTRA CREDIT implement the -v option (invert match)
+    criteria:
+    - must print lines that do NOT contain the pattern
+    - must work with other flags (-n, -c, -i)
+    - if combined with -c, should count non-matching lines
