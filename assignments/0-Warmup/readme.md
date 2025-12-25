@@ -125,11 +125,13 @@ After accepting the GitHub Classroom assignment, you'll receive a repository URL
 
 ```bash
 # Replace with your actual repository URL from GitHub Classroom
-git clone https://github.com/drexel-cs-283/cs283-yourusername.git
+git clone https://github.com/drexel-cs-283/cs283-wi26-yourusername.git
 cd cs283-yourusername
 ```
 
-**Note:** The exact repository URL will be provided by GitHub Classroom after you accept the assignment. The repository name will be something like `cs283-yourusername` where `yourusername` is your GitHub username.
+**Note:** The exact repository URL will be provided by GitHub Classroom after you accept the assignment. The repository name will be something like `cs283-wi26-yourusername` where `yourusername` is your GitHub username.
+
+**Optional - SSH Setup (Recommended)**: The HTTPS URL above works fine, but you'll need to authenticate each time you push. For a better experience, consider setting up SSH key authentication by following our [SSH Setup Guide](github-ssh-setup.md). This is optional but highly recommended for frequent Git usage.
 
 ### Step 5: Create the Assignment Directory
 
