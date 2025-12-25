@@ -5,13 +5,12 @@
 This warmup assignment ensures your development environment is properly configured for the course. You will:
 1. Set up a Linux environment
 2. Install necessary development tools
-3. Configure Git to work with your GitHub repository
+3. Set up your GitHub repository through GitHub Classroom
 4. Compile a C program that implements a word counting utility
 5. Run automated tests to verify correctness
 6. Submit your work via GitHub
 
 **Points:** 5  
-**Due Date:** [Instructor to specify]
 
 ---
 
@@ -93,27 +92,25 @@ Each command should print version information without errors.
 
 ---
 
-## Part 3: Git and GitHub Configuration
+## Part 3: Git and GitHub Setup
 
-You have been provided with a GitHub repository for this course. All assignments will be completed in subdirectories of this repository.
+### Step 1: Create (or setup) a GitHub Account
 
-### Step 1: Set Up Your SSH Key
+If you don't already have a GitHub account, create one at [github.com](https://github.com). You can use any email address, though using your Drexel email is recommended for student benefits.  If you already have a GitHub account (not assoicated with your `drexel.edu` eamil address) and want extra student benefits, go to your profile (upper left) ->  Settings -> Emails (right navigation) and add your Drexel email. 
 
-You have been provided with an SSH keypair to access your GitHub repository. Place the private key in your `.ssh` directory:
+### Step 2: Accept the Course Repository Assignment
 
-```bash
-# Create .ssh directory if it doesn't exist
-mkdir -p ~/.ssh
+**IMPORTANT: You only need to do this ONCE for the entire course.**
 
-# Copy your provided private key to ~/.ssh/
-# Replace 'id_rsa_drexel' with the actual filename provided
-cp /path/to/your/provided/key ~/.ssh/id_rsa_drexel
+1. Go to Canvas and find the "Course Repository Setup" assignment
+2. Click on the **GitHub Classroom invitation link** provided in the assignment
+3. If prompted, authorize GitHub Classroom to access your GitHub account
+4. Accept the assignment - GitHub Classroom will automatically create your personal course repository
+5. Once the repository is created, you'll see a link to your personal course repository
 
-# Set proper permissions (critical for SSH to work)
-chmod 600 ~/.ssh/id_rsa_drexel
-```
+**This single repository will be used for ALL assignments this term.** You will create a separate directory for each assignment (00-Warmup, 01-Assignment, etc.).
 
-### Step 2: Configure Git
+### Step 3: Configure Git
 
 Set up your Git identity (use your Drexel email):
 
@@ -122,31 +119,19 @@ git config --global user.name "Your Name"
 git config --global user.email "yourname@drexel.edu"
 ```
 
-Configure Git to use your SSH key:
+### Step 4: Clone Your Repository
+
+After accepting the GitHub Classroom assignment, you'll receive a repository URL. Clone it to your Linux environment:
 
 ```bash
-# Create or edit ~/.ssh/config
-cat >> ~/.ssh/config << EOF
-Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_rsa_drexel
-EOF
-
-chmod 600 ~/.ssh/config
+# Replace with your actual repository URL from GitHub Classroom
+git clone https://github.com/drexel-cs-283/cs283-yourusername.git
+cd cs283-yourusername
 ```
 
-### Step 3: Clone Your Repository
+**Note:** The exact repository URL will be provided by GitHub Classroom after you accept the assignment. The repository name will be something like `cs283-yourusername` where `yourusername` is your GitHub username.
 
-Clone the repository provided by your instructor:
-
-```bash
-# Replace with your actual repository URL
-git clone git@github.com:drexel-cs/your-repo-name.git
-cd your-repo-name
-```
-
-### Step 4: Create the Assignment Directory
+### Step 5: Create the Assignment Directory
 
 ```bash
 # Create the directory for this warmup assignment
@@ -179,7 +164,7 @@ As you work on the assignment:
 
 ```bash
 # From your repository root
-cd ~/your-repo-name
+cd ~/cs283-yourusername
 cat > .gitignore << EOF
 .venv/
 *.o
@@ -251,7 +236,7 @@ Download or copy these files to your `00-Warmup` directory in your cloned reposi
 - `test_wordcount.py` - Automated tests (provided)
 
 ```bash
-cd ~/your-repo-name/00-Warmup
+cd ~/cs283-yourusername/00-Warmup
 # Copy or download the provided files here
 ```
 
@@ -332,7 +317,7 @@ A virtual environment isolates Python packages for this project:
 
 ```bash
 # Navigate to your assignment directory
-cd ~/your-repo-name/00-Warmup
+cd ~/cs283-yourusername/00-Warmup
 
 # Create a virtual environment
 python3 -m venv .venv
@@ -449,7 +434,7 @@ On most Linux systems:
 Before submitting, ensure all your work is pushed to GitHub:
 
 ```bash
-cd ~/your-repo-name/00-Warmup
+cd ~/cs283-yourusername/00-Warmup
 git add wordcount.c Makefile test_wordcount.py Warmup-Solution.png
 git commit -m "Complete warmup assignment"
 git push origin main
@@ -461,9 +446,9 @@ Verify your files are visible on GitHub by visiting your repository in a web bro
 
 1. Go to Canvas and find the Warmup Assignment
 2. Submit the **URL to your GitHub repository**
-3. Example: `https://github.com/drexel-cs/your-repo-name`
+3. The URL will be something like: `https://github.com/drexel-cs-283/cs283-yourusername`
 
-That's it! We will clone your repository and grade the contents of your `00-Warmup` directory.
+**Note:** You will submit the same repository URL for all assignments this term. We will clone your repository and grade the contents of the specific assignment directory (in this case, `00-Warmup`).
 
 ---
 
