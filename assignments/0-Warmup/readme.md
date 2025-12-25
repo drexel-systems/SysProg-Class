@@ -108,7 +108,7 @@ If you don't already have a GitHub account, create one at [github.com](https://g
 4. Accept the assignment - GitHub Classroom will automatically create your personal course repository
 5. Once the repository is created, you'll see a link to your personal course repository
 
-**This single repository will be used for ALL assignments this term.** You will create a separate directory for each assignment (00-Warmup, 01-Assignment, etc.).
+**This single repository will be used for ALL assignments this term.** You will create a separate directory for each assignment (0-Warmup, 01-Assignment, etc.).
 
 ### Step 3: Configure Git
 
@@ -137,11 +137,11 @@ cd cs283-yourusername
 
 ```bash
 # Create the directory for this warmup assignment
-mkdir -p 00-Warmup
-cd 00-Warmup
+mkdir -p 0-Warmup
+cd 0-Warmup
 ```
 
-You will complete all work for this assignment in the `00-Warmup` directory. Future assignments will have their own directories (e.g., `01-Assignment`, `02-Assignment`, etc.).
+You will complete all work for this assignment in the `0-Warmup` directory. Future assignments will have their own directories (e.g., `01-Assignment`, `02-Assignment`, etc.).
 
 ### Git Workflow Reminder
 
@@ -232,13 +232,13 @@ echo "Hello world" | ./wordcount
 
 ### Step 1: Download the Assignment Files
 
-Download or copy these files to your `00-Warmup` directory in your cloned repository:
+Download or copy these files to your `0-Warmup` directory in your cloned repository:
 - `wordcount.c` - Your C source code (provided as a starter)
 - `Makefile` - Build configuration (provided)
 - `test_wordcount.py` - Automated tests (provided)
 
 ```bash
-cd ~/cs283-yourusername/00-Warmup
+cd ~/cs283-yourusername/0-Warmup
 # Copy or download the provided files here
 ```
 
@@ -319,7 +319,7 @@ A virtual environment isolates Python packages for this project:
 
 ```bash
 # Navigate to your assignment directory
-cd ~/cs283-yourusername/00-Warmup
+cd ~/cs283-yourusername/0-Warmup
 
 # Create a virtual environment
 python3 -m venv .venv
@@ -409,7 +409,7 @@ If tests fail:
 
 ### What to Submit
 
-Your GitHub repository's `00-Warmup` directory should contain:
+Your GitHub repository's `0-Warmup` directory should contain:
 
 1. **wordcount.c** - Your source code
 2. **Makefile** - The build configuration  
@@ -424,7 +424,7 @@ After all tests pass, capture the pytest output:
 pytest test_wordcount.py -v
 ```
 
-Take a screenshot of your terminal showing the pytest results. Save it as either `Warmup-Solution.png` or `Warmup-Solution.jpg` in your `00-Warmup` directory.
+Take a screenshot of your terminal showing the pytest results. Save it as either `Warmup-Solution.png` or `Warmup-Solution.jpg` in your `0-Warmup` directory.
 
 On most Linux systems:
 - Use screenshot tools built into your environment
@@ -436,7 +436,7 @@ On most Linux systems:
 Before submitting, ensure all your work is pushed to GitHub:
 
 ```bash
-cd ~/cs283-yourusername/00-Warmup
+cd ~/cs283-yourusername/0-Warmup
 git add wordcount.c Makefile test_wordcount.py Warmup-Solution.png
 git commit -m "Complete warmup assignment"
 git push origin main
@@ -450,7 +450,7 @@ Verify your files are visible on GitHub by visiting your repository in a web bro
 2. Submit the **URL to your GitHub repository**
 3. The URL will be something like: `https://github.com/drexel-cs-283/cs283-yourusername`
 
-**Note:** You will submit the same repository URL for all assignments this term. We will clone your repository and grade the contents of the specific assignment directory (in this case, `00-Warmup`).
+**Note:** You will submit the same repository URL for all assignments this term. We will clone your repository and grade the contents of the specific assignment directory (in this case, `0-Warmup`).
 
 ---
 
