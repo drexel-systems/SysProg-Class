@@ -505,6 +505,14 @@ If you encounter issues, check the course Canvas page for office hours and addit
 
 ---
 
+## Extra Credit Opportunity
+
+Want to learn industry-standard CI/CD practices? Check out the **[GitHub Actions Extra Credit Assignment](github-actions-extra-credit.md)** (5 points).
+
+You'll use AI tools to research and implement automated testing that runs every time you push code - just like professional development teams do. This is optional but highly recommended for building real-world skills.
+
+---
+
 ## Learning Objectives
 
 By completing this assignment, you will:
