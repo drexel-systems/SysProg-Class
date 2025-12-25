@@ -134,6 +134,14 @@ $ minigrep -v "debug" logfile.txt
 
 You can combine this with other flags like `-n` or `-c`.
 
+#### Extra Credit: Memory Debugging (+10)
+
+Want to prove your code has zero memory errors? Learn to use Valgrind - the industry-standard memory debugging tool. Check out the **[Valgrind Extra Credit Assignment](valgrind-ec.md)** (10 points).
+
+You'll use AI tools to research Valgrind independently, run it on your minigrep, fix any memory errors, and document what you learned. This is optional but highly recommended for understanding memory management at a professional level.
+
+---
+
 #### Grading Rubric
 
 - 25 points: Correct implementation of required functionality
