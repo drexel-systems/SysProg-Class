@@ -1,29 +1,43 @@
-# Compiler settings
+# Makefile for Simple Database Assignment
+
 CC = gcc
 CFLAGS = -Wall -Wextra -g
-
-# Target executable name
 TARGET = sdbsc
+SRC = sdbsc.c
+TEST_SCRIPT = test_sdbsc.py
 
-# Find all source and header files
-SRCS = $(wildcard *.c)
-HDRS = $(wildcard *.h)
-
-# Default target
+# Default target - compile directly without intermediate .o files
 all: $(TARGET)
 
+# Build the executable directly from source
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRC)
+
+# Run tests using pytest
 test: $(TARGET)
-	bats $(wildcard ./bats/*.sh)
+	@echo "Running pytest tests..."
+	@pytest $(TEST_SCRIPT) -v
 
-# Compile source to executable
-$(TARGET): $(SRCS) $(HDRS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
+# Run tests with more detailed output
+test-verbose: $(TARGET)
+	@echo "Running pytest tests with detailed output..."
+	@pytest $(TEST_SCRIPT) -vv
 
-# Clean up build files
+# Run specific test
+test-one: $(TARGET)
+	@echo "Run a specific test with: make test-one TEST=test_name"
+	@pytest $(TEST_SCRIPT) -v -k "$(TEST)"
+
+# Clean build artifacts
 clean:
-	rm -f $(TARGET)
-	rm -f student.db
+	rm -f $(TARGET) *.o student.db
 
+# Clean and rebuild
+rebuild: clean all
 
-# Phony targets
-.PHONY: all clean test
+# Install pytest if not present (requires pip)
+install-pytest:
+	@echo "Installing pytest..."
+	pip3 install pytest --break-system-packages
+
+.PHONY: all test test-verbose test-one clean rebuild install-pytest

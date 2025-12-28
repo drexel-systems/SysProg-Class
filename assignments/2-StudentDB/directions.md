@@ -99,23 +99,98 @@ return_type some_function_you_need_to_implement( /*function args */)
 
 All of the directions are in comments above each function that you need to implement including required return values and required output. The starter code should compile correctly and support all of the program flags.  The functions you need to implement will output `"The requested operation is not implemented yet!"`.  Note that the compiler will produce several warnings about unused parameters in the starter code, you can ignore those as they will be needed for your implementation. 
 
-**YOU MUST PRODUCE THE EXACT OUTPUT THAT WE EXPECT FOR THIS ASSIGNMENT AS WE WILL BE USING THE BATS TESTING FRAMEWORK TO EVALUATE YOUR CODE.  There is a sample testing script provided for you to use while you are doing development.  Recall that all of the required strings for your output have been predefined for you in `sdbsc.h`. They all start with `#define M_`**
+**YOU MUST PRODUCE THE EXACT OUTPUT THAT WE EXPECT FOR THIS ASSIGNMENT AS WE WILL BE USING THE PYTEST TESTING FRAMEWORK TO EVALUATE YOUR CODE.  There is a sample testing script provided for you to use while you are doing development.  Recall that all of the required strings for your output have been predefined for you in `sdbsc.h`. They all start with `#define M_`**
+
+---
+
+## System Call Analysis with strace
+
+**Points: 10 (REQUIRED)**
+
+Once your database implementation is working, you must analyze your system call behavior using `strace` to verify your implementation is correct and understand how Linux handles file I/O at the system call level.
+
+**What You'll Do:**
+1. Learn to use `strace` through AI-assisted research (ChatGPT, Claude, Gemini, etc.)
+2. Trace your database operations (add, delete, print students)
+3. Analyze the system calls your code makes
+4. Investigate sparse file behavior and file holes
+5. Document your findings and learning process
+
+**Why This Matters:**
+- **Validates your implementation**: See exact system calls your code makes
+- **Industry-standard tool**: Every systems programmer uses strace for debugging
+- **Understanding system behavior**: See how lseek(), read(), write() actually work
+- **Sparse file investigation**: Observe how Linux creates and manages file holes
+- **Performance analysis**: Understand the cost of different operations
+
+**Deliverable:**
+Create a file `strace-analysis.md` following the detailed instructions in [strace-analysis.md](strace-analysis.md).
+
+You will use AI tools to learn `strace` independently - no step-by-step instructions provided. This teaches you to research and learn new tools on your own, a critical skill for systems programmers.
+
+**What You'll Analyze:**
+- Adding students to the database
+- Deleting students from the database
+- Reading and printing student records
+- Sparse file creation and behavior
+- System call patterns and efficiency
+
+See [strace-analysis.md](strace-analysis.md) for complete instructions on this required component.
+
+---
 
 #### Grading Rubric
-This assignment will be weighted 75 points.
+This assignment will be weighted 70 points.
 
-- 50 points:  Correct implementation of required functionality
-- 5 points:  Code quality (how easy is your solution to follow)
-- 10 points: Answering the written questions: [questions](./questions.md)
-- 10 points:  [EXTRA CREDIT] Implementation of the `compress_db(...)` function
+- 45 points: Correct implementation of required functionality
+- 5 points: Code quality (how easy is your solution to follow)
+- 10 points: System call analysis with strace
+- 10 points: [EXTRA CREDIT] Implementation of the `compress_db(...)` function
 
-Total points achievable is 75/65. 
+Total points achievable is 70/60. 
+
+#### Submission Requirements
+
+All files for this assignment should be placed in the `03-database` directory in your GitHub Classroom repository.
+
+**Required Files:**
+1. `sdbsc.c` - Your implementation
+2. `sdbsc.h` - If you added any functions
+3. `strace-analysis.md` - Your strace analysis with documentation
+4. All provided files (`db.h`, `makefile`, etc.) - Copy to your directory
+
+**Submission Process:**
+
+1. Ensure all files are in `03-database/` directory
+2. Test compilation: `make clean && make`
+3. Test functionality: `pytest test_sdbsc.py -v` or `make test` (all tests must pass)
+4. Commit and push: 
+   ```bash
+   git add 03-database/
+   git commit -m "Complete database assignment"
+   git push origin main
+   ```
+5. Submit repository URL on Canvas
+
+**Note:** We will clone your repository and grade the contents of your `03-database` directory.
 
 #### Automated Testing
 
-Don't forget to `make test` to verify your student db is meeting the assignment requirements!
+Your implementation will be tested using pytest.  
 
+Run tests with:
 
+```bash
+pytest test_sdbsc.py -v
+# or
+make test
+```
 
+All tests must pass for full credit! Tests are organized into classes:
+- **TestDatabaseBasics** - Add, count, duplicate checking
+- **TestDatabaseSearch** - Finding students
+- **TestDatabaseDelete** - Deleting students
+- **TestDatabasePrint** - Printing records
+- **TestDatabaseCompress** - Extra credit compression
 
-
+See [pytest-guide.md](pytest-guide.md) for detailed testing information.
