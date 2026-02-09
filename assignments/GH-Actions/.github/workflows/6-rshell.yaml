@@ -1,0 +1,41 @@
+name: 6-RShell Tests
+
+# Only run this workflow when files in 6-RShell/ directory are changed
+on:
+  push:
+    paths:
+      - '6-RShell/**'
+  pull_request:
+    paths:
+      - '6-RShell/**'
+
+jobs:
+  test-shell-p4:
+    runs-on: ubuntu-24.04
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install pytest
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest
+    
+    - name: Install build tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential gcc
+    
+    - name: Compile
+      working-directory: 6-RShell
+      run: make
+    
+    - name: Run tests
+      working-directory: 6-RShell
+      run: pytest test_dsh4.py -v
