@@ -11,7 +11,7 @@
 // process.  The parent of this process should be the shell.  You can
 // verify by executing echo $$
 
-int main()
+int main(int argc, char *argv[])
 {
     int f_result, c_result;
 
@@ -29,7 +29,13 @@ int main()
         // Set up child to receive SIGTERM when parent exits
         // see what happens if you forget to do this
         
-        prctl(PR_SET_PDEATHSIG, SIGTERM);
+        if (argc > 1 && strcmp(argv[1], "kill") == 0) {
+            printf("[c] Setting PR_SET_PDEATHSIG to SIGTERM\n");
+            prctl(PR_SET_PDEATHSIG, SIGTERM);
+        } else {
+            printf("[c] Not setting PR_SET_PDEATHSIG\n");
+        }
+        
 
         // The child will now exec, basically shape shifting itself
         char *args[] = {"./sleeper", "20", 0};

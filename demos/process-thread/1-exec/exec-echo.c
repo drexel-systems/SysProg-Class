@@ -14,6 +14,8 @@ int main(){
     rc = execv(args[0], args);
     printf("Well did we get here?\n");
     printf("execv returned %d\n",rc);
+    perror("execv error");
+    printf("For command %s\n", args[0]);
 }
 
 //Whats going on?

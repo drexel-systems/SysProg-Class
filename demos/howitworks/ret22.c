@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 int main(){
     //under the covers exit() is doing some 
     //cleanup based on initializing stdlib
@@ -12,5 +13,5 @@ int main(){
     
     printf("This should run\n");
     exit(22);
-    printf("BUT....Should this run?\n");
+    //printf("BUT....Should this run?\n");
 }

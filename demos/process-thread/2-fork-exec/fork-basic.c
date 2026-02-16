@@ -20,6 +20,7 @@ int main()
     c_result = -1;
 
     f_result = fork();
+    //printf("Hi Class\n");
     if (f_result < 0)
     {
         perror("fork error");
@@ -46,8 +47,8 @@ int main()
 
         // we can use a macro in the runtime library to extract
         // the status code from what wait_returns
-        printf("[p] The raw c_result value is %d\n", c_result);
-        printf("[p] The child exit status is %d\n", WEXITSTATUS(c_result));
+        printf("[p] The raw c_result value is %d - 0x%4x\n", c_result, c_result);
+        printf("[p] The child exit status is %d - 0x%2x\n", WEXITSTATUS(c_result), WEXITSTATUS(c_result));
 
         // OR, even better we can understand what is going on.  c_result
         // is a 32 bit number encoded with several peices of information.

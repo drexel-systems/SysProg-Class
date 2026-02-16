@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
     }
 
     // Memory-map the output file
-    dest = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_SHARED, out_fd, 0);
+    dest = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, out_fd, 0);
     if (dest == MAP_FAILED)
     {
         perror("Error memory-mapping output file");

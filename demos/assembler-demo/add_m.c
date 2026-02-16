@@ -61,7 +61,7 @@ void syscall(void);
 
 
 //new global variables
-long a = 5;
+long a = 5;                                 // a : .word 5
 long b = 10;
 long c = 0;
 char *prompt = "The value of c is ";
