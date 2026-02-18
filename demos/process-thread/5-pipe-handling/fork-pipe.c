@@ -38,9 +38,9 @@ int main() {
         }
 
         if (pid1 == 0) {  // First child (cat)
-            close(pipefd[0]); // <---- not used in this child
+            close(pipefd[0]); // <---- READ END: not used in this child
             dup2(pipefd[1], STDOUT_FILENO);
-            close(pipefd[1]); // <---- not needed after copy
+            close(pipefd[1]); // <---- WRITE END: not needed after copy
 
             char *cmd1[] = {"cat", "./fork-pipe.c", NULL};
             execvp(cmd1[0], cmd1);
@@ -56,9 +56,9 @@ int main() {
         }
 
         if (pid2 == 0) {  // Second child (wc)
-            close(pipefd[1]); // <---- not used in this child
+            close(pipefd[1]); // <---- WRITE END:not used in this child
             dup2(pipefd[0], STDIN_FILENO);
-            close(pipefd[0]); // <---- not needed after copy
+            close(pipefd[0]); // <---- READ END: not needed after copy
 
             char *cmd2[] = {"wc", "-l", NULL};
             execvp(cmd2[0], cmd2);
