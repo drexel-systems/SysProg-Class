@@ -13,7 +13,7 @@ int main(){
     char *args[] = {"./sleeper", "20", 0};
     int rc;
     int result;
-    int status;
+    //int status;
 
     rc = posix_spawn(&result, args[0], NULL, NULL, args, environ);
     if (rc != 0){
@@ -29,19 +29,19 @@ int main(){
         printf("[p] Waiting for child to finish...\n\n");
 
         //sleep 10 seconds
-        //sleep(10);
+        sleep(10);
 
 
         
         // Use waitpid to wait for the specific child (result)
         // This fills the 'status' variable with the return info
-        if (waitpid(result, &status, 0) == -1) {
-            perror("waitpid");
-            exit(1);
-        }
-        if (WIFEXITED(status)) {
-            printf("[p] The child exit status is %d\n", WEXITSTATUS(status));
-        }
+        //if (waitpid(result, &status, 0) == -1) {
+        //    perror("waitpid");
+        //    exit(1);
+        //}
+        //if (WIFEXITED(status)) {
+        //    printf("[p] The child exit status is %d\n", WEXITSTATUS(status));
+        //}
 
 
         

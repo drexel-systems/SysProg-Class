@@ -6,6 +6,10 @@
 #include <fcntl.h>
 
 // what does this do?
+
+// int pipfd[2];
+// Write end of pipe: pipfd[1]
+// Read end of pipe: pipfd[0]
 int main() {
     pid_t pid_supervisor;
 

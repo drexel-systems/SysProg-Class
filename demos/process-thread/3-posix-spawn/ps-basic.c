@@ -20,9 +20,9 @@ int main()
 
     long tid = syscall(SYS_gettid);
 
-    printf("[c] my-pid: My process id is: %d\n", getpid());
-    printf("[c] my-pid: My thread id is: %ld\n", tid);
-    printf("[c] my-pid: Note in a mult-threaded program pid != tid\n");
+    printf("[p] my-pid: My process id is: %d\n", getpid());
+    printf("[p] my-pid: My thread id is: %ld\n", tid);
+    printf("[p] my-pid: Note in a mult-threaded program pid != tid\n");
 
     rc = posix_spawn(&result, args[0], NULL, NULL, args, environ);
     if (rc != 0)

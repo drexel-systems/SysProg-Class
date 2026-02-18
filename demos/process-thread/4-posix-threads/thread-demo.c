@@ -49,7 +49,7 @@ int main() {
     // Create thread
     thread_data.thread_id = 1;
     thread_data.sleep_time = 2;  
-    thread_data.loop_count = 10;
+    thread_data.loop_count = 5;
     
     int rc = pthread_create(&thread, NULL, 
                             thread_function, &thread_data);

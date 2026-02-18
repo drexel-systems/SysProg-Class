@@ -5,6 +5,10 @@
 #include <sys/types.h>
 #include <fcntl.h>
 
+// int pipfd[2];
+// Write end of pipe: pipfd[1]
+// Read end of pipe: pipfd[0]
+
 // Structure to hold command and its arguments
 typedef struct {
     char **args;
