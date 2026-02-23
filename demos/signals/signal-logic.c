@@ -16,6 +16,8 @@
 
 static volatile sig_atomic_t attempt_counter = 3;
 
+
+//Hmmm very strange, why not printf()?
 static void my_wise_guy_signal_handler(int sig_num){
 
     if (sig_num == SIGINT){
