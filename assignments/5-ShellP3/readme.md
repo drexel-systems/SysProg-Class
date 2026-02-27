@@ -100,7 +100,7 @@ For `cmd1 | cmd2 | cmd3`:
 
 ## Assignment Details
 
-### Step 1 - Review [./starter/dshlib.h](./starter/dshlib.h)
+### Step 1 - Review [./dshlib.h](./dshlib.h)
 
 The file now includes:
 - `command_list_t` - back to handling multiple commands!
@@ -111,7 +111,7 @@ The file now includes:
 
 ---
 
-### Step 2 - Implement Pipeline Parsing in [./starter/dshlib.c](./starter/dshlib.c)
+### Step 2 - Implement Pipeline Parsing in [./dshlib.c](./dshlib.c)
 
 Reuse your Part 1 parsing code! Parse input into `command_list_t`:
 
@@ -136,7 +136,7 @@ Output: clist->num = 3
 
 ---
 
-### Step 3 - Implement Pipeline Execution in [./starter/dshlib.c](./starter/dshlib.c)
+### Step 3 - Implement Pipeline Execution in [./dshlib.c](./dshlib.c)
 
 Implement `execute_pipeline()` to run piped commands.
 
